@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import TimeComponent from './countdown';
 import {GameOver, LevelUp}from './screens';
+import { increase_distribution } from './adaptations';
 
 function generate_coordinates(max) {
     let coord = Math.floor(Math.random() * max)
@@ -23,9 +24,13 @@ let score = 0
 
 
 function Square (props){
+    let coords = [];
+    coords = increase_distribution(['UR'])
+    console.log(coords)
+
         return(
         <button className='square' 
-            style = {{left:generate_coordinates(1000), top:generate_coordinates(800)}}
+            style = {{left: coords[0], top: coords[1]}}
             onClick ={props.onClick}>
         </button>
         );
@@ -67,6 +72,7 @@ class GameBoard extends React.Component { //react component starts with caps
     gameOver (){this.setState({game_over: true})} //rerender is triggered with change of state
     
     onReset(){
+        score = 0
         this.setState({
             score_display: score,
             next_level_score:10,
@@ -89,7 +95,7 @@ class GameBoard extends React.Component { //react component starts with caps
         return(
         <div>
             <div className='navbar'>{this.state.score_display}</div>
-            <TimeComponent time = {5} onGameOver = {()=> {this.gameOver()}}/>
+            <TimeComponent time = {20} onGameOver = {()=> {this.gameOver()}}/>
             <Square onClick = {()=>{this.handleClick();}}/>
         </div>
         )};
