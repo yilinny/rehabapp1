@@ -1,13 +1,16 @@
 //list of adaptations
 
 
-function generate_coordinates(min, max) {
+function generate_coordinates(min, max, dim) {
     let coord;
+    let strcoord;
     if (min===0) {coord = Math.floor(Math.random() * max)}
     else{coord = Math.floor(Math.random() * (max- min) + Math.random()* min)}
-    let strcoord = String(coord) + 'px'
+    if  (dim === 'x') {strcoord = String(coord) + 'vw'}
+    else if (dim === 'y'){ strcoord= String(coord) + 'vh'} 
     return (strcoord)
-}//randomly places square edit the max coordinates to generate it on one side of the screen. 
+}
+//randomly places square edit the max coordinates to generate it on one side of the screen. 
 //max, min + x,y means can split into quads, exclude quadrants
 
 function randomint(){
@@ -20,21 +23,21 @@ function place_in_quad (quad_name) {
     let y;
 
     if (quad_name === 'UL'){
-        x = generate_coordinates(0,640);
-        y = generate_coordinates(0,512)}
+        x = generate_coordinates(0,50,'x');
+        y = generate_coordinates(0,50, 'y')}
     
     else if (quad_name === 'UR'){
-        x = generate_coordinates(640, 1280);
-        y = generate_coordinates(0,512)}
+        x = generate_coordinates(50, 100, 'x');
+        y = generate_coordinates(0,50, 'y')}
  
     else if (quad_name === 'LL'){
-        x = generate_coordinates(0,640);
-        y = generate_coordinates(512,1024)}
+        x = generate_coordinates(0,50, 'x');
+        y = generate_coordinates(50,100, 'y')}
             
     
     else if (quad_name === 'UL'){
-        x = generate_coordinates(640,1280);
-        y = generate_coordinates(512,1024)}
+        x = generate_coordinates(50,100, 'x');
+        y = generate_coordinates(50,100, 'y')}
     
     console.log([x,y])
     return ([x,y])

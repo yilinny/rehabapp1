@@ -34,7 +34,7 @@ function Square (props){
             onClick ={props.onClick}>
         </button>
         );
-}
+} //can i input left and top coords in props so then i can have - blocked out, increased disribution, total random
 
 
 class GameBoard extends React.Component { //react component starts with caps
@@ -48,6 +48,7 @@ class GameBoard extends React.Component { //react component starts with caps
           game_over: false,
           level_up : false
         };
+
         this.handleClick= this.handleClick.bind(this);
         this.onTimeOut= this.onTimeOut.bind(this);
         this.gameOver= this.gameOver.bind(this);
