@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import './square'
-import GameBoard from './square';
+import './settings';
+import { Settings } from './settings';
 
 
 
 ReactDOM.render(
-  <GameBoard />,
+  <Settings />,
   document.getElementById('root')
 );
 

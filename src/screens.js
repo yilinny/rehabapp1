@@ -10,6 +10,7 @@ export function GameOver (props){
                 <h1> Game over!</h1>
                 <h2>Score:{props.score} </h2>
                 <button onClick={props.onClick}> Retry</button>
+                <button onClick={props.Settings}> Change Settings</button>
             </div>
         )
 
