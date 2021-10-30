@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './settings';
-import { Settings } from './settings';
+import { SquareSettings } from './settings';
 
 
 
 ReactDOM.render(
-  <Settings />,
+  <SquareSettings />,
   document.getElementById('root')
 );
 

@@ -3,7 +3,7 @@ import './index.css';
 import TimeComponent from './countdown';
 import {GameOver, LevelUp}from './screens';
 import { increase_distribution } from './adaptations';
-import { Settings } from './settings';
+import { SquareSettings } from './settings';
 
 function generate_coordinates(side) {
     let coord = Math.floor(Math.random() * 100) + 1
@@ -28,17 +28,33 @@ let score = 0
 
 function Square (props){
     let coords = [];
+    let size = [];
     //chosen quad passed down as props.quad
-    if (props.quad === 'nil'){
-        coords = [generate_coordinates('x'), generate_coordinates('y')]}
-    else{
-    coords = increase_distribution([props.quad])}
 
+    if (props.quad === 'nil'&& props.noquad==='nil'){
+        coords = [generate_coordinates('x'), generate_coordinates('y')]}
+    
+    else{
+        let chosen_quad = props.quad;
+        let unchosen = props.noquad;
+        if (typeof chosen_quad === 'string'){chosen_quad=[chosen_quad]} 
+        if (typeof unchosen === 'string'){unchosen=[unchosen]}
+        //convert string into array -if not the two letters would be read as a single array, and 'U' would not be recognized
+        
+        coords = increase_distribution(chosen_quad, unchosen)} 
     console.log(coords)
+    console.log(props.size)
+
+    if (props.size === 's'){size = ['2.5vw', '5vh']}
+    else if (props.size === 'l'){size = ['10vw', '20vh']}
+    else{size = ['5vw', '10vh']}
+
+    console.log(size)
+
 
     return(
         <button className='square' 
-            style = {{left: coords[0], top: coords[1]}}
+            style = {{left: coords[0], top: coords[1], width: size[0], height: size[1]}}
             onClick ={props.onClick}>
         </button>
         );
@@ -102,7 +118,7 @@ class GameBoard extends React.Component { //react component starts with caps
     
     render (){
         if (this.state.settings_page===true){
-            return <Settings/>
+            return <SquareSettings/>
         }
         else if (this.state.game_over === true) {
             return <GameOver score={score} Settings = {()=> this.onChangeSettings()} onClick= {()=>{this.onReset();}}/>
@@ -117,7 +133,7 @@ class GameBoard extends React.Component { //react component starts with caps
         <div>
             <div className='navbar'>{this.state.score_display}</div>
             <TimeComponent time = {20} onGameOver = {()=> {this.gameOver()}}/>
-            <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad}/> 
+            <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad} noquad={this.props.noquad} size={this.props.size}/> 
         </div>
         )};
         //passed down chosen quad from settings to square using quad = {this.props.quad}
