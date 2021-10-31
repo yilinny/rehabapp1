@@ -223,3 +223,14 @@ main {
   text-align: 'left';
 }
 
+.circle {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background-color: rgb(105, 14, 14);
+  border-radius: 50%;
+  left: 0px;
+  top: 0px;
+
+}
+

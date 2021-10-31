@@ -1,5 +1,8 @@
 //list of adaptations
-
+//need to change contrast/color, depends on css rly should be able to pass down straight from settings to square
+//2 game modes:
+    // conflicting instructions --> new shape
+    // Number on a square, to be tapped accordingly. 
 
 function generate_coordinates(min, max, dim) {
     let coord;
@@ -53,21 +56,60 @@ export function increase_distribution(quad, avoid) {
     console.log(all_quad)
     //for avoid = p?
 
+    if ('nil' in quad) {
+        var marker = randomint()%4 // indicator for different cases would generate 0 to (n-1), same as item index
+        console.log(all_quad[marker])
+        return(place_in_quad(all_quad[marker])) //allquad no need to account for whether have central or peripheral, four quads cover all
+    } 
+
     if (randomint()%2 !== 0){
         const n = quad.length
         var remedial = randomint()%n  // indicator for different cases would generate 0 to (n-1), same as item index
-        console.log('hi')
         console.log(quad[remedial])
         return(place_in_quad(quad[remedial]))
     }//equally distribute over selected quads
 
     else {
-        var marker = randomint()%4 // indicator for different cases would generate 0 to (n-1), same as item index
-        console.log(all_quad[marker])
-        return(place_in_quad(all_quad[marker])) //allquad no need to account for whether have central or peripheral, four quads cover all
+        var marker_2 = randomint()%4 // indicator for different cases would generate 0 to (n-1), same as item index
+        console.log(all_quad[marker_2])
+        return(place_in_quad(all_quad[marker_2])) //allquad no need to account for whether have central or peripheral, four quads cover all
     }
 } 
 
+// use of increase distribution to generate coordinates 
+export function Circle (props){
+    let coords= [];
+    if (props.quad === 'nil'&& props.noquad==='nil'){
+        coords = [generate_coordinates(1,100,'x'), generate_coordinates(1, 100,'y')]}
+    
+    else{
+        let chosen_quad = props.quad;
+        let unchosen = props.noquad;
+        if (typeof chosen_quad === 'string'){chosen_quad=[chosen_quad]} 
+        if (typeof unchosen === 'string'){unchosen=[unchosen]}
+        //convert string into array -if not the two letters would be read as a single array, and 'U' would not be recognized
+        
+        coords = increase_distribution(chosen_quad, unchosen)}
+
+    return(
+        <button className='circle' 
+            style = {{left: coords[0], top: coords[1]}}
+            onClick ={props.onClick}>
+        </button>
+
+    //maybe return more circles as level increases, can be passed in as a prop.no and a state within the gameboard
+    );
+    //look into map to generate multiple circles
 
 
+
+}
+
+export function randomfive(){
+    var int = Math.ceil(Math.random()*5)
+    return (int)
+} //for square tap a certain number 
+
+
+   
 
