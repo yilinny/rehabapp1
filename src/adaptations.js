@@ -19,6 +19,7 @@ function randomint(){
 }
 
 function place_in_quad (quad_name) {
+    console.log(`${quad_name} selected`);
     let x;
     let y;
 

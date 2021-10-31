@@ -27,12 +27,22 @@ let score = 0
 
 
 function Square (props){
+    console.log(`Selected quadrants: ${props.selected}`)
     let coords = [];
+
     //chosen quad passed down as props.quad
-    if (props.quad === 'nil'){
-        coords = [generate_coordinates('x'), generate_coordinates('y')]}
-    else{
-    coords = increase_distribution([props.quad])}
+    // Testing multiple inputs
+    // if (props.quad === 'nil'){
+    //     coords = [generate_coordinates('x'), generate_coordinates('y')]
+    // }
+
+    if (props.selected.includes('NIL')){
+        coords = [generate_coordinates('x'), generate_coordinates('y')]
+    }
+
+    else {
+        coords = increase_distribution([props.selected])
+    }
 
     console.log(coords)
 
@@ -117,7 +127,10 @@ class GameBoard extends React.Component { //react component starts with caps
         <div>
             <div className='navbar'>{this.state.score_display}</div>
             <TimeComponent time = {20} onGameOver = {()=> {this.gameOver()}}/>
-            <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad}/> 
+
+            {/* Testing multiple inputs */}
+            {/* <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad}/>  */}
+            <Square onClick = {()=>{this.handleClick();}} selected = {this.props.selected}/> 
         </div>
         )};
         //passed down chosen quad from settings to square using quad = {this.props.quad}

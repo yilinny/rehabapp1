@@ -6,11 +6,14 @@ import './index.css'
 
 export function GameOver (props){
         return(
-            <div className='container'> 
+            <div className='gameover-container'> 
                 <h1> Game over!</h1>
-                <h2>Score:{props.score} </h2>
-                <button onClick={props.onClick}> Retry</button>
-                <button onClick={props.Settings}> Change Settings</button>
+                
+                <div className='score'>
+                    <h2>Score:{props.score} </h2>
+                    <button onClick={props.onClick}> Retry</button>
+                    <button onClick={props.Settings}> Change Settings</button>
+                </div>
             </div>
         )
 
@@ -18,7 +21,7 @@ export function GameOver (props){
 
 export function LevelUp () {
     return (
-        <div className='container'>
+        <div className='levelup-container'>
             <h1>Level up!</h1>
             <h4>Go faster now!!</h4> 
         </div>
