@@ -6,6 +6,7 @@ import { increase_distribution, randomfive, AdaptedSquare } from './adaptations'
 import { SquareSettings } from './settings';
 import {Circle} from './adaptations'
 
+
 function generate_coordinates(side) {
     let coord = Math.floor(Math.random() * 100) + 1
     let strcoord;
@@ -85,17 +86,24 @@ function Square (props){
 class GameBoard extends React.Component { //react component starts with caps
 
     constructor(props) {
+        let circle_arr;
+        circle_arr = [0,1,2]
+        for (let i =1; i <props.level; i ++){
+            circle_arr.push('aaaa');
+        }
+        
         super (props);
         this.state = {
           score_display: score,
-          next_level_score:5,
-          level_increment: 6,
+          level: props.level,
+          next_level_score: (props.level) * 5,
+          level_increment: 4 + props.level, //propotional to the starting level
           game_over: false,
           level_up : false,
           settings_page: false,
           game_mode: props.mode,
           lives: props.lives,
-          circles: [0,1,2], //starts with 3 circles
+          circles: circle_arr,
           square_no: props.square_no,
           count_one : true //only passed down to adapted square, auto set as true for initial 
         };
@@ -116,18 +124,11 @@ class GameBoard extends React.Component { //react component starts with caps
         let score_increase;
        
         if (this.state.game_mode === '2') {
-            if(score === 3) {
-                score_increase = 4
-            }
-
-            else {
-                score_increase= this.state.level_increment + 1
-            } //each level need to get one more square correct (different scoring system for number of taps)
+            score_increase = 3 + this.state.level
+            //each level need to get one more square correct (different scoring system for number of taps)
         }
 
-        else {
-            score_increase = updateTarget(this.state.level_increment)
-        }
+        else {score_increase = updateTarget(this.state.level_increment)}
         
         this.setState({
             level_up: false, 
@@ -193,6 +194,7 @@ class GameBoard extends React.Component { //react component starts with caps
     handleASquare() { //handle adapted square
         if (this.state.square_no === 1 ) {
             score += 1
+            let level = this.state.level
             this.setState({
                 count_one: true,
                 square_no: randomfive(),
@@ -200,14 +202,21 @@ class GameBoard extends React.Component { //react component starts with caps
             })
 
             //check level up
-            if (score === 3) //for first level up when score = 3
+            if (level === 1 && score === 3)
                 {setTimeout(() => {this.onTimeOut()}, 3000);
                 this.setState({level_up: true})}
-
-            else if (score === this.state.next_level_score)
+            else if (level === 3 && score === 13)
                 {setTimeout(() => {this.onTimeOut()}, 3000);
                 this.setState({level_up: true})}
-
+            else if (level === 5 && score === 35)
+                {setTimeout(() => {this.onTimeOut()}, 3000);
+                this.setState({level_up: true})}
+            else if ([1,3,5].includes(level) === false && score === this.state.next_level_score)
+                {setTimeout(() => {this.onTimeOut()}, 3000);
+                this.setState({level_up: true})}
+            
+            //alternative is to use factorial function but i laze esp as only got three cases
+ 
         } //generate new square. count_one would render w new coords and show number
 
         else {
@@ -236,7 +245,7 @@ class GameBoard extends React.Component { //react component starts with caps
                 </div>
 
                 <TimeComponent 
-                    time = { 20 } 
+                    time = { this.props.duration } 
                     onGameOver = { () => { this.gameOver() } }
                 />
 
@@ -267,7 +276,7 @@ class GameBoard extends React.Component { //react component starts with caps
                 <div>
                     <div className='navbar'>{this.state.score_display}</div>
                     <TimeComponent 
-                        time = { 20 } 
+                        time = { this.props.duration } 
                         onGameOver = { () => { this.gameOver() } }
                     />
 
@@ -291,7 +300,7 @@ class GameBoard extends React.Component { //react component starts with caps
                     </div>
 
                     <TimeComponent 
-                        time = { 20 } 
+                        time = {this.props.duration} 
                         onGameOver = { () => { this.gameOver() } }
                     />
 

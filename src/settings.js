@@ -13,11 +13,6 @@ export class SquareSettings extends React.Component {
         this.state = {
             quadrants: [
                 {
-                    id: 'NIL',
-                    name: 'NIL',
-                },
-
-                {
                     id: 'UL',
                     name: 'Upper left'
                 },
@@ -39,42 +34,29 @@ export class SquareSettings extends React.Component {
             ],
 
             selected: [],
+            noQuad: [],
 
-            // 'quadrant': 'nil', //basically if u replace '' with [] u can store multiple values in an array, and it passes down well. but it throws warning i gave up
-            'gamestart': false,
-            'noQuad': 'nil', //set nil as default
+            'gamestart': false, 
             'size': 'm',
             'mode': 0,
             'lives': 'nil',
             'square_no': 0,
-            'color': '#000000'
+            'color': '#000000',
+            'level': 1,
+            duration: 20
         }
-        
-        this.handleChange= this.handleChange.bind(this)
+
         this.onSubmit = this.onSubmit.bind(this)
-        this.handlenoQuad=this.handlenoQuad.bind(this)
         this.ChangeSize=this.ChangeSize.bind(this)
         this.ChangeMode= this.ChangeMode.bind(this)
         this.ChangeColor= this.ChangeColor.bind(this)
+        this.onSelectAvoidQuadrant=this.onSelectAvoidQuadrant.bind(this)
+        this.onSelectQuadrant= this.onSelectQuadrant.bind(this)
+        this.ChangeLevel = this.ChangeLevel.bind(this)
+        this.ChangeDuration= this.ChangeDuration.bind(this)
     }
 
-    handleChange(event){
-        // Testing multiple inputs
-        // this.setState({quadrant:event.target.value})
-
-        this.setState({selected:event.target.value})
-        // this.setState({'quadrant': event.target.value})
-    }
-    handlenoQuad(event){
-        if (event.target.value !== 'nil' && event.target.value === this.state.quadrant){
-            alert('You cannot increase distribution and avoid the same quadrant....')
-        }
-        else{this.setState({'noQuad': event.target.value})}
-    }
-
-    ChangeSize(event){
-        this.setState({'size': event.target.value})
-    }
+    ChangeSize(event){this.setState({'size': event.target.value})}
     
     ChangeMode(event){
         this.setState({'mode': event.target.value})
@@ -84,38 +66,58 @@ export class SquareSettings extends React.Component {
         }
     }
 
-    ChangeColor(event){
-        this.setState({'color': event.target.value})
-    }
+    ChangeLevel(event){this.setState({level: event.target.value})}
+
+    ChangeColor(event){this.setState({'color': event.target.value})}
+    
+    ChangeDuration(event){this.setState({duration:event.target.value})}
 
     onSubmit(event){
         // Testing multiple inputs
-        // console.log(this.state.quadrant)
-        console.log(this.state.selected)
+        if (this.state.selected.length === 0) {
+            this.setState({selected:['NIL']})
+        }
+        if (this.state.noQuad.length === 0) {
+            this.setState({noQuad: ['NIL']})
+        }
 
         this.setState({gamestart: true})
         event.preventDefault()
     }
 
     // Testing multiple inputs
-    onSelectQuadrant(id) {
+    onSelectQuadrant(event, id) {
         let selected = this.state.selected
         let find = selected.indexOf(id)
-
-        if (find > -1) {
-            selected.splice(find, 1)
-        } 
-
-        else {
-            selected.push(id)
+        
+        if(this.state.noQuad.includes(id)) {
+            alert('Can\'t avoid and increase frequency in the same quadrants...'); 
+            event.preventDefault() //prevents box from being checked
         }
-
-        this.setState({ selected })
-
-        this.disableOtherQuads(selected);
+        else{
+        if (find > -1) {selected.splice(find, 1)} 
+        else {selected.push(id)}
+        this.setState({ selected });
+        }
+    
     }
 
-    disableOtherQuads(selected) {
+    onSelectAvoidQuadrant(event,id) {
+        let unselected = this.state.noQuad
+        let find = unselected.indexOf(id)
+        if(this.state.selected.includes(id)) {
+            alert('Can\'t avoid and increase frequency in the same quadrants...'); 
+            event.preventDefault() //box wouldnt be checked
+        }
+        else{
+            if (find > -1) {unselected.splice(find, 1)} 
+            else {unselected.push(id)}
+
+        this.setState({noQuad: unselected });
+        }
+    }
+
+    /*disableOtherQuads(selected) {
         if (selected.includes('NIL')) {
             document.getElementById('UL').disabled = true;
             document.getElementById('LL').disabled = true;
@@ -134,7 +136,7 @@ export class SquareSettings extends React.Component {
             document.getElementById('UR').disabled = false;
             document.getElementById('LR').disabled = false;
         }
-    }
+    }*/
     
     render() {
         if (this.state.gamestart=== true) {
@@ -147,6 +149,8 @@ export class SquareSettings extends React.Component {
                     lives = { this.state.lives } 
                     square_no = { this.state.square_no } 
                     color ={ this.state.color }
+                    level = {this.state.level}
+                    duration = {this.state.duration}
                 />
             )
         }
@@ -166,7 +170,23 @@ export class SquareSettings extends React.Component {
                                         <label key={ item.id }>
                                             <input id={ item.id } 
                                                 type="checkbox"
-                                                onClick={ () => this.onSelectQuadrant(item.id) }
+                                                onClick={ (e) => this.onSelectQuadrant(e,item.id) }
+                                                // quad ={ this.state.selected.includes(item.id) }
+                                            ></input>
+                                            <span>{ item.name }</span>
+                                        </label> 
+                                    )
+                                })
+                            }
+                        </p> 
+                        <p>Avoid following quadrants:
+                            {
+                                this.state.quadrants.map(item => {
+                                    return (
+                                        <label key={ item.id }>
+                                            <input id={ item.id } 
+                                                type="checkbox"
+                                                onClick={ (e) => this.onSelectAvoidQuadrant(e,item.id) }
                                                 // quad ={ this.state.selected.includes(item.id) }
                                             ></input>
                                             <span>{ item.name }</span>
@@ -176,15 +196,6 @@ export class SquareSettings extends React.Component {
                             }
                         </p> 
 
-                        <label> Avoid the following:
-                        <select value = {this.state.noQuad} onChange = {this.handlenoQuad}>
-                                <option value = 'UR'> UR </option>
-                                <option value = 'LR'>LR</option>
-                                <option value = 'UL'>UL</option>
-                                <option value = 'LL'>LL</option>  
-                                <option value = 'nil'>NIL </option> 
-                            </select>
-                        </label> 
                         <label> Square size:
                             <select value ={this.state.size} onChange = {this.ChangeSize}>
                                 <option value = 's'> Small</option>
@@ -202,7 +213,20 @@ export class SquareSettings extends React.Component {
                         <label> Square color 
                             <input type= 'color' value= {this.state.color} onChange={this.ChangeColor}></input>
                         </label>
-
+                        <label> Start from level:
+                            <select value = {this.state.level} onChange = {this.ChangeLevel}>
+                                <option value = {1}> 1</option>
+                                <option value = {3}> 3</option>
+                                <option value = {5}> 5</option>
+                            </select>
+                        </label>
+                        <label> Duration: (of each level)
+                            <select value={this.state.duration} onChange={this.ChangeDuration}>
+                                <option value ={15}>15 seconds</option>
+                                <option value ={20}>20 seconds</option>
+                                <option value ={30}>30 seconds</option>
+                            </select>
+                        </label>
                         <input type='submit' value='Submit'/>
                     </form>
                 </div>

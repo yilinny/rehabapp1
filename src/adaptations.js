@@ -4,7 +4,6 @@
     // conflicting instructions --> new shape
     // Number on a square, to be tapped accordingly. 
 
-import { queryAllByDisplayValue } from '@testing-library/react';
 import {check_brightness, LightenDarkenColor} from './color.js'
 
 function generate_coordinates(min, max, dim) {
@@ -58,7 +57,7 @@ export function increase_distribution(quad, avoid) {
     for (let i = 0; i ++ ; i<avoid.length){
         all_quad.filter(item => item!== avoid[i])
     }
-    //for avoid = p?
+    
 
     console.log(`Type of chosen_quad: ${typeof quad}`)
     console.log(`Quad: ${quad}`)
