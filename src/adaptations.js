@@ -40,8 +40,7 @@ function place_in_quad (quad_name) {
 
     if (quad_name[1]==='L'){x=generate_coordinates(1,50,'x')}
     else if (quad_name[1]==='R'){x=generate_coordinates(50,100,'y')}
-    
-    console.log([x,y])
+
     return ([x,y])
 }
 
@@ -53,25 +52,21 @@ export function increase_distribution(quad, avoid) {
     for (let i = 0; i ++ ; i<avoid.length){
         all_quad.filter(item => item!== avoid[i])
     }
-    console.log(all_quad)
     //for avoid = p?
 
     if ('nil' in quad) {
         var marker = randomint()%4 // indicator for different cases would generate 0 to (n-1), same as item index
-        console.log(all_quad[marker])
         return(place_in_quad(all_quad[marker])) //allquad no need to account for whether have central or peripheral, four quads cover all
     } 
 
     if (randomint()%2 !== 0){
         const n = quad.length
         var remedial = randomint()%n  // indicator for different cases would generate 0 to (n-1), same as item index
-        console.log(quad[remedial])
         return(place_in_quad(quad[remedial]))
     }//equally distribute over selected quads
 
     else {
         var marker_2 = randomint()%4 // indicator for different cases would generate 0 to (n-1), same as item index
-        console.log(all_quad[marker_2])
         return(place_in_quad(all_quad[marker_2])) //allquad no need to account for whether have central or peripheral, four quads cover all
     }
 } 
@@ -105,11 +100,80 @@ export function Circle (props){
 
 }
 
+function brightness(color) {
+    const hex = color.replace('#', '');
+    const c_r = parseInt(hex.substr(0, 2), 16);
+    const c_g = parseInt(hex.substr(2, 2), 16);
+    const c_b = parseInt(hex.substr(4, 2), 16);
+    const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+    if (brightness > 150 ) return (true)
+    else {return (false)}
+} //maybe add a function to increase and decrease function instead of changing hex also? see how
+
 export function randomfive(){
     var int = Math.ceil(Math.random()*5)
     return (int)
 } //for square tap a certain number 
 
+let past_coords = [];
 
-   
+export function AdaptedSquare (props) {
+
+    let size = [];
+    if (props.size === 's'){size = ['2.5vw', '5vh']}
+    else if (props.size === 'l'){size = ['10vw', '20vh']}
+    else{size = ['5vw', '10vh']}
+    
+    if (props.count_one === true){
+    //make number appear and change coords for first square 
+        let coords = [];
+        let wordcolor ;
+        if (brightness(props.color) === true) {wordcolor = '#000000'}
+        else {wordcolor = '#ffffff'}
+        console.log(props.color[1])
+        //chosen quad passed down as props.quad
+
+    
+        if (props.quad === 'nil'&& props.noquad==='nil'){
+
+            coords = [generate_coordinates(1,100,'x'), generate_coordinates(1,100,'y')]}
+        
+        else{
+            let chosen_quad = props.quad;
+            let unchosen = props.noquad;
+            if (typeof chosen_quad === 'string'){chosen_quad=[chosen_quad]} 
+            if (typeof unchosen === 'string'){unchosen=[unchosen]}
+            //convert string into array -if not the two letters would be read as a single array, and 'U' would not be recognized
+            
+            coords = increase_distribution(chosen_quad, unchosen)} 
+        
+        past_coords = coords
+    
+        return(
+            <button className='square' 
+                style = {{left: coords[0], top: coords[1], width: size[0], height: size[1], background: props.color, color: wordcolor}}
+                onClick ={props.onClick}>
+                {props.square_no}
+            </button>
+            );
+        }
+    //else, change color or make shake for subsequent taps 
+    else {
+        let color;
+        let color_end = props.color.slice(4)
+        if (props.square_no % 2 ===0) {
+            if(props.color[1] === 'a') {color = '#fff' + color_end}
+            else {color='#aaa' + color_end}}//changes intensity of thecolor
+        else {
+            if(props.color[1] === '5') {color= '#000'+ color_end}
+            else {color = '#599' + color_end}}
+    
+        return (
+            <button className='square'
+                style = {{left: past_coords[0], top: past_coords[1],width: size[0], height: size[1], background: color}}
+                onClick= {props.onClick}>
+            </button>
+        )
+    }
+}
 

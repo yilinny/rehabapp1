@@ -17,13 +17,15 @@ export class SquareSettings extends React.Component {
             'size': 'm',
             'mode': 0,
             'lives': 'nil',
-            'square_no': 0
+            'square_no': 0,
+            'color': '#000000'
         }
         this.handleChange= this.handleChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         this.handlenoQuad=this.handlenoQuad.bind(this)
         this.ChangeSize=this.ChangeSize.bind(this)
         this.ChangeMode= this.ChangeMode.bind(this)
+        this.ChangeColor= this.ChangeColor.bind(this)
     }
 
     handleChange(event){
@@ -40,18 +42,25 @@ export class SquareSettings extends React.Component {
         this.setState({'size': event.target.value})
     }
     ChangeMode(event){
-        this.setState({'mode': event.target.value, 'lives': 3})
+        this.setState({'mode': event.target.value})
+        if (event.target.value === '1') {this.setState({lives: 3})}
         if (event.target.value=== '2'){
             this.setState({square_no :randomfive()})
         }
+    }
+
+    ChangeColor(event){
+        this.setState({'color': event.target.value})
     }
 
     onSubmit(event){
         this.setState({gamestart: true})
         event.preventDefault()
     }
+
+    
     render(){
-        if (this.state.gamestart=== true){return(<GameBoard quad={this.state.quadrant} noquad={this.state.noQuad} size={this.state.size} mode={this.state.mode} lives={this.state.lives} square_no = {this.state.square_no}/>)}
+        if (this.state.gamestart=== true){return(<GameBoard quad={this.state.quadrant} noquad={this.state.noQuad} size={this.state.size} mode={this.state.mode} lives={this.state.lives} square_no = {this.state.square_no} color={this.state.color}/>)}
         else{
         return(
             <form onSubmit= {this.onSubmit}>
@@ -88,6 +97,9 @@ export class SquareSettings extends React.Component {
                         <option value = '1'> Extra shapes</option>
                         <option value = '2'> Counting taps</option>
                     </select>
+                </label>
+                <label> Square color 
+                    <input type= 'color' value= {this.state.color} onChange={this.ChangeColor}></input>
                 </label>
 
                 <input type='submit' value='Submit'/>

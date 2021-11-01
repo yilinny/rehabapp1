@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import TimeComponent from './countdown';
 import {GameOver, LevelUp}from './screens';
-import { increase_distribution, randomfive } from './adaptations';
+import { increase_distribution, randomfive, AdaptedSquare } from './adaptations';
 import { SquareSettings } from './settings';
 import {Circle} from './adaptations'
 
@@ -32,7 +32,6 @@ function Square (props){
     //chosen quad passed down as props.quad
 
    
-
     if (props.quad === 'nil'&& props.noquad==='nil'){
         coords = [generate_coordinates('x'), generate_coordinates('y')]}
     
@@ -45,25 +44,18 @@ function Square (props){
         
         coords = increase_distribution(chosen_quad, unchosen)} 
 
-    
-
     if (props.size === 's'){size = ['2.5vw', '5vh']}
     else if (props.size === 'l'){size = ['10vw', '20vh']}
     else{size = ['5vw', '10vh']}
 
-    let no;
-
-    if (props.square_no === 0) {no = ''}
-    else {no =props.square_no} //for adapted one
     return(
         <button className='square' 
-            style = {{left: coords[0], top: coords[1], width: size[0], height: size[1]}}
+            style = {{left: coords[0], top: coords[1], width: size[0], height: size[1], background: props.color}}
             onClick ={props.onClick}>
-                {no}
 
         </button>
         );
-} //can i input left and top coords in props so then i can have - blocked out, increased disribution, total random
+} 
 
 
 class GameBoard extends React.Component { //react component starts with caps
@@ -72,15 +64,16 @@ class GameBoard extends React.Component { //react component starts with caps
         super (props);
         this.state = {
           score_display: score,
-          next_level_score:10,
-          level_increment: 10,
+          next_level_score:5,
+          level_increment: 6,
           game_over: false,
           level_up : false,
           settings_page: false,
           game_mode: props.mode,
           lives: props.lives,
           circles: [0,1,2], //starts with 3 circles
-          square_no: props.square_no
+          square_no: props.square_no,
+          count_one : true //only passed down to adapted square, auto set as true for initial 
         };
 
         //need this to hold settings as well, passing the function to set state down into the settings function 
@@ -91,14 +84,25 @@ class GameBoard extends React.Component { //react component starts with caps
         this.onReset= this.onReset.bind(this)
         this.onChangeSettings= this.onChangeSettings.bind(this)
         this.handleCircle= this.handleCircle.bind(this)
+        this.handleASquare = this.handleASquare.bind(this)
     };
     
     onTimeOut(){
         //what happens at the end of level up screen
+        let score_increase;
+       
+        if (this.state.game_mode === '2') {
+            if(score === 3) {score_increase = 4}
+            else {score_increase= this.state.level_increment + 1} //each level need to get one more square correct (different scoring system for number of taps)
+        }
+        else {score_increase = updateTarget(this.state.level_increment)}
+        
         this.setState({
             level_up: false, 
-            level_increment: updateTarget(this.state.level_increment), 
-            next_level_score: score + this.state.level_increment})
+            level_increment:score_increase, 
+            next_level_score: score + score_increase})
+
+        console.log(this.state.next_level_score)
 
         if (this.state.game_mode==='1'){
             let new_arr = []
@@ -122,8 +126,8 @@ class GameBoard extends React.Component { //react component starts with caps
         score = 0
         this.setState({
             score_display: score,
-            next_level_score:10,
-            level_increment: 10,
+            next_level_score:5,
+            level_increment:6,
             game_over: false,
             level_up : false
         }) // reset states to initial state + change in state to trigger rerender
@@ -143,10 +147,30 @@ class GameBoard extends React.Component { //react component starts with caps
         if (this.state.lives === 0){this.gameOver()}
     }
 
-    changeNo(){
-        if (this.square_no > 1)
-        this.setState({})
-    }
+    handleASquare(){ //handle adapted square
+        if (this.state.square_no === 1 ){
+            score += 1
+            this.setState({
+                count_one: true,
+                square_no: randomfive(),
+                score_display: score
+            })
+            //check level up
+            if (score === 3) //for first level up when score = 3
+                {setTimeout(() => {this.onTimeOut()}, 3000);
+                this.setState({level_up: true})}
+
+            else if (score === this.state.next_level_score)
+                {setTimeout(() => {this.onTimeOut()}, 3000);
+                this.setState({level_up: true})}
+
+        } //generate new square. count_one would render w new coords and show number
+
+        else {
+        this.setState({count_one: false})
+        this.setState({square_no: this.state.square_no -1})
+        } 
+    }//change in states would trigger rerender of adapted square
     
     render (){
         if (this.state.settings_page===true){
@@ -164,7 +188,7 @@ class GameBoard extends React.Component { //react component starts with caps
             <div>
                 <div className='navbar'>{this.state.score_display} lives left: {this.state.lives}</div>
                 <TimeComponent time = {20} onGameOver = {()=> {this.gameOver()}}/>
-                <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad} noquad={this.props.noquad} size={this.props.size} square_no={this.state.square_no}/> 
+                <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad} noquad={this.props.noquad} size={this.props.size} square_no={this.state.square_no} color= {this.props.color}/> 
                 {this.state.circles.map((circle, index) => (<Circle key={index} onClick = {()=>{this.handleCircle();}} quad = {this.props.quad} noquad={this.props.noquad}/>))}
             </div>
         )}
@@ -172,9 +196,9 @@ class GameBoard extends React.Component { //react component starts with caps
         else if (this.state.game_mode === '2') {
             return(
                 <div>
-                    <div className='navbar'>{this.state.score_display} lives left: {this.state.lives}</div>
+                    <div className='navbar'>{this.state.score_display}</div>
                     <TimeComponent time = {20} onGameOver = {()=> {this.gameOver()}}/>
-                    <Square onClick = {()=>{this.changeNo();}} quad = {this.props.quad} noquad={this.props.noquad} size={this.props.size} square_no={this.state.square_no}/> 
+                    <AdaptedSquare onClick = {()=>{this.handleASquare();}} quad = {this.props.quad} noquad={this.props.noquad} size={this.props.size} square_no={this.state.square_no} count_one= {this.state.count_one} color= {this.props.color}/> 
                 </div>
             )}
 
@@ -183,7 +207,7 @@ class GameBoard extends React.Component { //react component starts with caps
         <div>
             <div className='navbar'>{this.state.score_display}</div>
             <TimeComponent time = {20} onGameOver = {()=> {this.gameOver()}}/>
-            <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad} noquad={this.props.noquad} size={this.props.size} square_no={this.state.square_no}/> 
+            <Square onClick = {()=>{this.handleClick();}} quad = {this.props.quad} noquad={this.props.noquad} size={this.props.size} square_no={this.state.square_no} color= {this.props.color}/> 
         </div>
         )};
         //passed down chosen quad from settings to square using quad = {this.props.quad}
