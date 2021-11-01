@@ -102,7 +102,6 @@ class GameBoard extends React.Component { //react component starts with caps
             level_increment:score_increase, 
             next_level_score: score + score_increase})
 
-        console.log(this.state.next_level_score)
 
         if (this.state.game_mode==='1'){
             let new_arr = []

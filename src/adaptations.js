@@ -4,6 +4,8 @@
     // conflicting instructions --> new shape
     // Number on a square, to be tapped accordingly. 
 
+import {check_brightness, LightenDarkenColor} from './color.js'
+
 function generate_coordinates(min, max, dim) {
     let coord;
     let strcoord;
@@ -100,15 +102,6 @@ export function Circle (props){
 
 }
 
-function brightness(color) {
-    const hex = color.replace('#', '');
-    const c_r = parseInt(hex.substr(0, 2), 16);
-    const c_g = parseInt(hex.substr(2, 2), 16);
-    const c_b = parseInt(hex.substr(4, 2), 16);
-    const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
-    if (brightness > 150 ) return (true)
-    else {return (false)}
-} //maybe add a function to increase and decrease function instead of changing hex also? see how
 
 export function randomfive(){
     var int = Math.ceil(Math.random()*5)
@@ -128,9 +121,8 @@ export function AdaptedSquare (props) {
     //make number appear and change coords for first square 
         let coords = [];
         let wordcolor ;
-        if (brightness(props.color) === true) {wordcolor = '#000000'}
+        if (check_brightness(props.color) === true) {wordcolor = '#000000'}
         else {wordcolor = '#ffffff'}
-        console.log(props.color[1])
         //chosen quad passed down as props.quad
 
     
@@ -160,13 +152,10 @@ export function AdaptedSquare (props) {
     //else, change color or make shake for subsequent taps 
     else {
         let color;
-        let color_end = props.color.slice(4)
-        if (props.square_no % 2 ===0) {
-            if(props.color[1] === 'a') {color = '#fff' + color_end}
-            else {color='#aaa' + color_end}}//changes intensity of thecolor
-        else {
-            if(props.color[1] === '5') {color= '#000'+ color_end}
-            else {color = '#599' + color_end}}
+        if (props.square_no % 2 ===0) {color=LightenDarkenColor(props.color, -30)}//changes intensity of thecolor
+        else {color=LightenDarkenColor(props.color, 30)}
+
+        console.log(color)
     
         return (
             <button className='square'
