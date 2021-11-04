@@ -4,7 +4,7 @@
     // conflicting instructions --> new shape
     // Number on a square, to be tapped accordingly. 
 
-import {check_brightness, LightenDarkenColor} from './color.js'
+import {check_brightness, LightenDarkenColor} from '../general/color'
 
 function generate_coordinates(min, max, dim) {
     let coord;

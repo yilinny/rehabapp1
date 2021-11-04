@@ -1,7 +1,7 @@
 //holds level up and gameover screen, to be reused across different games
 
 import React from 'react';
-import './index.css'
+import '../index.css'
 
 
 export function GameOver (props){
