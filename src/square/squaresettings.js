@@ -117,27 +117,6 @@ export class SquareSettings extends React.Component {
         }
     }
 
-    /*disableOtherQuads(selected) {
-        if (selected.includes('NIL')) {
-            document.getElementById('UL').disabled = true;
-            document.getElementById('LL').disabled = true;
-            document.getElementById('UR').disabled = true;
-            document.getElementById('LR').disabled = true;
-
-            document.getElementById('UL').checked = false;
-            document.getElementById('LL').checked = false;
-            document.getElementById('UR').checked = false;
-            document.getElementById('LR').checked = false;
-        }
-
-        else {
-            document.getElementById('UL').disabled = false;
-            document.getElementById('LL').disabled = false;
-            document.getElementById('UR').disabled = false;
-            document.getElementById('LR').disabled = false;
-        }
-    }*/
-    
     render() {
         if (this.state.gamestart=== true) {
             return (

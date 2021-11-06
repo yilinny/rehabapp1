@@ -1,27 +1,5 @@
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
+import React, {useState, useCallback, useRef, useEffect} from 'react'
 
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-
-
-const react_1 = __importStar(require("react"));
 const clamp = (value, min, max) => {
     if (value < min) {
         return min;
@@ -35,19 +13,20 @@ const clamp = (value, min, max) => {
 const solveTolerancePercentage = 0.028;
 
 export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => { } }) => {
-    const [tiles, setTiles] = (0, react_1.useState)(); 
+    const [tiles, setTiles] = useState(0); 
     //useState as a way to create states inside of function instead of creating classes
-    const [imageSize, setImageSize] = (0, react_1.useState)();
-    const [rootSize, setRootSize] = (0, react_1.useState)();
-    const [calculatedHeight, setCalculatedHeight] = (0, react_1.useState)();
-    const rootElement = (0, react_1.useRef)();
-    const resizeObserver = (0, react_1.useRef)();
-    const draggingTile = (0, react_1.useRef)();
-    const onImageLoaded = (0, react_1.useCallback)((image) => {
-        setImageSize({ width: image.width, height: image.height });
-        if (rootSize) {
-            setCalculatedHeight(rootSize.width / image.width * image.height);
-        }
+    const [imageSize, setImageSize] = useState(0);
+    const [rootSize, setRootSize] = useState(0);
+    const [calculatedHeight, setCalculatedHeight] = useState(0);
+    const rootElement = useRef(0);
+    const resizeObserver = useRef(0);
+    const draggingTile = useRef(0);
+    
+    const onImageLoaded = useCallback((image) => {  
+        setImageSize({width: image.width, height: image.height });
+
+        if (rootSize) {setCalculatedHeight(rootSize.width / image.width * image.height);}
+
         setTiles(Array.from(Array(rows * columns).keys())
             .map(position => ({
             correctPosition: position,
@@ -59,8 +38,12 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
             currentPosYPerc: Math.random() * (1 - 1 / columns),
             solved: false
         })));
+    //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [rows, columns]);
-    const onRootElementResized = (0, react_1.useCallback)((args) => {
+
+    //the eslint disable is impt if not throw warning and i think i know what i am doing HAHAHA
+    
+    const onRootElementResized = useCallback((args) => {
         const contentRect = args.find(it => it.contentRect)?.contentRect;
         if (contentRect) {
             setRootSize({
@@ -72,7 +55,8 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
             }
         }
     }, [setRootSize, imageSize]);
-    const onRootElementRendered = (0, react_1.useCallback)((element) => {
+
+    const onRootElementRendered = useCallback((element) => {
         if (element) {
             rootElement.current = element;
             const observer = new ResizeObserver(onRootElementResized);
@@ -86,13 +70,17 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
                 setCalculatedHeight(element.offsetWidth / imageSize.width * imageSize.height);
             }
         }
+          //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [setRootSize, imageSize, rootElement, resizeObserver]);
-    (0, react_1.useEffect)(() => {
+
+    useEffect(() => {
         const image = new Image();
         image.onload = () => onImageLoaded(image);
         image.src = imageSrc;
+        //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [imageSrc, rows, columns]);
-    const onTileMouseDown = (0, react_1.useCallback)((tile, event) => {
+
+    const onTileMouseDown = useCallback((tile, event) => {
         if (!tile.solved) {
             if (event.type === 'touchstart') {
                 document.documentElement.style.setProperty('overflow', 'hidden');
@@ -110,7 +98,8 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
             event.target.classList.add('jigsaw-puzzle__piece--dragging');
         }
     }, [draggingTile]);
-    const onRootMouseMove = (0, react_1.useCallback)((event) => {
+
+    const onRootMouseMove = useCallback((event) => {
         if (draggingTile.current) {
             event.stopPropagation();
             event.preventDefault();
@@ -126,7 +115,8 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
             draggingTile.current.elem.style.setProperty('top', `${draggedToRelativeToRoot.y}px`);
         }
     }, [draggingTile, rootSize]);
-    const onRootMouseUp = (0, react_1.useCallback)((event) => {
+
+    const onRootMouseUp = useCallback((event) => {
         if (draggingTile.current) {
             if (event.type === 'touchend') {
                 document.documentElement.style.removeProperty('overflow');
@@ -160,7 +150,9 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
             });
             draggingTile.current = undefined;
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [draggingTile, setTiles, rootSize, onSolved]);
+    
     return <div ref={onRootElementRendered} onTouchMove={onRootMouseMove} onMouseMove={onRootMouseMove} onTouchEnd={onRootMouseUp} onMouseUp={onRootMouseUp} onTouchCancel={onRootMouseUp} onMouseLeave={onRootMouseUp} className="jigsaw-puzzle" style={{ height: !calculatedHeight ? undefined : `${calculatedHeight}px` }} onDragEnter={event => {
             event.stopPropagation();
             event.preventDefault();
