@@ -1,4 +1,5 @@
 import React, {useState, useCallback, useRef, useEffect} from 'react'
+import './puzzle.css'
 
 const clamp = (value, min, max) => {
     if (value < min) {
@@ -10,9 +11,10 @@ const clamp = (value, min, max) => {
     return value;
 };
 
+
 const solveTolerancePercentage = 0.028;
 
-export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => { } }) => {
+export const JigsawPuzzle = ({imageSrc, rows , columns , onSolved = () => { } }) => {
     const [tiles, setTiles] = useState(0); 
     //useState as a way to create states inside of function instead of creating classes
     const [imageSize, setImageSize] = useState(0);
@@ -22,36 +24,40 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
     const resizeObserver = useRef(0);
     const draggingTile = useRef(0);
     
-    const onImageLoaded = useCallback((image) => {  
-        setImageSize({width: image.width, height: image.height });
+    const onImageLoaded = useCallback((image) => { 
+        setImageSize({width:(0.8)* window.innerWidth, height:(image.height/image.width)*0.8*window.innerWidth});
+        //resizing image height based on width
+        //width is set to 0.8vw
+        
 
         if (rootSize) {setCalculatedHeight(rootSize.width / image.width * image.height);}
 
-        setTiles(Array.from(Array(rows * columns).keys())
+        setTiles(Array.from(Array(rows * columns).keys()) //renders 'correct area'
             .map(position => ({
             correctPosition: position,
             tileHeight: image.height / rows,
             tileWidth: image.width / columns,
-            tileOffsetX: (position % columns) * (image.width / columns),
-            tileOffsetY: Math.floor(position / columns) * (image.height / rows),
+            tileOffsetX: (position % columns) * (image.width / columns) ,
+            tileOffsetY: Math.floor(position / columns) * (image.height / rows) ,
             currentPosXPerc: Math.random() * (1 - 1 / rows),
             currentPosYPerc: Math.random() * (1 - 1 / columns),
             solved: false
         })));
+
     //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [rows, columns]);
 
     //the eslint disable is impt if not throw warning and i think i know what i am doing HAHAHA
     
-    const onRootElementResized = useCallback((args) => {
-        const contentRect = args.find(it => it.contentRect)?.contentRect;
-        if (contentRect) {
+    const onRootElementResized = useCallback(() => {
+        const { innerWidth: width, innerHeight: height } = window
+        if (width) {
             setRootSize({
-                width: contentRect.width,
-                height: contentRect.height
+                width: 0.8*width,
+                height: 0.8*height
             });
             if (imageSize) {
-                setCalculatedHeight(contentRect.width / imageSize.width * imageSize.height);
+                setCalculatedHeight(width / imageSize.width * imageSize.height);
             }
         }
     }, [setRootSize, imageSize]);
@@ -116,6 +122,8 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
         }
     }, [draggingTile, rootSize]);
 
+    //function to get position of dragged tiled in 
+
     const onRootMouseUp = useCallback((event) => {
         if (draggingTile.current) {
             if (event.type === 'touchend') {
@@ -123,14 +131,20 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
             }
             draggingTile.current?.elem.classList.remove('jigsaw-puzzle__piece--dragging');
             const draggedToPercentage = {
-                x: clamp(draggingTile.current.elem.offsetLeft / rootSize.width, 0, 1),
+                x: clamp(draggingTile.current.elem.offsetLeft  / rootSize.width, 0, 1),
                 y: clamp(draggingTile.current.elem.offsetTop / rootSize.height, 0, 1)
             };
+
+            //- to account for the centered game board 
+            
             const draggedTile = draggingTile.current.tile;
             const targetPositionPercentage = {
-                x: draggedTile.correctPosition % columns / columns,
-                y: Math.floor(draggedTile.correctPosition / columns) / rows
+                x: draggedTile.correctPosition % columns / columns ,
+                y: Math.floor(draggedTile.correctPosition / columns) / rows 
             };
+        
+            console.log(draggedToPercentage)
+            console.log(targetPositionPercentage)
             const isSolved = Math.abs(targetPositionPercentage.x - draggedToPercentage.x) <= solveTolerancePercentage &&
                 Math.abs(targetPositionPercentage.y - draggedToPercentage.y) <= solveTolerancePercentage;
             setTiles(prevState => {
@@ -153,26 +167,29 @@ export const JigsawPuzzle = ({imageSrc, rows = 3, columns = 4, onSolved = () => 
         //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [draggingTile, setTiles, rootSize, onSolved]);
     
-    return <div ref={onRootElementRendered} onTouchMove={onRootMouseMove} onMouseMove={onRootMouseMove} onTouchEnd={onRootMouseUp} onMouseUp={onRootMouseUp} onTouchCancel={onRootMouseUp} onMouseLeave={onRootMouseUp} className="jigsaw-puzzle" style={{ height: !calculatedHeight ? undefined : `${calculatedHeight}px` }} onDragEnter={event => {
+    return <div ref={onRootElementRendered} onTouchMove={onRootMouseMove} onMouseMove={onRootMouseMove} onTouchEnd={onRootMouseUp} onMouseUp={onRootMouseUp} onTouchCancel={onRootMouseUp} onMouseLeave={onRootMouseUp} className="jigsaw-puzzle" 
+    style={{ height: !calculatedHeight ? undefined : `${rootSize.height}px`, width: `${rootSize.width}px`, top: '10vh', left: '10vw', border: '3px solid #000000'}}
+    onDragEnter={event => {
             event.stopPropagation();
             event.preventDefault();
         }} onDragOver={event => {
             event.stopPropagation();
             event.preventDefault();
         }}>
-    {tiles && rootSize && imageSize && tiles.map(tile => <div draggable={false} onMouseDown={event => onTileMouseDown(tile, event)} onTouchStart={event => onTileMouseDown(tile, event)} key={tile.correctPosition} className={`jigsaw-puzzle__piece ${tile.solved ? ' jigsaw-puzzle__piece--solved' : ''} `} style={{
+    {tiles && rootSize && imageSize && tiles.map(tile => <div draggable={false} onMouseDown={event => onTileMouseDown(tile, event)} onTouchStart={event => onTileMouseDown(tile, event)} key={tile.correctPosition} className={`jigsaw-puzzle__piece ${tile.solved ? ' jigsaw-puzzle__piece--solved' : ''} `} 
+    style={{
                 position: 'absolute',
-                height: `${1 / rows * 100}%`,
-                width: `${1 / columns * 100}%`,
+                height: `${(1 / rows * 100)}%`,
+                width: `${(1 / columns * 100)}%`,
                 backgroundImage: `url(${imageSrc})`,
                 backgroundSize: `${rootSize.width}px ${rootSize.height}px`,
                 backgroundPositionX: `${tile.correctPosition % columns / (columns - 1) * 100}%`,
                 backgroundPositionY: `${Math.floor(tile.correctPosition / columns) / (rows - 1) * 100}%`,
                 left: `${tile.currentPosXPerc * rootSize.width}px`,
                 top: `${tile.currentPosYPerc * rootSize.height}px`
-            }}/>)}
+            }}/>)} 
   </div>;
 };
 
-
-
+//tiles returned are the jigsaw pices produced
+//even tho px i think is scaleable as rootsize is determined by getcontentrect
