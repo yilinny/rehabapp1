@@ -18,8 +18,7 @@ export function PuzzleSettings (){
                     <JigsawPuzzle
                     imageSrc= 'https://source.unsplash.com/random/1000x800' //random image for now 
                     rows = {rows}
-                    columns = {col}
-                    onSolved= {()=>{alert('yay')}}/>,
+                    columns = {col}/>,
                     document.getElementById('root')
                 ) //npt sure why return does not work but then again idc
             }}> 

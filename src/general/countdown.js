@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../index.css'
 
-class TimeComponent extends React.Component {
+const StringTime = seconds => {
+  var sec_num = parseInt(seconds, 10); // don't forget the second param
+  var minutes = Math.floor(sec_num / 60)
+  var sec = sec_num % 60
+
+  
+  if (minutes < 10) {minutes = "0"+minutes;}
+  if (sec < 10) {sec= "0"+sec;}
+  return (`${minutes}:${sec}`);
+}
+
+export class TimeComponent extends React.Component {
     constructor(props){
       super(props);
       this.state = {seconds: props.time, interval : 0};
@@ -19,4 +30,25 @@ class TimeComponent extends React.Component {
       }
 }
 
-export default TimeComponent
+
+export const TimeUp = (props) =>{
+  const [seconds, setSec] = useState(0)
+  const [time, setTime] = useState(0) 
+
+  useEffect(()=>{
+    let counting;
+    if (props.marker !== 'over'){
+    counting = setInterval(()=>{setSec(seconds+ 1)},1000);
+    setTime(StringTime(seconds));}
+    else if (props.marker === 'over') {clearInterval(counting)}
+    return function cleanup(){
+    clearInterval(counting)};
+    
+  }, [seconds, props.marker]);
+
+  return(
+    <div id='time'>Time Elapsed: {time}</div>
+  )
+}
+
+//props iin a function?

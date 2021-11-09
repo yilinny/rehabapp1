@@ -1,6 +1,6 @@
 import React from 'react';
 import '../index.css';
-import TimeComponent from '../general/countdown';
+import {TimeComponent} from '../general/countdown';
 import {GameOver, LevelUp}from '../general/screens';
 import { increase_distribution, randomfive, AdaptedSquare } from './adaptations';
 import { SquareSettings } from './squaresettings';
