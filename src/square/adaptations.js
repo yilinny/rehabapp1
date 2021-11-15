@@ -53,28 +53,28 @@ export function increase_distribution(quad, avoid) {
     console.log('Inside increase_distribution');
 
     const all_quad = ['UL', 'LL', 'UR', 'LR']
+    let new_quad = all_quad
 
-    for (let i = 0; i ++ ; i<avoid.length){
-        all_quad.filter(item => item!== avoid[i])
+    for (let i = 0; i<avoid.length; i ++){
+        new_quad = all_quad.filter(item => item!== avoid[i]) //.filter cannot modify the array it is called on
     }
-    
 
     console.log(`Type of chosen_quad: ${typeof quad}`)
     console.log(`Quad: ${quad}`)
     if (quad.includes('NIL')) {
-        var marker = randomint()%4 // indicator for different cases would generate 0 to (n-1), same as item index
-        return(place_in_quad(all_quad[marker])) //allquad no need to account for whether have central or peripheral, four quads cover all
+        var marker = randomint()%new_quad.length // indicator for different cases would generate 0 to (n-1), same as item index
+        return(place_in_quad(new_quad[marker])) //allquad no need to account for whether have central or peripheral, four quads cover all
     } 
 
     if (randomint()%2 !== 0){
         const n = quad.length
         var remedial = randomint()%n  // indicator for different cases would generate 0 to (n-1), same as item index
-        return(place_in_quad(quad[remedial]))
+        return(place_in_quad(new_quad[remedial]))
     }//equally distribute over selected quads
 
     else {
-        var marker_2 = randomint()%4 // indicator for different cases would generate 0 to (n-1), same as item index
-        return(place_in_quad(all_quad[marker_2])) //allquad no need to account for whether have central or peripheral, four quads cover all
+        var marker_2 = randomint()%new_quad.length // indicator for different cases would generate 0 to (n-1), same as item index
+        return(place_in_quad(new_quad[marker_2])) //allquad no need to account for whether have central or peripheral, four quads cover all
     }
 } 
 
