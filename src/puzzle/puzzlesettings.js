@@ -16,14 +16,13 @@ export function PuzzleSettings (){
     const quadrants= [{id: 'UL', name: 'Upper Left'}, {id: 'LL', name: 'Lower Left'}, {id: 'UR', name: 'Upper Right'}, {id: 'LR', name:'Lower Right'}]
     const [avoid, setAvoid] = useState(['NIL'])
     const [increase, setIncrease]= useState(['NIL'])
+    const [imagesource, setSource]= useState('https://source.unsplash.com/random/1000x800')
     return (
         <div>
             <form onSubmit = {() => {
-                console.log(avoid)
-                console.log (`Increase is ${increase}`)
                  ReactDOM.render(
                     <JigsawPuzzle
-                    imageSrc= 'https://source.unsplash.com/random/1000x800' //random image for now 
+                    imageSrc= {imagesource} //random image for now 
                     rows = {rows}
                     columns = {col}
                     percent = {size}
@@ -120,8 +119,9 @@ export function PuzzleSettings (){
                                         </label> 
                                     )})}
                 </p>
-                                        
-
+                <label> Insert image link to customize image (leave blank otherwise): </label>
+                <input type='text' onChange= {(e) => {setSource(e.target.value);}}/>
+                
                 <input type='submit' value='Submit'/>
 
             </form>

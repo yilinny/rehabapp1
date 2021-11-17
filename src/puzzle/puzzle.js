@@ -17,7 +17,6 @@ const clamp = (value, min, max) => {
     return value;
 };
 
-
 const solveTolerancePercentage = 0.040;
 
 const Yay = () =>{
@@ -59,8 +58,6 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
     const centered = (1-percent)* 50; //vh and vw to centered the board
     const minmaxratio = (1-percent)/(2*percent); //clamps outside of the board
     const initialcorrect = rows*columns - wrong_piece //check wrong_piece is less than total
-    console.log(`Parameters are ${rows}, ${columns}, ${wrong_piece}`)
-    console.log(`Initial correct is ${initialcorrect}`)
 
     
     const onImageLoaded = useCallback((image) => { 
@@ -240,7 +237,8 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
         //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [draggingTile, setTiles, rootSize, onSolved]);
     
-    if (tiles === 0) {return <p>Hang on as the puzzle loads....</p> } //css here pls
+    if (tiles === 0) {
+        return <p>Hang on as the puzzle loads.... If there is no response after 20 seconds, please return to the settings page, check the upload image link and retry. </p> } //css here pls
     return (
     <div>
         <TimeUp marker = {gameOver}/>
