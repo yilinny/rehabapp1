@@ -190,6 +190,7 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
             draggingTile.current.elem.style.setProperty('left', `${draggedToRelativeToRoot.x}px`);
             draggingTile.current.elem.style.setProperty('top', `${draggedToRelativeToRoot.y}px`);
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [draggingTile]);
 
     //function to get position of dragged tiled in 
