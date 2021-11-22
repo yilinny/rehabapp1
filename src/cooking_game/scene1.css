@@ -3,6 +3,16 @@
     height:100vh
 }
 
+.stepscontainer {
+    opacity: 0.5;
+    background-color: white;
+    width: 40vw;
+    height: 20vh;
+    position: fixed;
+    top: 30vw;
+    left: 30vh
+} /*aesthetics here */ 
+
 .container {
     background-image: url(./tap_pics/cooking_tap.png);
     background-position: center;
@@ -11,6 +21,8 @@
     width: 100vw;
     position: relative;
 }
+
+
 
 .water {
     background-image : url(./tap_pics/water.png);
@@ -27,7 +39,7 @@
     top: 45%;
     left: 80%;
     position: absolute;
-}
+} /*make button pretty */ 
 
 
 @keyframes drip {
@@ -58,7 +70,7 @@
     background-color: #7ACaE2;
     background-repeat: no-repeat;
     width: 34%;
-    height: 10%;
+    height: 8%;
     opacity: 0;
     position: absolute;
 
@@ -75,7 +87,7 @@
     
     100% {
         opacity:1;
-        transform:scaleY(800%);
+        transform:scaleY(1000%);
         transform-origin: bottom;
     }
 
