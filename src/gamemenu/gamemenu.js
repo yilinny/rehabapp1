@@ -15,6 +15,11 @@ export class GameMenu extends React.Component {
                     id: 'square-game',
                     name: 'Tap the Square',
                     link: '/square'
+                },
+                {
+                    id: 'cooking-game',
+                    name: 'Cooking game',
+                    link: '/cooking'
                 }
             ]
         };

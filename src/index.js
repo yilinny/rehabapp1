@@ -7,6 +7,7 @@ import './index.css';
 import { GameMenu } from './gamemenu/gamemenu';
 import { SquareSettings } from './square/squaresettings';
 import {PuzzleSettings} from './puzzle/puzzlesettings';
+import {Tap} from './cooking_game/scene1' 
 
 const Routing = () => {
   return(
@@ -15,6 +16,7 @@ const Routing = () => {
         <Route path="/" element={ <GameMenu /> } />
         <Route path="/square" element={ <SquareSettings /> } />
         <Route path="/puzzle" element={ <PuzzleSettings /> } />
+        <Route path= "/cooking" element = {<Tap/> } />
       </Routes> 
     </Router >
   );
