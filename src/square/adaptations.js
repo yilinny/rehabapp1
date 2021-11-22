@@ -23,7 +23,6 @@ function randomint(){
 }
 
 function place_in_quad (quad_name) {
-    console.log(`${quad_name} selected`);
     let x;
     let y;
 
@@ -49,8 +48,7 @@ function place_in_quad (quad_name) {
 
 export function increase_distribution(quad, avoid) {
     //take quad as an array, quad.length would give number of quads to increase distribution over
-    //quad should consist of 'UL', 'LL', 'UR', 'LR' only
-    console.log('Inside increase_distribution');
+    //quad should consist of 'UL', 'LL', 'UR', 'LR' only;
 
     const all_quad = ['UL', 'LL', 'UR', 'LR']
     let new_quad = all_quad
@@ -59,8 +57,6 @@ export function increase_distribution(quad, avoid) {
         new_quad = all_quad.filter(item => item!== avoid[i]) //.filter cannot modify the array it is called on
     }
 
-    console.log(`Type of chosen_quad: ${typeof quad}`)
-    console.log(`Quad: ${quad}`)
     if (quad.includes('NIL')) {
         var marker = randomint()%new_quad.length // indicator for different cases would generate 0 to (n-1), same as item index
         return(place_in_quad(new_quad[marker])) //allquad no need to account for whether have central or peripheral, four quads cover all
@@ -164,8 +160,6 @@ export function AdaptedSquare (props) {
         if (props.square_no % 2 ===0) {color=LightenDarkenColor(props.color, -30)}//changes intensity of thecolor
         else {color=LightenDarkenColor(props.color, 30)}
 
-        console.log(color)
-    
         return (
             <button className='square'
                 style = {{left: past_coords[0], top: past_coords[1],width: size[0], height: size[1], background: color}}

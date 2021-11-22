@@ -34,7 +34,6 @@ function place_in_quad (quad_name, ratio) {
     if (quad_name[1]==='L'){x=generate_coordinates(-ratio, 0.5)}
     else if (quad_name[1]==='R'){x=generate_coordinates(0.5, total)};
 
-    console.log (`${quad_name}: ${[x, y]}`)
     return ([x,y])
 }
 
@@ -51,7 +50,6 @@ export function increase_distribution_p(quad, avoid, ratio) {
    
 
     if (quad.includes('NIL') === true) {
-        console.log('I am here')
         var marker = randomint()%new_quad.length// indicator for different cases would generate 0 to (n-1), same as item index
         return(place_in_quad(new_quad[marker], ratio)) //allquad no need to account for whether have central or peripheral, four quads cover all
     } 
