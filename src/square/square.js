@@ -65,15 +65,13 @@ function Square (props){
 
     return(
         <button className='square' 
-            style = {
-                        {
+            style = {{
                             left: coords[0], 
                             top: coords[1], 
                             width: size[0], 
                             height: size[1], 
                             background: props.color
-                        }
-            }
+                        }}
 
             onClick = { props.onClick }
         >

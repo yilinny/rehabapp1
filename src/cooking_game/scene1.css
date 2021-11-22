@@ -1,0 +1,92 @@
+.background {
+    width: 100vw;
+    height:100vh
+}
+
+.container {
+    background-image: url(./tap_pics/cooking_tap.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100vw auto; /*resize to cover entire container using cover changes image ratio which fucks up other positioning*/
+    width: 100vw;
+    position: relative;
+}
+
+.water {
+    background-image : url(./tap_pics/water.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10%;
+    height: 10%;
+    left: 71.5%;
+    top: 37%;
+    position: absolute;
+}
+
+.btn {
+    top: 45%;
+    left: 80%;
+    position: absolute;
+}
+
+
+@keyframes drip {
+    0% {
+        transform:translateY(0%)
+    }
+    100% {
+        transform: translateY(65%);
+    }
+    
+}
+/*check how to change position, relative to container?*/
+
+.cup {
+    background-image: url(./tap_pics/cup_resized.png);
+    background-size: contain;
+    width: 12%;
+    height: 12%;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 45%;
+    left: 71%; 
+}
+
+.waterlevel{
+    bottom: 12%;
+    left: 18%; 
+    background-color: #7ACaE2;
+    background-repeat: no-repeat;
+    width: 34%;
+    height: 10%;
+    opacity: 0;
+    position: absolute;
+
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0
+    }
+
+    10% {
+        opacity: 1;
+    }
+    
+    100% {
+        opacity:1;
+        transform:scaleY(800%);
+        transform-origin: bottom;
+    }
+
+    
+}
+
+.fillwater{
+    background-image: url(./tap_pics/water_level_after.png);
+    bottom: 0px;
+    width: inherit;
+    height: inherit;
+    color: #A4DDED;
+    position: absolute;
+}
