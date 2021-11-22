@@ -1,15 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import './index.css';
+
+import { GameMenu } from './gamemenu/gamemenu';
 import { SquareSettings } from './square/squaresettings';
-import {JigsawPuzzle} from './puzzle/puzzle'
-import {PuzzleSettings} from './puzzle/puzzlesettings'
+import {PuzzleSettings} from './puzzle/puzzlesettings';
+
+const Routing = () => {
+  return(
+    <Router>
+      <Routes>
+        <Route path="/" element={ <GameMenu /> } />
+        <Route path="/square" element={ <SquareSettings /> } />
+        <Route path="/puzzle" element={ <PuzzleSettings /> } />
+      </Routes> 
+    </Router >
+  );
+}
 
 
 
 ReactDOM.render(
-  <PuzzleSettings />, 
+  <React.StrictMode>
+    <Routing />
+  </React.StrictMode>,
   document.getElementById('root')
 );
-
-

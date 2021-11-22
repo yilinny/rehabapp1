@@ -28,7 +28,8 @@ const updateTarget = (level_increment) => {
 let score = 0
 
 function Square (props){
-    console.log(`Selected quadrants: ${props.quad}`)
+    console.log(`Selected quadrants: ${props.quad}`);
+    console.log(`props.quad type: ${typeof(props.quad)}`);
     let coords = [];
 
     let size = [];
