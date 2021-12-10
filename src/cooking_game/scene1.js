@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Draggable from 'react-draggable'
 import './scene1.css'
 
@@ -91,7 +91,7 @@ function Instructions (props){
             <div className= 'rice'></div>
             <div className= 'pasta'></div>
             <div className= 'stepscontainer'>
-                {required_instruction.map(instruction => <p>{instruction}</p>)}
+                {required_instruction.map((instruction, index) => <p key={`instruction-${index}`}>{instruction}</p>)}
                 <button onClick= {props.onClick}> Let's start!</button>
         </div>
         </div>
@@ -101,6 +101,7 @@ function Instructions (props){
 }
 
 function DragCup (props){
+    const cupRef = useRef(null);
     const [posX, setposX] = useState(0.71*window.innerWidth)
     const [posY, setposY] = useState(0.45*resizeContainer())
 
@@ -109,10 +110,13 @@ function DragCup (props){
         setposX (posX + ui.deltaX)
         setposY (posY + ui.deltaY) 
     }
+
+
     const handleCheck = (e, ui) => {
         if (Math.abs(posX - potCoords.x) < potCoords.radiusX && Math.abs(posY - potCoords.y) < potCoords.radiusY) {
-            props.onPass()
+           props.onPass()
         }
+        return false
     }
 
     return(
@@ -120,8 +124,8 @@ function DragCup (props){
             <div className= 'pot'></div>
             <div className= 'rice'></div>
             <div className= 'pasta'></div>
-                <Draggable onDrag = {handleDrag} onStop = {handleCheck}>
-                <div className='cup'>
+                <Draggable nodeRef = {cupRef} onDrag = {handleDrag} onStop = {handleCheck}>
+                <div ref = {cupRef} className='cup'>
                     <div  className='waterlevel'
                     style= {{
                         opacity: '1',
@@ -134,6 +138,8 @@ function DragCup (props){
 }
 
 function AddCarbs (props){
+    const riceRef = useRef(null)
+    const pastaRef = useRef(null)
     const [initialX, setInitialX] = useState([0.05*window.innerWidth, 0.13*window.innerWidth])// initial x of rice, pasta 
     const [rice, setRice] = useState([0.05*(window.innerWidth),0.3*resizeContainer()])
     const [pasta, setPasta] = useState([0.13 * window.innerWidth, 0.3 * resizeContainer()])
@@ -160,15 +166,17 @@ function AddCarbs (props){
                 else {setInitialX([initialX[0],pasta[0]]); alert ('Please fill it with rice instead!')} //changing initial means won't trigger repeated alerts
             }
         }
+
+        return false
     }
     return (
         <div>
             <div className= 'pot'></div>
-            <Draggable onDrag = {handleRice} onStop = {handleCheck}> 
-                <div className= 'rice'></div> 
+            <Draggable nodeRef = {riceRef} onDrag = {handleRice} onStop = {handleCheck}> 
+                <div ref = {riceRef} className= 'rice'></div> 
             </Draggable>
-            <Draggable onDrag = {handlePasta} onStop = {handleCheck}> 
-                <div className= 'pasta'></div> 
+            <Draggable nodeRef = {pastaRef} onDrag = {handlePasta} onStop = {handleCheck}> 
+                <div ref = {pastaRef} className= 'pasta'></div> 
             </Draggable>
                 <div className='cup'
                 style = {{
