@@ -1,15 +1,20 @@
-
-
 import React, { useState, useEffect } from 'react'
+import Draggable from 'react-draggable'
 import './scene1.css'
 
 function resizeContainer (){
     return (1080/1920 * window.innerWidth)
-}
-
+} //resized height in px 
  //have to be globally defined if not no work???
 
- function TapOn(){
+const potCoords = {
+    x: 0.375*(window.innerWidth), // midpoint coordinates 
+    y: 0.3*(resizeContainer()), //midpoint coordinates
+    radiusX: 0.07*(window.innerWidth),
+    radiusY: 0.07*(resizeContainer())
+}
+
+ function TapOn(props){
 
     const [playState, setPlay] = useState('paused')
     const [seconds, setSeconds] = useState(0)
@@ -24,10 +29,14 @@ function resizeContainer (){
             setPlay('paused')
             alert ('Oh no, you went past the line! Try again.')
         }
-
     }
 
-    else if (playState === 'paused') {clearInterval(second_interval)}; 
+    else if (playState === 'paused') {
+        clearInterval(second_interval)
+        if (seconds >= 13){
+            props.onPass()
+        }
+    }; 
     
     return function cleanup(){clearInterval(second_interval)}
     }, [seconds, playState])
@@ -36,14 +45,15 @@ function resizeContainer (){
     return (
 
         <div>
+            <div className= 'pot'></div>
+            <div className= 'rice'></div>
+            <div className= 'pasta'></div>
             <div className= 'water'
             style = {{
                     animation: `drip 1s linear infinite normal forwards ${playState}`,
                     opacity : `${playState === 'paused' ? 0: 1}`,
                         
             }}></div>
-    
-
             <div className= 'cup'> 
                <div className='waterlevel'
                 style = {{
@@ -55,9 +65,6 @@ function resizeContainer (){
                 playState === 'paused' ? setPlay('running') : setPlay('paused') 
             }}></button>
         </div>
-
-       
-        
     )
 }
 
@@ -77,21 +84,138 @@ function Instructions (props){
     console.log(required_instruction)
     
     return (
-        <div className= 'stepscontainer'>
-            {required_instruction.map(instruction => <p>{instruction}</p>)}
-            <button onClick= {props.onClick}> Let's start!</button>
+        <div>
+            <div className= 'pot'></div>
+            <div className= 'rice'></div>
+            <div className= 'pasta'></div>
+            <div className= 'stepscontainer'>
+                {required_instruction.map(instruction => <p>{instruction}</p>)}
+                <button onClick= {props.onClick}> Let's start!</button>
+        </div>
         </div>
 
     ) //instructions and container needs serious css
 
 }
 
-export function KitchenOne (steps = 3) {
+function DragCup (props){
+    const [posX, setposX] = useState(0.71*window.innerWidth)
+    const [posY, setposY] = useState(0.45*resizeContainer())
 
-    const [stepcount, setStep] = useState(0)
+    
+    const handleDrag = (e,ui) => {
+        setposX (posX + ui.deltaX)
+        setposY (posY + ui.deltaY) 
+    }
+    const handleCheck = (e, ui) => {
+        if (Math.abs(posX - potCoords.x) < potCoords.radiusX && Math.abs(posY - potCoords.y) < potCoords.radiusY) {
+            props.onPass()
+        }
+    }
+
+    return(
+        <div>
+            <div className= 'pot'></div>
+            <div className= 'rice'></div>
+            <div className= 'pasta'></div>
+                <Draggable onDrag = {handleDrag} onStop = {handleCheck}>
+                <div className='cup'>
+                    <div  className='waterlevel'
+                    style= {{
+                        opacity: '1',
+                        height: '55%'
+                    }}></div>
+                </div>
+                </Draggable>   
+        </div>
+    )
+}
+
+function AddCarbs (props){
+    console.log(props.carbs)
+    const [initialX, setInitialX] = useState([0.05*window.innerWidth, 0.13*window.innerWidth])// initial x of rice, pasta 
+    const [rice, setRice] = useState([0.05*(window.innerWidth),0.3*resizeContainer()])
+    const [pasta, setPasta] = useState([0.13 * window.innerWidth, 0.3 * resizeContainer()])
+    
+    function handleRice(e, ui){
+        let newRice =[rice[0]+ ui.deltaX, rice[1] + ui.deltaY]
+        setRice(newRice)
+    }
+    function handlePasta(e, ui){
+        let newPasta =[pasta[0]+ ui.deltaX, pasta[1] + ui.deltaY]
+        setPasta(newPasta)
+    }
+    function handleCheck (){
+        if (rice[0] !== initialX[0]) {
+            //check for change, honestly just assume x will changed at least by 0.01 when moved. 
+            if (Math.abs(rice[0]- potCoords.x) < potCoords.radiusX && Math.abs(rice[1]-potCoords.y)<potCoords.radiusY) {
+                if (props.carbs === 'rice') {props.onPass()}
+                else {setInitialX([rice[0], initialX[1]]); alert ('Please fill it with pasta instead!')} //changing initial means won't trigger repeated alerts
+            }
+        }
+        else if (pasta[0] !== initialX[1]) {
+            if (Math.abs(pasta[0]- potCoords.x) < potCoords.radiusX && Math.abs(pasta[1]-potCoords.y)<potCoords.radiusY) {
+                if (props.carbs ==='pasta') {props.onPass()}
+                else {setInitialX([initialX[0],pasta[0]]); alert ('Please fill it with rice instead!')} //changing initial means won't trigger repeated alerts
+            }
+        }
+    }
+    return (
+        <div>
+            <div className= 'pot'></div>
+            <Draggable onDrag = {handleRice} onStop = {handleCheck}> 
+                <div className= 'rice'></div> 
+            </Draggable>
+            <Draggable onDrag = {handlePasta} onStop = {handleCheck}> 
+                <div className= 'pasta'></div> 
+            </Draggable>
+                <div className='cup'
+                style = {{
+                    top: '20%',
+                    left: '40%',
+                    animation: `pour 3s linear 1 normal forwards`}}>
+                    <div className='waterlevel'
+                    style= {{
+                        opacity: '1',
+                        height: '55%'
+                    }}></div>
+                </div>
+        </div>
+    )
+
+}
+
+function PourCarbs (props) {
+    let othercarb;
+    (props.carbs === 'rice') ? othercarb= 'pasta' : othercarb= 'rice' 
+    return (
+        <div>
+            <div className= 'pot'></div> 
+            <div className= {props.carbs}
+            style = {{
+                top: '20%',
+                left: '40%',
+                animation: `pour 3s linear 1 normal forwards`
+            }}></div>
+            <div className= {othercarb}
+            style = {{
+                animation: `disappear 3s ease-out 1 normal forwards`
+            }}>
+            </div>
+
+        </div>
+    )
+
+}
+
+export const KitchenOne =  ({steps = 3, carbs= 'rice'}) => {
+    const [stepcount, setStep] = useState(2)
     const renderscenes = [
-        function renderZero(){return(<Instructions steps = {steps} onClick={()=>{setStep(1)}} />)}, 
-        function renderOne (){return(<TapOn/>)}
+        function renderZero(){return(<Instructions steps = {steps} carbs = {carbs} onClick={()=>{setStep(1)}} />)}, 
+        function renderOne (){return(<TapOn onPass={()=>{setStep(2)}}/>)},
+        function renderTwo (){return <DragCup onPass ={()=>{setStep(3)}}/>},
+        function renderThree(){return <AddCarbs carbs = {carbs} onPass = {()=>setStep(4)}/>},
+        function finalRender (){return <PourCarbs carbs={carbs}/>}
     ] //an array of functions, each rendering the desired scene. stepcount as index for the scene. Parent container of the scene is the div w background image 
     
 

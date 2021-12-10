@@ -4,7 +4,7 @@
 }
 
 .stepscontainer {
-    opacity: 0.5;
+    opacity: 1;
     background-color: white;
     width: 40vw;
     height: 20vh;
@@ -14,7 +14,7 @@
 } /*aesthetics here */ 
 
 .container {
-    background-image: url(./tap_pics/cooking_tap.png);
+    background-image: url(./tap_pics/kitchen-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100vw auto; /*resize to cover entire container using cover changes image ratio which fucks up other positioning*/
@@ -22,7 +22,38 @@
     position: relative;
 }
 
+.pot{
+    background-image: url(./tap_pics/pot.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 15%;
+    height: 20%;
+    left: 30%;
+    top: 25%;
+    position: absolute;
+}
 
+.rice{
+    background-image: url(./tap_pics/rice.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10%;
+    height: 15%;
+    left: 5%;
+    top: 30%;
+    position: absolute;
+}
+
+.pasta{
+    background-image: url(./tap_pics/pasta.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10%;
+    height: 15%;
+    left: 13%;
+    top: 30%;
+    position: absolute;
+}
 
 .water {
     background-image : url(./tap_pics/water.png);
@@ -90,15 +121,36 @@
         transform:scaleY(1000%);
         transform-origin: bottom;
     }
-
     
 }
 
-.fillwater{
-    background-image: url(./tap_pics/water_level_after.png);
-    bottom: 0px;
-    width: inherit;
-    height: inherit;
-    color: #A4DDED;
-    position: absolute;
+@keyframes disappear {
+    0%{
+        opacity: 1
+    }
+    100% {
+        opacity: 0
+    }
+    
 }
+
+@keyframes pour {
+    0% {
+        -webkit-transform: rotate3d(0, 0, 1, 0deg);
+        transform: rotate3d(0, 0, 1, 0deg);
+    }
+
+    75% {
+        -webkit-transform: rotate3d(0, 0, 1, -45deg);
+        transform: rotate3d(0, 0, 1, -45deg);
+        opacity: 1
+    }
+
+    100%{
+        -webkit-transform: rotate3d(0, 0, 1, -45deg);
+        transform: rotate3d(0, 0, 1, -45deg);
+        opacity: 0;
+
+    }
+}
+
