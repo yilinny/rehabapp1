@@ -39,6 +39,7 @@ const potCoords = {
     }; 
     
     return function cleanup(){clearInterval(second_interval)}
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [seconds, playState])
 
 
@@ -70,18 +71,19 @@ const potCoords = {
 
 function Instructions (props){
     const instructions = [
-        'Fill the water',
-        'Bring water to pot',
-        'Add pasta'
+        'Fill the water to the red line.',
+        `Add ${props.carbs}`,
+        'Bring water to pot'
     ];
 
     let required_instruction=[];
 
-    for (let i = 0; i < 3 ;i ++ ){
-        console.log('hi')
+    for (let i = 0; i < props.steps ;i ++ ){
         required_instruction.push(instructions[i])} 
 
-    console.log(required_instruction)
+    if (props.steps === 3) {
+        required_instruction= [instructions[0], instructions[2], instructions[1]]
+    }
     
     return (
         <div>
@@ -132,7 +134,6 @@ function DragCup (props){
 }
 
 function AddCarbs (props){
-    console.log(props.carbs)
     const [initialX, setInitialX] = useState([0.05*window.innerWidth, 0.13*window.innerWidth])// initial x of rice, pasta 
     const [rice, setRice] = useState([0.05*(window.innerWidth),0.3*resizeContainer()])
     const [pasta, setPasta] = useState([0.13 * window.innerWidth, 0.3 * resizeContainer()])
@@ -188,6 +189,8 @@ function AddCarbs (props){
 function PourCarbs (props) {
     let othercarb;
     (props.carbs === 'rice') ? othercarb= 'pasta' : othercarb= 'rice' 
+    setTimeout(props.onPass, 3000)
+
     return (
         <div>
             <div className= 'pot'></div> 
@@ -208,16 +211,30 @@ function PourCarbs (props) {
 
 }
 
+function LevelScreen (){
+    return (
+        <p> 'HI' </p>
+    )
+}
+
 export const KitchenOne =  ({steps = 3, carbs= 'rice'}) => {
-    const [stepcount, setStep] = useState(2)
+    const [stepcount, setStep] = useState(0)
+    let targetstep;
+    (steps > 2) ? targetstep = steps + 1 : targetstep = steps
+
+    function stepDone(){
+        (stepcount === targetstep) ?  setStep(5): setStep(stepcount + 1)
+    }
+
+
     const renderscenes = [
-        function renderZero(){return(<Instructions steps = {steps} carbs = {carbs} onClick={()=>{setStep(1)}} />)}, 
-        function renderOne (){return(<TapOn onPass={()=>{setStep(2)}}/>)},
-        function renderTwo (){return <DragCup onPass ={()=>{setStep(3)}}/>},
-        function renderThree(){return <AddCarbs carbs = {carbs} onPass = {()=>setStep(4)}/>},
-        function finalRender (){return <PourCarbs carbs={carbs}/>}
+        function renderZero(){return(<Instructions steps = {steps} carbs = {carbs} onClick={stepDone}/>)}, 
+        function renderOne (){return(<TapOn onPass={stepDone}/>)},
+        function renderTwo (){return <DragCup onPass ={stepDone}/>},
+        function renderThree(){return <AddCarbs carbs = {carbs} onPass = {stepDone}/>},
+        function renderFour (){return <PourCarbs carbs={carbs} onPass={stepDone}/>},
+        function nextLevel (){return <LevelScreen/>}
     ] //an array of functions, each rendering the desired scene. stepcount as index for the scene. Parent container of the scene is the div w background image 
-    
 
 
     return (
