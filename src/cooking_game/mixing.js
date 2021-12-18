@@ -3,6 +3,8 @@ import Draggable from 'react-draggable'
 import recipes from './recipes'
 import './stove.css'
 
+//just need check if the same animation works without dedicated css file 
+
 function resizeContainer (){
     return (1080/1920 * window.innerWidth)
 }
@@ -17,20 +19,12 @@ function generateinitialcoords (ing){
 }//kinda tedious, but gives more control over the aesthtic to manually generate coords 
 
 
-function generateinitialcoords_wait (ing){
-    var arr
-    if (ing === 1) {arr= [[43,50]]}
-    else if (ing ===2) {arr = [[20,50], [65,53]]}
-       return arr
-
-}
-const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {  
+const Counter = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {  
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
     const total_seconds = task.adapt.time[difficulty] //adapt based on sustained attention
-    const ing_arr = (task.adapt.type === 'add') ? task.ing[difficulty]: task.ing// ingredient list no change for other mode
-    const  initialcoords = (task.adapt.type ==='add') ? generateinitialcoords(ing_arr.length) : generateinitialcoords_wait (ing_arr.length)
-    const opacity = (task.adapt.type === 'add') ? 1: 0 // hides timebar and related divs
+    const ing_arr = task.ing[difficulty]
+    const  initialcoords =  generateinitialcoords(ing_arr.length) 
 
     //setting states
     const [ing, setIng] = useState(0)
@@ -39,12 +33,8 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
     const [lastUniqueID, setUid] = useState(ing_arr.length)
     const movingIngredient = useRef(null)
     const [seconds, setSeconds] = useState(0)
-    const [correctseconds, setCorrect] = useState(0)
     const [text, setText] = useState(null)
-    const [cook,setCooking] = useState('paused')
-    let imgSrc; 
-    (task.adapt.fireNo === 1)? imgSrc = '/general/bg/onefire.png': imgSrc = '/general/bg/twofire.png';
-
+   
     //set total --> to move on with the wait type. or to move on after totalsec for add. --> then call gameover with props  
 
     useEffect(() =>{
@@ -57,12 +47,6 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
                 top: initialcoords[index][1]
         }));
         return newState}) //generate normal sized ingredients + positions 
-
-        if (task.adapt.type === 'wait'){
-            let correct_arr = [];
-            for (var c = 0; c < ing_arr.length; c++){correct_arr.push(Math.floor(Math.random()*80) + 15)} //correct time would be half of this, when brightness 100%
-            setCorrect(correct_arr)
-            setCooking(Array(ing_arr.length).fill('running'))} //sets correct time for wait mode 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []) //setup on load. empty array ensures only once, no re-renders 
@@ -125,8 +109,6 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
             let error_margin =Math.abs(correctSecond-seconds)
             if (error_margin < 3){
                 //if correct, ing disappears
-                console.log('checking')
-                
                 setIng(prevState=>{
                     let newState = [...prevState.filter(it=>it.unique_id!== unique_id)
                     ]
@@ -155,21 +137,7 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
         return false
 
     } //chceks if correct (when added)
-
-    const checkTime = (food) =>{
-        console.log(food.ing_id)
-        if (task.adapt.type ==='wait'){
-            //get id index
-            let ing_index = ing_arr.indexOf(food.ing_id)
-            //check time
-            if (seconds > 0.35* correctseconds[ing_index] && seconds < 0.6*correctseconds[ing_index]) {
-                let current_state = cook
-                current_state.splice(ing_index,1,'paused')
-                setCooking(current_state)
-                (seconds > 0.45* correctseconds[ing_index] && seconds < 0.5*correctseconds[ing_index]) ? setText('Perfect!') : setText('Great!')
-            }
-        }
-    }
+    
 
     return (
     <div className = 'background'>
@@ -179,21 +147,7 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
                 height: `${resizeContainer()}px`,
                 top: `${(window.innerHeight - resizeContainer())/2}px`,
         }}>
-        {(task.adapt.fireNo === 1)? <div className={task.adapt.cookery}></div> : <div> 
-            <div  className= {task.adapt.cookery} style = {{
-                left: '10%'
-            }}></div>
-            <div className={task.adapt.cookery} style = {{
-                left: '55%'
-            }}> </div>
-            </div>} 
 
-        {(task.adapt.type === 'add' && task.adapt.cookery === 'pan') ?<div className='finalfood' style = {{
-            backgroundImage: `url(/final_pics/final-r${recipeNo}.png)`,
-            animation: `foodin ${total_seconds}s linear 0s 1 normal forwards`
-            
-
-        }}> </div>: <div> </div>}
 
         {ing && ing.map((food) =>
         <Draggable disabled={(task.adapt.type==='add')? false: true}nodeRef={ingRef} key={`movinging-${food.unique_id}`} onMouseDown={()=>{checkTime(food)}}onStart={()=>{register(food)}} onStop={checkIng}>
@@ -210,12 +164,9 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
             </Draggable> 
         )}
         
-        <div className='timebar' style = {{
-            opacity: `${opacity}`
-        }}> </div>
+        <div className='timebar'> </div>
 
         <div className='timebar' style = {{
-            opacity: `${opacity}`,
             backgroundColor: 'green',
             animation: `progress ${total_seconds}s linear 0s 1 normal forwards`
         }}> </div>
@@ -225,7 +176,6 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
         {baring && baring.map((food)=> 
         <div key = {`div-${food.no}`}>
         <div className='pointer' key={`p-${food.no}`} style ={{
-            opacity: `${opacity}`,
             left: `${food.left+3.2}%`,
             top: `${food.top-3.5}%`, 
             borderWidth: `0 0 ${0.05*window.innerWidth}px ${0.05 * resizeContainer()}px`
@@ -237,8 +187,7 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
             top: `${food.top}%`, 
             width: '6%',
             height: '6%',
-            backgroundColor: 'white',
-            opacity: `${opacity}`
+            backgroundColor: 'white'
         }}>
         </div> 
         
