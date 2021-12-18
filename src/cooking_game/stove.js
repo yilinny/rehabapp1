@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Draggable from 'react-draggable'
 import recipes from './recipes'
 import './stove.css'
-
-
 
 function resizeContainer (){
     return (1080/1920 * window.innerWidth)
@@ -168,6 +166,7 @@ const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
                 let current_state = cook
                 current_state.splice(ing_index,1,'paused')
                 setCooking(current_state)
+                (seconds > 0.45* correctseconds[ing_index] && seconds < 0.5*correctseconds[ing_index]) ? setText('Perfect!') : setText('Great!')
             }
         }
     }

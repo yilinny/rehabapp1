@@ -43,7 +43,7 @@ let recipes = [
             }
         ]
 
-    },
+    }, //pasta bolognese
     {
         r_id: 'CB',
         r_no: 1,
@@ -73,7 +73,39 @@ let recipes = [
         ]
 
 
-    },
+    }, //carbonara
+    {
+        r_id: 'FR',
+        r_no: 2,
+        steps : [0,1,3,2],
+        step:[
+            {
+                ing: [],
+                adapt: []
+            },
+            {
+                ing: [4,3,5],
+                adapt: []
+            },
+            {
+                ing: [10],
+                adapt: [
+
+                ]
+            },
+            {
+                ing: [[4,13], [4,13,5], [14,4,13,5]],
+                adapt: {
+                    fireNo:    1,
+                    cookery: 'pan',
+                    type : 'add',
+                    time: [15,30,45] //adaptation for shorter or longer sustained attention 
+                }
+            }
+        ]
+
+
+    }, //fried rice
     {
         r_id: 'CB',
         r_no: 1,
@@ -103,37 +135,7 @@ let recipes = [
         ]
 
 
-    },
-    {
-        r_id: 'CB',
-        r_no: 1,
-        steps : [0,1,3,2],
-        step:[
-            {
-                ing: [],
-                adapt: []
-            },
-            {
-                ing: [4,3,5],
-                adapt: []
-            },
-            {
-                ing: [3],
-                adapt: []
-            },
-            {
-                ing: [[4,13], [4,13,5], [14,4,13,5]],
-                adapt: {
-                    fireNo:    1,
-                    cookery: 'pan',
-                    type : 'add',
-                    time: [15,30,45] //adaptation for shorter or longer sustained attention 
-                }
-            }
-        ]
-
-
-    },
+    },//curry
     {
         r_id: 'SM',
         r_no: 4,
@@ -158,19 +160,19 @@ let recipes = [
                 }
             },
             {
-                ing: [12,16],
+                ing: [12],
                 adapt:{
-                    fireNo: 2,
+                    fireNo: 1,
                     cookery: 'pan',
                     type: 'wait',
-                    time: [20,45,60]
+                    time: [30,45,60]
                 }
 
             }
         ]
 
 
-    }
+    } //sausage and mash
 
 
 ]
