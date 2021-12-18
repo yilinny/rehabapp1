@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Draggable from 'react-draggable'
 import './fridge.css'
 
@@ -13,8 +13,8 @@ function resizeContainer (){
 export function Fridge (props){
     const ingredientsref= useRef(null)
     const [ingredients, setIngredients] = useState(0)
-    const initialXcoords = [5,14,25,8,20,28,5,15,25,40,53,40, 53] 
-    const initialYcoords = [18,18,18,38,38,40,55,55,55,23,23,55,55]; 
+    const initialXcoords = [5,14,25,8,20,28,5,15,25,40,53,43,55] 
+    const initialYcoords = [18,18,18,38,38,40,55,55,55,23,23,58,55]; 
     //im sure theres a more matheically correct way to generate coords, but this takes less line and gives me more precision
     const movingIngredient = useRef(null)
     const [totalCorrect, setTotal] = useState(0)
@@ -99,12 +99,15 @@ export function Fridge (props){
     }
 
     return (
-        <div className = 'f_background'>
-        <div className= 'f_container'
+        <div className = 'background'>
+        <div className= 'container'
         style = {{
+                backgroundImage: `url(/fridge_pics/fridge.png)`,
                 height: `${resizeContainer()}px`,
                 top: `${(window.innerHeight - resizeContainer())/2}px`,
         }}>
+        <div className = 'pepper'></div>
+        <div className='egg'></div>
             {ingredients && ingredients.map(
                 (food) => <Draggable disabled={food.disabled} nodeRef={ingredientsref} key={`ingredients-${food.unique_id}`} onStart = {()=> {register(food)}} onStop={handleChange}>
                     <div key= {`food-${food.unique_id}`} ref = {ingredientsref} className='ingredients' style ={{

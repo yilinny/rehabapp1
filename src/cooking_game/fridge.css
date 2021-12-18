@@ -1,22 +1,30 @@
-.f_background {
-    width: 100vw;
-    height:100vh
-}
-
-.f_container {
-    background-image: url(./fridge_pics/fridge.png);
-    background-color: cornflowerblue;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100vw auto; /*resize to cover entire container using cover changes image ratio which fucks up other positioning*/
-    width: 100vw;
-    position: relative;
-}
 
 .ingredients {
     background-size: contain;
     background-repeat: no-repeat;
     width: 15%;
     height: 15%;
+    position: absolute;
+}
+
+.egg{
+    background-image: url('./fridge_pics/ingredient5.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 15%;
+    height: 15%;
+    top: 40%;
+    left: 25%;
+    position: absolute;
+}
+
+.pepper {
+    background-image: url('./fridge_pics/ingredient9.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 15%;
+    height: 15%;
+    top: 23%;
+    left: 43%;
     position: absolute;
 }

@@ -1,0 +1,100 @@
+.container {
+    position: relative;
+}
+
+.pot{
+    background-image: url('./general/cutlery/pot.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40%;
+    height: 40%;
+    top: 43%;
+    left: 30%;
+    position: absolute;
+}
+
+.pan{
+    background-image: url('./general/cutlery/pan.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40%;
+    height: 40%;
+    top: 38%;
+    left: 34%;
+    position: absolute;
+}
+
+.timebar {
+    width: 80%;
+    top: 3%;
+    left: 10%;
+    height: 5%;
+    background-color: red;
+    position: absolute;
+}
+
+@keyframes progress {
+    0% {
+        width: 0%
+    }
+
+    100% {
+        width: 80%
+    }
+}
+
+.pointer {
+width: 0;
+height: 0;
+border-style: solid;
+border-width: 0 0 20px 20px;
+
+border-color: transparent transparent white transparent;
+position: absolute
+}
+
+.finalfood{
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20%;
+    height: 20%;
+    top: 55%;
+    left: 42%;
+    position: absolute;
+}
+
+@keyframes foodin {
+    0% {
+        opacity: 0
+    }
+
+    100%{
+        opacity: 1;
+    }
+    
+}
+
+@keyframes cooking{
+    0%{
+        filter: brightness(180%);
+    }
+
+    35% { transform: scale(1.05); }
+    38% {transform: scale(1);}
+    40% { transform: scale(1.08); }
+    43% { transform: scale(1); }
+    45% { transform: scale(1.08); }
+    48% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    52% { transform: scale(1); }
+    55% { transform: scale(1.05); }
+    58% {transform: scale(1);}
+
+    100%{
+        filter: brightness(0%)
+    }
+}
+
+
+
+
