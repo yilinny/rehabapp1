@@ -22,6 +22,7 @@ function generateinitialcoords (ing){
 const Counter = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {  
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
+    console.log(task.adapt.time)
     const total_seconds = task.adapt.time[difficulty] //adapt based on sustained attention
     const ing_arr = task.ing[difficulty]
     const  initialcoords =  generateinitialcoords(ing_arr.length) 
@@ -143,21 +144,20 @@ const Counter = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
     <div className = 'background'>
         <div className= 'container'
         style = {{
-                backgroundImage: `url(${imgSrc})`,
+                backgroundImage: `url(/general/bg/mixing.png)`,
                 height: `${resizeContainer()}px`,
                 top: `${(window.innerHeight - resizeContainer())/2}px`,
         }}>
 
 
         {ing && ing.map((food) =>
-        <Draggable disabled={(task.adapt.type==='add')? false: true}nodeRef={ingRef} key={`movinging-${food.unique_id}`} onMouseDown={()=>{checkTime(food)}}onStart={()=>{register(food)}} onStop={checkIng}>
+        <Draggable nodeRef={ingRef} key={`movinging-${food.unique_id}`} onStart={()=>{register(food)}} onStop={checkIng}>
             <div key = {`div-${food.unique_id}`} className='ingredients' ref={ingRef} style ={{
                     backgroundImage: `url(${food.background})`,
                     left: `${food.left}%`,
                     top: `${food.top}%`,
-                    width: '18%',
-                    height: '18%',
-                    animation: `cooking ${correctseconds[food.unique_id]}s linear 0s 1 normal forwards ${(task.adapt.type === 'add')? 'paused': cook[food.unique_id]}`
+                    width: '22%',
+                    height: '22%',
                 }}
             >
             </div>
@@ -201,4 +201,4 @@ const Counter = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
     </div>
 )}
 
-export default Stove
+export default Counter

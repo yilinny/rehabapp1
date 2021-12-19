@@ -3,6 +3,8 @@ import Fridge from "./fridge"
 import React, { useState, useEffect, useRef } from 'react'
 import Stove from "./stove"
 import ChoppingBoard from "./chopping_board";
+import Counter from "./mixing";
+import Grater from "./grate";
 
 
 
@@ -14,7 +16,7 @@ export const CurrentScene= () =>{
         //<KitchenOne/>
         //<Fridge list ={[0,3,5,12]}/>
         //<Stove/>
-        <ChoppingBoard/>
+        <Grater/>
     )
 }
 export default CurrentScene

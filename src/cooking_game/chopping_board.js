@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
-import Draggable from 'react-draggable'
+import React, { useState } from 'react'
 import recipes from './recipes'
 
 function resizeContainer (){
@@ -17,11 +16,14 @@ const ChoppingBoard = ({recipeNo = 2, stepNo = 2, difficulty = 1}) =>{
     const Chopping = () =>{
         //total width is 50
         //each chop should reduce width by correct chopno/50
-        setWidth(50 - chopno*correctchop/50)
-        console.log(`new width is ${50 - chopno*correctchop/50}`)
+        if (chopno === correctchop){
+            return
+        } 
+        setWidth(50 - chopno*50/correctchop)
         setChopno(chopno + 1)
+        console.log(chopno)
 
-        if (chopno === correctchop){console.log('yay')}
+        
     }
 
     return (
@@ -37,21 +39,21 @@ const ChoppingBoard = ({recipeNo = 2, stepNo = 2, difficulty = 1}) =>{
 
         <div className='timebar' style={{
             backgroundColor: 'green',
-            width: `${50-width}%`
+            width: `${chopno*(80/correctchop)}%`
         }}></div>
 
-        <div className='ingredients' key='cut' style={{
+        <div className='ingredients' key='cut' onClick= {Chopping}  style={{
              backgroundImage: `url(/fridge_pics/ingredientc-${task.ing[0]}.png)`,
              left: '25%',
              top: '28.5%',
              width: '50%',
-             height: '50%',
+             height: '50%'
         }}></div> 
 
         <div className='ingredients' onClick= {Chopping} style = {{
             backgroundImage: `url(/fridge_pics/ingredienth-${task.ing[0]}.png)`,
             left: '25%',
-            top: '30%',
+            top: '28.5%',
             width: `${width}%`,
             height: '50%',
             backgroundSize: 'cover'

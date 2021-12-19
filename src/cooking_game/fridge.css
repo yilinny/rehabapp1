@@ -7,6 +7,13 @@
     position: absolute;
 }
 
+.ingredients-r{
+    transform: rotateZ(180deg);
+    background-repeat: no-repeat;
+    position: absolute;
+    display: block;
+}
+
 .egg{
     background-image: url('./fridge_pics/ingredient5.png');
     background-size: contain;
