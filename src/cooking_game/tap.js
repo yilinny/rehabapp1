@@ -47,7 +47,7 @@ const potCoords = {
     return (
 
         <div>
-            <div className= 'pot'></div>
+            <div className= 'tap_pot'></div>
             <div className= 'rice'></div>
             <div className= 'pasta'></div>
             <div className= 'water'
@@ -88,7 +88,7 @@ function Instructions (props){
     
     return (
         <div>
-            <div className= 'pot'></div>
+            <div className= 'tap_pot'></div>
             <div className= 'rice'></div>
             <div className= 'pasta'></div>
             <div className= 'stepscontainer'>
@@ -122,7 +122,7 @@ function DragCup (props){
 
     return(
         <div>
-            <div className= 'pot'></div>
+            <div className= 'tap_pot'></div>
             <div className= 'rice'></div>
             <div className= 'pasta'></div>
                 <Draggable nodeRef = {cupRef} onDrag = {handleDrag} onStop = {handleCheck}>
@@ -172,7 +172,7 @@ function AddCarbs (props){
     }
     return (
         <div>
-            <div className= 'pot'></div>
+            <div className= 'tap_pot'></div>
             <Draggable nodeRef = {riceRef} onDrag = {handleRice} onStop = {handleCheck}> 
                 <div ref = {riceRef} className= 'rice'></div> 
             </Draggable>
@@ -202,7 +202,7 @@ function PourCarbs (props) {
 
     return (
         <div>
-            <div className= 'pot'></div> 
+            <div className= 'tap_pot'></div> 
             <div className= {props.carbs}
             style = {{
                 top: '20%',
@@ -220,15 +220,12 @@ function PourCarbs (props) {
 
 }
 
-function LevelScreen (){
-    //placeholder --- to be imported in from general screen 
-    return (
-        <p> 'HI' </p>
-    )
-}
 
-export const KitchenOne =  ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
+export const KitchenOne =  ({recipeNo = 4, stepNo = 4, difficulty = 2, next_step}) => {
+    console.log(recipeNo)
+    console.log(recipes[0])
     let task = recipes[recipeNo].step[stepNo]
+    
     const steps = task.adapt.steps[difficulty]
     const carbs = task.adapt.carbs
     const [stepcount, setStep] = useState(0)
@@ -246,7 +243,7 @@ export const KitchenOne =  ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
         function renderTwo (){return <DragCup onPass ={stepDone}/>},
         function renderThree(){return <AddCarbs carbs = {carbs} onPass = {stepDone}/>},
         function renderFour (){return <PourCarbs carbs={carbs} onPass={stepDone}/>},
-        function nextLevel (){return <LevelScreen/>}
+        function levelDone(){next_step()}
     ] //an array of functions, each rendering the desired scene. stepcount as index for the scene. Parent container of the scene is the div w background image 
 
 

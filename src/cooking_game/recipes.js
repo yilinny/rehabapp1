@@ -5,7 +5,7 @@
     pan/pot: 2
     Chopping: 3
     mix/mush: 4
-    Plating: 5 */
+    Cheese: 5 */
 
 let recipes = [
     //array of dictionary - easy to maintain, more straightforward to edit in english 
@@ -14,7 +14,7 @@ let recipes = [
     {
         r_id: 'PB',
         r_no: 0,
-        steps : [0,1,3,2,5],
+        steps : [0,1,3,5,2,6],
         step:[
             {
                 ing: [],
@@ -24,12 +24,19 @@ let recipes = [
                 }//boil water
             },
             {
-                ing: [0,2,3,8],
-                adapt: {}
+                ing: [[0,2,3], [0,2,3,8], [0,2,2,3,3,8]]//take from fridge
+            },
+            {
+                ing: [0],
+                adapt: {
+                    chop_no: [20,40,60]
+                }
             },
             {
                 ing: [3],
-                adapt: {}
+                adapt: {
+                    grate_no: [10,20,40]
+                }//grate cheese
             },
             {
                 ing: [[8,2], [8,2,0], [8,2,0,3]],
@@ -39,10 +46,6 @@ let recipes = [
                     type : 'add',// 'add' at the right time based on time bar, or wait for it to change color 
                     time: [15,30,45,60] //adaptation for shorter or longer sustained attention 
                 }
-            },
-            {
-                ing: [],
-                adapt: {}
             }
         ]
 

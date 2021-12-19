@@ -22,12 +22,12 @@
     position: relative;
 }
 
-.pot{
+.tap_pot{
     background-image: url(./tap_pics/pot.png);
     background-size: contain;
     background-repeat: no-repeat;
     width: 15%;
-    height: 20%;
+    height: 30%;
     left: 30%;
     top: 25%;
     position: absolute;

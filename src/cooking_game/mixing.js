@@ -19,10 +19,9 @@ function generateinitialcoords (ing){
 }//kinda tedious, but gives more control over the aesthtic to manually generate coords 
 
 
-const Counter = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {  
+const Counter = ({recipeNo=4,stepNo = 4, difficulty = 2}) => {  
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
-    console.log(task.adapt.time)
     const total_seconds = task.adapt.time[difficulty] //adapt based on sustained attention
     const ing_arr = task.ing[difficulty]
     const  initialcoords =  generateinitialcoords(ing_arr.length) 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Draggable from 'react-draggable'
 import './fridge.css'
+import recipes from './recipes'
 
 //basically this uses the tile method similar to puzzle. Tiles.map (tiles,index) => <draggable ref{index}=><div ref={index}> 
 //just check ondragstop if coordinates are correct, use current index to streamline check
@@ -10,15 +11,37 @@ function resizeContainer (){
     return (1080/1920 * window.innerWidth)
 }
 
-export function Fridge (props){
+function Instructions (props) {
+    return(
+        <div key='instruction' style ={{backgroundColor:'white', width: '50%', height: '50%', top: '25%', left: '15%', position: 'absolute'}}>
+                <p> Gather these ingredients!</p>
+                {props.correct_ing.map(
+                    (food,index) => 
+                        <div key= {`instruction-${index}`}  className='ingredients' style ={{
+                        backgroundImage: `url(/fridge_pics/ingredient${food}.png)`,
+                        left: `${20*(index%3 + 1)}%`,
+                        top: `${(index <= 2)? 30: 60}%`,
+                    }}></div>)}
+            <button onClick={props.onclick}>Let's go!</button> 
+            </div>
+        
+    )
+}
+
+//can leave props as props then props.sth 
+
+export function Fridge ({recipe_no =0, step_no = 1, difficulty = 2, next_step}){
+    const task = recipes[recipe_no].step[step_no]
+    const[correct_ing_arr, setCorrectIngArr] = useState(task.ing[difficulty])
+
     const ingredientsref= useRef(null)
     const [ingredients, setIngredients] = useState(0)
     const initialXcoords = [5,14,25,8,20,28,5,15,25,40,53,43,55] 
     const initialYcoords = [18,18,18,38,38,40,55,55,55,23,23,58,55]; 
     //im sure theres a more matheically correct way to generate coords, but this takes less line and gives me more precision
     const movingIngredient = useRef(null)
-    const [totalCorrect, setTotal] = useState(0)
     const [highestKey, setHighKey] = useState (12)
+    const [instruction, setInstruction] = useState(1)
     
     useEffect(()=>{
         setIngredients(Array.from(Array(13).keys()).map(x => ({
@@ -41,18 +64,25 @@ export function Fridge (props){
         let ing_id = movingIngredient.current.ing_id
         let unique_id = movingIngredient.current.unique_id
         //ing_id for checking, unique_id to ensure draggable and refs work properly. 
-
+        console.log(correct_ing_arr)
         const newPos = {
             x: e.target.getBoundingClientRect().x,
             y: e.target.getBoundingClientRect().y
         } 
-        console.log(newPos.y)
 
         if (newPos.x > 0.7*(window.innerWidth)){
 
-                if (props.list.includes(ing_id)){
-                    setTotal(totalCorrect + 1)
-                    
+                if (correct_ing_arr.includes(ing_id)){
+
+
+                    setCorrectIngArr(prevState=>{
+                        let uniqueIndex = prevState.indexOf(ing_id)
+                        let new_arr = prevState
+                        new_arr.splice(uniqueIndex, 1)
+                        console.log(`new arr is ${new_arr}`)
+                        return new_arr
+                    }) //deletes repeat arr from ing_arr 
+
                     setIngredients(prevState =>{
                         let newState = [...prevState.filter(it=>it.unique_id !== unique_id),
                         {
@@ -76,6 +106,10 @@ export function Fridge (props){
                         return newState
                     }
                         )
+
+                    if (task.ing[difficulty].length === 0){
+                        next_step()
+                    }
                 }
                 else {
                     setIngredients(prevState => {
@@ -98,6 +132,11 @@ export function Fridge (props){
       
     }
 
+    const Start = () =>{
+        setInstruction(0)
+
+    }
+
     return (
         <div className = 'background'>
         <div className= 'container'
@@ -116,7 +155,10 @@ export function Fridge (props){
                     top: `${food.top}px`
                 }}
             ></div>
-            </Draggable>)} 
+            </Draggable>)}
+
+        {(instruction === 1)? <Instructions correct_ing={correct_ing_arr} onclick={Start}/>: <div/>}
+            
         </div>  
         </div>
     )

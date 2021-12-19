@@ -8,7 +8,7 @@ function resizeContainer (){
     return (1080/1920 * window.innerWidth)
 }
 
-const Grater = ({recipeNo = 1   , stepNo = 2, difficulty = 1}) =>{
+const Grater = ({recipeNo = 1 , stepNo = 2, difficulty = 1, next_step}) =>{
     let task = recipes[recipeNo].step[stepNo]
     const [width, setWidth] = useState(20)
     const [dragno, setDragno] = useState(0)
@@ -18,7 +18,9 @@ const Grater = ({recipeNo = 1   , stepNo = 2, difficulty = 1}) =>{
     const Dragging = (e,ui) =>{
         let distdrag = Math.sqrt(Math.pow(ui.deltaX,2) + Math.pow(ui.deltaY,2))
         if(dragno >= correctdrag){
-                setText('Great Job!')
+                setTimeout(()=>{
+                    next_step()
+                }, 1000)
                 return
             }
         setDragno(dragno + distdrag)
@@ -47,7 +49,7 @@ const Grater = ({recipeNo = 1   , stepNo = 2, difficulty = 1}) =>{
             backgroundColor: 'green',
         }}></div>
 
-        <p> {text}</p>
+        <h1> {text}</h1>
 
         <Draggable onDrag={Dragging}>
             <div className='ingredients-r' style ={{

@@ -24,7 +24,7 @@ function generateinitialcoords_wait (ing){
        return arr
 
 }
-const Stove = ({recipeNo = 3, stepNo = 3, difficulty = 2}) => {  
+const Stove = ({recipeNo = 3, stepNo = 3, difficulty = 2, next_step}) => {  
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
     const total_seconds = task.adapt.time[difficulty] //adapt based on sustained attention
@@ -42,6 +42,7 @@ const Stove = ({recipeNo = 3, stepNo = 3, difficulty = 2}) => {
     const [correctseconds, setCorrect] = useState(0)
     const [text, setText] = useState(null)
     const [cook,setCooking] = useState('paused')
+    const [correct, setTotalCorrect] = useState(0)
     let imgSrc; 
     (task.adapt.fireNo === 1)? imgSrc = '/general/bg/onefire.png': imgSrc = '/general/bg/twofire.png';
 
@@ -98,11 +99,18 @@ const Stove = ({recipeNo = 3, stepNo = 3, difficulty = 2}) => {
         
     }, [seconds]); //get seconds to check if correct 
 
+    useEffect(()=>{
+            setTimeout(()=>{
+                next_step()
+            },(total_seconds+2)*1000)
+    }, [])
+
     useEffect (()=>{
         setTimeout(()=>{
             setText(null)
         }, 2000)
     }, [text]) //perfect! or great! gives feedback on timing --> disappears after onesec
+
 
     function register(ing){
         movingIngredient.current = ing
@@ -163,10 +171,14 @@ const Stove = ({recipeNo = 3, stepNo = 3, difficulty = 2}) => {
             let ing_index = ing_arr.indexOf(food.ing_id)
             //check time
             if (seconds > 0.35* correctseconds[ing_index] && seconds < 0.6*correctseconds[ing_index]) {
+                setTotalCorrect(correct + 1)
                 let current_state = cook
                 current_state.splice(ing_index,1,'paused')
                 setCooking(current_state)
                 (seconds > 0.45* correctseconds[ing_index] && seconds < 0.5*correctseconds[ing_index]) ? setText('Perfect!') : setText('Great!')
+            }
+            if (correct === ing_arr.length -1){
+                next_step()
             }
         }
     }
