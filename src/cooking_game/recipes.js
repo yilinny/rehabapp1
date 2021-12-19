@@ -18,15 +18,18 @@ let recipes = [
         step:[
             {
                 ing: [],
-                adapt: []
+                adapt: {
+                    steps: [1,2,3],
+                    carbs: 'pasta'
+                }//boil water
             },
             {
                 ing: [0,2,3,8],
-                adapt: []
+                adapt: {}
             },
             {
                 ing: [3],
-                adapt: []
+                adapt: {}
             },
             {
                 ing: [[8,2], [8,2,0], [8,2,0,3]],
@@ -39,7 +42,7 @@ let recipes = [
             },
             {
                 ing: [],
-                adapt: []
+                adapt: {}
             }
         ]
 

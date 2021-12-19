@@ -24,7 +24,7 @@ function generateinitialcoords_wait (ing){
        return arr
 
 }
-const Stove = ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {  
+const Stove = ({recipeNo = 3, stepNo = 3, difficulty = 2}) => {  
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
     const total_seconds = task.adapt.time[difficulty] //adapt based on sustained attention

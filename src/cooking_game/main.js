@@ -5,18 +5,20 @@ import Stove from "./stove"
 import ChoppingBoard from "./chopping_board";
 import Counter from "./mixing";
 import Grater from "./grate";
+import recipes from "./recipes";
 
 
 
-export const CurrentScene= () =>{
-    //recipearray to be an array of dicts. Dicts contain neccessay info as parameters for each scene 
-    //recipearray to be held in separate .json file, for game to choose based on goals identified
+export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
+    const recipe = recipes[recipe_no]
+    const [stepindex, setStepIndex]= useState(0)
+    
 
     return (
         //<KitchenOne/>
         //<Fridge list ={[0,3,5,12]}/>
-        //<Stove/>
-        <Grater/>
+        <Stove/>
+        //<Grater/>
     )
 }
 export default CurrentScene

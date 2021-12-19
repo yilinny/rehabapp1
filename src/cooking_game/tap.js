@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Draggable from 'react-draggable'
 import './tap.css'
+import recipes from './recipes'
 
 function resizeContainer (){
     return (1080/1920 * window.innerWidth)
@@ -226,7 +227,10 @@ function LevelScreen (){
     )
 }
 
-export const KitchenOne =  ({steps = 3, carbs= 'rice'}) => {
+export const KitchenOne =  ({recipeNo = 4, stepNo = 4, difficulty = 2}) => {
+    let task = recipes[recipeNo].step[stepNo]
+    const steps = task.adapt.steps[difficulty]
+    const carbs = task.adapt.carbs
     const [stepcount, setStep] = useState(0)
     let targetstep;
     (steps > 2) ? targetstep = steps + 1 : targetstep = steps
