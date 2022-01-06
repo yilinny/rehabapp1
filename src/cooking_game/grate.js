@@ -8,12 +8,12 @@ function resizeContainer (){
     return (1080/1920 * window.innerWidth)
 }
 
-const Grater = ({recipeNo = 1 , stepNo = 2, difficulty = 1, next_step}) =>{
-    let task = recipes[recipeNo].step[stepNo]
+const Grater = ({recipeNo , stepNo , difficulty, next_step}) =>{
     const [width, setWidth] = useState(20)
     const [dragno, setDragno] = useState(0)
     const [text, setText] = useState(null)
-    const correctdrag= task.adapt.grate_no[difficulty]*971
+    const difficulty_arr = [10,20,30,40,50]
+    const correctdrag=difficulty_arr[difficulty]*971
 
     const Dragging = (e,ui) =>{
         let distdrag = Math.sqrt(Math.pow(ui.deltaX,2) + Math.pow(ui.deltaY,2))

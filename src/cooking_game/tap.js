@@ -8,6 +8,12 @@ function resizeContainer (){
 } //resized height in px 
  //have to be globally defined if not no work???
 
+/*visual cues
+    - arrow for tap, carbs, cup 
+    - the word, 'drag'
+    - just set position, then opacity as 0 if no visual cues 
+*/
+
 const potCoords = {
     x: 0.375*(window.innerWidth), // midpoint coordinates 
     y: 0.3*(resizeContainer()), //midpoint coordinates
@@ -221,12 +227,10 @@ function PourCarbs (props) {
 }
 
 
-export const KitchenOne =  ({recipeNo = 4, stepNo = 4, difficulty = 2, next_step}) => {
-    console.log(recipeNo)
-    console.log(recipes[0])
+export const KitchenOne =  ({recipeNo, stepNo, difficulty , next_step}) => {
     let task = recipes[recipeNo].step[stepNo]
-    
-    const steps = task.adapt.steps[difficulty]
+    const steps_arr = [1,1,2,3,3]
+    const steps = steps_arr[difficulty] 
     const carbs = task.adapt.carbs
     const [stepcount, setStep] = useState(0)
     let targetstep;

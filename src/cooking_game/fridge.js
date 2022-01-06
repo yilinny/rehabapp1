@@ -12,6 +12,7 @@ function resizeContainer (){
 }
 
 function Instructions (props) {
+    console.log(props.correct_ing)
     return(
         <div key='instruction' style ={{backgroundColor:'white', width: '50%', height: '50%', top: '25%', left: '15%', position: 'absolute'}}>
                 <p> Gather these ingredients!</p>
@@ -20,7 +21,7 @@ function Instructions (props) {
                         <div key= {`instruction-${index}`}  className='ingredients' style ={{
                         backgroundImage: `url(/fridge_pics/ingredient${food}.png)`,
                         left: `${20*(index%3 + 1)}%`,
-                        top: `${(index <= 2)? 30: 60}%`,
+                        top: `${20*(Math.ceil((index + 1)/3))}%`,
                     }}></div>)}
             <button onClick={props.onclick}>Let's go!</button> 
             </div>
@@ -30,8 +31,8 @@ function Instructions (props) {
 
 //can leave props as props then props.sth 
 
-export function Fridge ({recipe_no =0, step_no = 1, difficulty = 2, next_step}){
-    const task = recipes[recipe_no].step[step_no]
+export function Fridge ({recipeNo, stepNo, difficulty , next_step}){
+    const task = recipes[recipeNo].step[stepNo]
     const[correct_ing_arr, setCorrectIngArr] = useState(task.ing[difficulty])
 
     const ingredientsref= useRef(null)

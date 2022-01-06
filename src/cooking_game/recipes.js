@@ -15,36 +15,29 @@ let recipes = [
         r_id: 'PB',
         r_no: 0,
         steps : [0,1,3,5,2,6],
+
         step:[
             {
                 ing: [],
                 adapt: {
-                    steps: [1,2,3],
                     carbs: 'pasta'
                 }//boil water
             },
             {
-                ing: [[0,2,3], [0,2,3,8], [0,2,2,3,3,8]]//take from fridge
+                ing: [[0,2,3], [0,2,3,8], [0,2,3,8],[0,2,2,3,8], [0,2,2,3,3,8]]//take from fridge
             },
             {
                 ing: [0],
-                adapt: {
-                    chop_no: [20,40,60]
-                }
             },
             {
-                ing: [3],
-                adapt: {
-                    grate_no: [10,20,40]
-                }//grate cheese
+               //grate nil params
             },
             {
-                ing: [[8,2], [8,2,0], [8,2,0,3]],
+                ing: [[8,2], [8,2,0], [8,2,0], [8,2,0,3], [8,2,2,0,3]],
                 adapt: {
                     fireNo:    1,
                     cookery: 'pot',
                     type : 'add',// 'add' at the right time based on time bar, or wait for it to change color 
-                    time: [15,30,45,60] //adaptation for shorter or longer sustained attention 
                 }
             }
         ]
@@ -53,31 +46,29 @@ let recipes = [
     {
         r_id: 'CB',
         r_no: 1,
-        steps : [0,1,3,2],
+        steps : [0,1,3,2,6],
         step:[
             {
                 ing: [],
-                adapt: []
-            },
-            {
-                ing: [4,3,5],
-                adapt: []
-            },
-            {
-                ing: [3],
                 adapt: {
-                    grate_no : [10,20,40]
+                    carbs: 'pasta'
                 }
+            },
+            {
+                ing: [[4,3,5], [4,3,5,5],[4,3,3,5,5], [4,3,3,5,5,5], [4,3,3,5,5,5,8,8]]
+            },
+            {
+                ing: [3]
             },
             {
                 ing: [[4,13], [4,13,5], [14,4,13,5]],
                 adapt: {
                     fireNo:    1,
                     cookery: 'pan',
-                    type : 'add',
-                    time: [15,30,45] //adaptation for shorter or longer sustained attention 
+                    type : 'add'
                 }
-            }
+            },
+            {}//grate nil params
         ]
 
 
@@ -85,29 +76,28 @@ let recipes = [
     {
         r_id: 'FR',
         r_no: 2,
-        steps : [0,1,3,2],
+        steps : [0,1,3,3,2],
         step:[
             {
-                ing: [],
-                adapt: []
-            },
-            {
-                ing: [4,3,5],
-                adapt: []
-            },
-            {
-                ing: [10],
                 adapt: {
-                    chop_no: [20,40,60]
+                    carbs: 'rice'
                 }
             },
             {
-                ing: [[4,13], [4,13,5], [14,4,13,5]],
+                ing: [[8,1,5], [8,1,5,10,1], [8,1,5,5,1,10,1]],
+            },
+            {
+                ing: [10]
+            },
+            {
+                ing: [0]
+            },
+            {
+                ing: [[5,10,17], [14,5,10,17], [14,1,5,10,17]],
                 adapt: {
                     fireNo:    1,
                     cookery: 'pan',
-                    type : 'add',
-                    time: [15,30,45] //adaptation for shorter or longer sustained attention 
+                    type : 'add'
                 }
             }
         ]
@@ -115,29 +105,30 @@ let recipes = [
 
     }, //fried rice
     {
-        r_id: 'CB',
-        r_no: 1,
-        steps : [0,1,3,2],
+        r_id: 'JC',
+        r_no: 3,
+        steps : [0,1,3,3,2],
         step:[
             {
-                ing: [],
-                adapt: []
+                adapt: {
+                    carbs: 'rice'
+                }
             },
             {
-                ing: [4,3,5],
-                adapt: []
+                ing: [[6,7,8], [6,7,8,10], [6,7,8,10,1,7]],
             },
             {
-                ing: [3],
-                adapt: []
+                ing: [7]
             },
             {
-                ing: [[4,13], [4,13,5], [14,4,13,5]],
+                ing: [10]
+            },
+            {
+                ing: [[8,7,10], [8,1,7,10], [8,1,7,10,6]],
                 adapt: {
                     fireNo:    1,
-                    cookery: 'pan',
-                    type : 'add',
-                    time: [15,30,45] //adaptation for shorter or longer sustained attention 
+                    cookery: 'pot',
+                    type : 'add'
                 }
             }
         ]
@@ -147,33 +138,28 @@ let recipes = [
     {
         r_id: 'SM',
         r_no: 4,
-        steps : [1,3,0,4,2],
+        steps : [1,0,3,4,2],
         step:[
             {
-                ing: [],
-                adapt: {}
+                ing: [[12,7], [12,7,3], [12,7,7,7,3]],
             },
             {
-                ing: [],
-                adapt: []
-            },
-            {
-                ing: [3],
-                adapt: []
-            },
-            {
-                ing: [],
-                adapt: {
-                
+                adapt:{
+                    carbs: 'potato'
                 }
             },
             {
-                ing: [[4,13], [4,13,5], [14,4,13,5]],
+                ing: [7]
+            },
+            {
+                ing: [[7,3,18], [7,3,18,19], [7,3,18,19,20]]
+            },
+            {
+                ing: [12],
                 adapt:{
                     fireNo: 1,
                     cookery: 'pan',
-                    type: 'wait',
-                    time: [30,45,60]
+                    type: 'wait'
                 }
 
             }

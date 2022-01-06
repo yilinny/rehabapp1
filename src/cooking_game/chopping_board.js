@@ -5,13 +5,12 @@ function resizeContainer (){
     return (1080/1920 * window.innerWidth)
 }
 
-const ChoppingBoard = ({recipeNo = 2, stepNo = 2, difficulty = 1, next_step}) =>{
+const ChoppingBoard = ({recipeNo = 2, stepNo = 2, difficulty, next_step}) =>{
     let task = recipes[recipeNo].step[stepNo]
     const [width, setWidth] = useState(50)
     const [chopno, setChopno] = useState(0)
-    const correctchop = task.adapt.chop_no[difficulty]
-
-    console.log(`correctchop is ${correctchop}`)
+    const chop_arr = [20,40,60]
+    const correctchop = chop_arr[difficulty]
 
     const Chopping = () =>{
         //total width is 50
@@ -22,9 +21,6 @@ const ChoppingBoard = ({recipeNo = 2, stepNo = 2, difficulty = 1, next_step}) =>
         } 
         setWidth(50 - chopno*50/correctchop)
         setChopno(chopno + 1)
-        console.log(chopno)
-
-        
     }
 
     return (

@@ -22,13 +22,16 @@ function generateinitialcoords_wait (ing){
     if (ing === 1) {arr= [[43,50]]}
     else if (ing ===2) {arr = [[20,50], [65,53]]}
        return arr
-
 }
-const Stove = ({recipeNo = 3, stepNo = 3, difficulty = 2, next_step}) => {  
+
+
+const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {  
+    console.log(difficulty)
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
-    const total_seconds = task.adapt.time[difficulty] //adapt based on sustained attention
-    const ing_arr = (task.adapt.type === 'add') ? task.ing[difficulty]: task.ing// ingredient list no change for other mode
+    const time_arr= [15,20,30,40,50]
+    const total_seconds = time_arr[difficulty[0]] //adapt based on sustained attention
+    const ing_arr = (task.adapt.type === 'add') ? task.ing[difficulty[1]]: task.ing// ingredient list no change for other mode
     const  initialcoords = (task.adapt.type ==='add') ? generateinitialcoords(ing_arr.length) : generateinitialcoords_wait (ing_arr.length)
     const opacity = (task.adapt.type === 'add') ? 1: 0 // hides timebar and related divs
 

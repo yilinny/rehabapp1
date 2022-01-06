@@ -19,11 +19,13 @@ function generateinitialcoords (ing){
 }//kinda tedious, but gives more control over the aesthtic to manually generate coords 
 
 
-const Counter = ({recipeNo=4,stepNo = 4, difficulty = 2}) => {  
+const Counter = ({recipeNo,stepNo , difficulty, next_step}) => {  
+    console.log(difficulty)
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
-    const total_seconds = task.adapt.time[difficulty] //adapt based on sustained attention
-    const ing_arr = task.ing[difficulty]
+    const seconds_arr= [15,20,30,40,50]
+    const total_seconds = seconds_arr[difficulty[0]] //adapt based on sustained attention
+    const ing_arr = task.ing[difficulty[1]]
     const  initialcoords =  generateinitialcoords(ing_arr.length) 
 
     //setting states
@@ -87,6 +89,12 @@ const Counter = ({recipeNo=4,stepNo = 4, difficulty = 2}) => {
             setText(null)
         }, 2000)
     }, [text]) //perfect! or great! gives feedback on timing --> disappears after onesec
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            next_step()
+        },(total_seconds+2)*1000)
+}, [])//end step 
 
     function register(ing){
         movingIngredient.current = ing
