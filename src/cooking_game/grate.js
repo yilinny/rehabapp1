@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Draggable from 'react-draggable'
-import recipes from './recipes'
 import './fridge.css'
 import { useEffect } from 'react/cjs/react.development'
 

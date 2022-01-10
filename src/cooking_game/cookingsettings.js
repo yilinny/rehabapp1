@@ -80,32 +80,3 @@ export const CookingSettings = () =>{
     )
 
 } 
-
-/*
-                <label> Motor skills: </label>
-                <select value = {finalSkills[0]+ 1} onChange = {(e)=>{handleChange(e,0)}}>
-                {difficultyScale.map(item => {
-                    return(<option key={`0-${item}`} value = {item}>{item}</option>);
-                })}
-                </select>
-
-                <label> Attention: </label>
-                <select value = {finalSkills[1]+ 1} onChange = {(e)=>{handleChange(e,1)}}>
-                {difficultyScale.map(item => {
-                    return(<option key={`1-${item}`} value = {item}>{item}</option>);
-                })}
-                </select>
-
-                <label> Memory: </label>
-                <select value = {finalSkills[2]+ 1} onChange = {(e)=>{handleChange(e,2)}}>
-                {difficultyScale.map(item => {
-                    return(<option key={`2-${item}`} value = {item}>{item}</option>);
-                })}
-                </select>
-
-                <label> Information Processing: </label>
-                <select value = {finalSkills[3]+ 1} onChange = {(e)=>{handleChange(e,3)}}>
-                {difficultyScale.map(item => {
-                    return(<option key={`3-${item}`} value = {item}>{item}</option>);
-                })}
-                </select>*/

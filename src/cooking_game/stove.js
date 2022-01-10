@@ -106,6 +106,7 @@ const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {
             setTimeout(()=>{
                 next_step()
             },(total_seconds+2)*1000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect (()=>{

@@ -15,9 +15,6 @@ import recipes from "./recipes";
     mix/mush: 4
     Cheese: 5 */
 
-
-
-
 export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
     console.log(`recipe_no is ${recipe_no}`)
     console.log(`skills is ${skills}`)
@@ -26,6 +23,10 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
     console.log(scenes)
     const [stepindex, setStepIndex]= useState(0)
     const [levelup, switchLevel] = useState(true)
+    const scenedifficulty = [skills[3], Math.floor(0.5*(skills[2] + skills[3])), [skills[1], skills[3]], skills[0], [skills[1], skills[3]], skills[0]]
+    //scenes[stepindex] as a way to find index for difficulty in arr
+    const measures = useState([])
+    //motor attention memory. Motor = difficulty * 
 
     const nextStep = () =>{
         if (scenes[stepindex + 1]!==6){switchLevel(true)}
@@ -65,9 +66,27 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
         ) //CSS HERE PLS 
     }
 
-    const scenedifficulty = [skills[3], Math.floor(0.5*(skills[2] + skills[3])), [skills[1], skills[3]], skills[0], [skills[1], skills[3]], skills[0]]
-    //scenes[stepindex] as a way to find index for difficulty in arr
-    //to be tested!!
+    function generateStats (){
+        return(
+            <div>
+                <h2>Here are some useful outcome measures!</h2>
+                <br/>
+                <h4>Total no. of repetitions from chopping and grating :</h4>
+                <br/>
+                <h4>Attention:</h4> 
+                <br/>
+                <h4> Working memory </h4>
+                
+            </div>
+        )
+    }
+
+    /*outcome measures
+    motor: no. of repetition
+    attention: sustained or divided, for how long (can go based on difficulty?)
+    info processing: able to follow up to 3 steps instructions
+    memory: working memory, able to hold up to () items for about 30seconds - 1min
+    problem solving: able to figure out game mechanics without visual cues */
 
     const renderscenes = [
         function boilwater(){return (<KitchenOne recipeNo={recipe_no} stepNo={stepindex} next_step={()=>{nextStep()}} difficulty={scenedifficulty[scenes[stepindex]]} />)},
@@ -88,7 +107,9 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
                     top: '40%',
                     position: 'absolute'
                 }}>GREAT JOB!</h3>
+                <button onClick={generateStats}>See Stats</button>
                 </div>
+                
             )
         }
     ]
@@ -100,3 +121,4 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
     )
 }
 export default CurrentScene
+
