@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Icon, Image, Button } from 'semantic-ui-react'
-import './pics/bg-1.png'
+import { Card, Icon, Image, Button } from 'semantic-ui-react';
+
 export class GameMenu extends React.Component {
     constructor(props) {
         super(props);
@@ -37,31 +37,30 @@ export class GameMenu extends React.Component {
 
     render() {
         return (
-            <div className="" style={{height: '100%', width:'100%', backgroundColor:'black'}}>
+            <div className="" style={{ height: '100%', width: '100%', backgroundColor: 'black' }}>
                 {
-                    this.state.games.map((game,index) => {
+                    this.state.games.map((game, index) => {
                         return (
-                            <Card style={{top: `${(Math.floor(index*0.5)*30 + 20)}%`, left:`${(index %2)*40 + 20}%`, position:'absolute'}}>
+                            <Card style={{ top: `${(Math.floor(index * 0.5) * 30 + 20)}%`, left: `${(index % 2) * 40 + 20}%`, position: 'absolute' }}>
                                 <Card.Content>
-                                    <Image src='./pics/bg2.jpg' wrapped ui={true}></Image>
+                                    <Image src='game_menu_pics/bg-2.png' wrapped ui={true}></Image>
                                     <Card.Header>{game.name}</Card.Header>
                                     <Card.Meta>
-                                    <span className='date'>{game.name}</span>
+                                        <span className='date'>{game.name}</span>
                                     </Card.Meta>
                                     <Card.Description>
-                                    {game.description}
+                                        {game.description}
                                     </Card.Description>
                                     <Button href={game.link}> Play now!</Button>
                                 </Card.Content>
-                                </Card>
-                        )
+                            </Card>
+                        );
                     })
                 }
             </div>
-        )
+        );
     }
 }
 
 
-    
-  
+
