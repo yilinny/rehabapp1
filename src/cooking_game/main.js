@@ -25,7 +25,7 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
     const [levelup, switchLevel] = useState(true)
     const scenedifficulty = [skills[3], Math.floor(0.5*(skills[2] + skills[3])), [skills[1], skills[3]], skills[0], [skills[1], skills[3]], skills[0]]
     //scenes[stepindex] as a way to find index for difficulty in arr
-    const measures = useState([])
+    //const measures = useState([])
     //motor attention memory. Motor = difficulty * 
 
     const nextStep = () =>{

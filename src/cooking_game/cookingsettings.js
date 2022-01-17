@@ -14,8 +14,7 @@
 //form to take in recipe and skills
 //auto chosee most suitable recipe? -- drop down list? sth more visual for recipe choice 
 
-import React from 'react';
-import { useState } from 'react/cjs/react.development';
+import React, { useState } from 'react'
 import CurrentScene from './main';
 import ReactDOM from 'react-dom'
 
@@ -30,7 +29,6 @@ export const CookingSettings = () =>{
     
     const submitForm = (e) => {
         e.preventDefault() //prevent warning on form is not connected
-        console.log('submit')
         ReactDOM.render(<CurrentScene recipe_no={chosenrecipe} skills={finalSkills}/>, document.getElementById('root'))
     }
 
