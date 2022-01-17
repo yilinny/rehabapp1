@@ -7,11 +7,11 @@ const { promises: fs, createReadStream } = require('fs');
 const s3 = new AWS.S3({
     accessKeyId: AWS_KEY,
     secretAccessKey: AWS_SECRET,
-    region: 'ap-southeast-1'
+    region: 'eu-west-2'
 });
 
 const buildDir = `${__dirname}/build`;
-const bucketName = 'gamifiedrehab.com';
+const bucketName = 'gamified-rehab-eu';
 
 async function listBucketsAsync() {
     return new Promise((resolve, reject) => {
