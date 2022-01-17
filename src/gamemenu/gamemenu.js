@@ -20,6 +20,11 @@ export class GameMenu extends React.Component {
                     id: 'cooking-game',
                     name: 'Cooking game',
                     link: '/cooking'
+                },
+                {
+                    id: 'dino-game',
+                    name: 'Dino',
+                    link: '/dino'
                 }
             ]
         };
