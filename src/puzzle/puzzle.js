@@ -25,7 +25,7 @@ const Yay = () =>{
 
 
     confirmAlert({
-        title: 'Congratulations!',
+        title: 'Congrats!',
         message: `Completed in: ${time} \n\nDo another one?`,
         buttons: [
           {

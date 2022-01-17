@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
+import './pics/bg-1.png'
 export class GameMenu extends React.Component {
     constructor(props) {
         super(props);
@@ -8,23 +9,27 @@ export class GameMenu extends React.Component {
                 {
                     id: 'jigsaw-puzzle',
                     name: 'Jigsaw Puzzle',
-                    link: '/puzzle'
+                    link: '/puzzle',
+                    description: 'Complete Jigsaw Puzzles!'
                 },
 
                 {
                     id: 'square-game',
                     name: 'Tap the Square',
-                    link: '/square'
+                    link: '/square',
+                    description: 'Simple tap the square game'
                 },
                 {
                     id: 'cooking-game',
                     name: 'Cooking game',
-                    link: '/cooking'
+                    link: '/cooking',
+                    description: 'Be your own coooking mama!'
                 },
                 {
                     id: 'dino-game',
                     name: 'Dino',
-                    link: '/dino'
+                    link: '/dino',
+                    description: 'Dinosaur jump!'
                 }
             ]
         };
@@ -32,11 +37,23 @@ export class GameMenu extends React.Component {
 
     render() {
         return (
-            <div className="">
+            <div className="" style={{height: '100%', width:'100%', backgroundColor:'black'}}>
                 {
-                    this.state.games.map(game => {
+                    this.state.games.map((game,index) => {
                         return (
-                            <a href={ game.link }>{ game.name } </a>
+                            <Card style={{top: `${(Math.floor(index*0.5)*30 + 20)}%`, left:`${(index %2)*40 + 20}%`, position:'absolute'}}>
+                                <Card.Content>
+                                    <Image src='./pics/bg2.jpg' wrapped ui={true}></Image>
+                                    <Card.Header>{game.name}</Card.Header>
+                                    <Card.Meta>
+                                    <span className='date'>{game.name}</span>
+                                    </Card.Meta>
+                                    <Card.Description>
+                                    {game.description}
+                                    </Card.Description>
+                                    <Button href={game.link}> Play now!</Button>
+                                </Card.Content>
+                                </Card>
                         )
                     })
                 }
@@ -44,3 +61,7 @@ export class GameMenu extends React.Component {
         )
     }
 }
+
+
+    
+  

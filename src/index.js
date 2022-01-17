@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './index.css';
+import 'semantic-ui-css/semantic.min.css'
 
 import { GameMenu } from './gamemenu/gamemenu';
 import { SquareSettings } from './square/squaresettings';
 import {PuzzleSettings} from './puzzle/puzzlesettings';
 import {CookingSettings} from './cooking_game/cookingsettings'; 
 import { Dino } from './dinogame/dino';
+
 
 const Routing = () => {
   return(
