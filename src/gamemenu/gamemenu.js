@@ -35,37 +35,51 @@ export class GameMenu extends React.Component {
                     description: 'The classic chrome dinosaur game! Pay attention and help dino avoid the obstacles',
                     tags: 'sustained attention, information processing'
                 }
-            ]
+            ],
+
+            chosenid: 0
         };
+
+        this.onChangeDirection= this.onChangeDirection.bind(this);
     }
+
+    onChangeDirection (direction) {
+        let a= this.state.chosenid;
+        (direction=== 'L')? a= a -1 : a = a+1
+        if (a > 3 || a < 0) {
+            (a > 3)? a=0 : a=3
+        }
+        this.setState({chosenid: a})
+
+    }
+
+
 
     render() {
         return (
-            <div className="" style={{ height: '100%', width: '100%', backgroundColor: '#006D77' }}>
-                {
-                    this.state.games.map((game, index) => {
-                        return (
-                            <Card style={{ backgroundColor: '#83C5BE', top: `${(Math.floor(index * 0.5) * 40 + 15)}%`, left: `${(index % 2) * 38 + 18}%`, position: 'absolute', width: '30%' , height: '35%'}}>
-                                <Card.Content>
-                                    <Image src={`game_menu_pics/bg-${index}.png`} wrapped ui={true}></Image>
-                                    <Card.Header>{game.name}</Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>{game.tags}</span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        {game.description}
-                                    </Card.Description>
-                                    <br/>
-                                    <Button href={game.link}> Play now!</Button>
-                                </Card.Content>
-                            </Card>
-                        );
-                    })
-                }
+            <div className="" style={{ height: '100vh', width: '100vw', backgroundColor: '#006D77' }}>
+                <Card style={{ backgroundColor: '#83C5BE', top: `30vh`, left: `38vw`, position: 'absolute'}} raised={true}>
+                    <Card.Content>
+                    <Image src={`game_menu_pics/bg-${this.state.chosenid}.png`} wrapped ui={false}></Image>
+                        <Card.Header>{this.state.games[this.state.chosenid].name}</Card.Header>
+                        <Card.Meta>
+                            <span className='date'>{this.state.games[this.state.chosenid].tags}</span>
+                        </Card.Meta>
+                        <Card.Description>
+                            {this.state.games[this.state.chosenid].description}
+                        </Card.Description>
+                            <br/>
+                        <Button href={this.state.games[this.state.chosenid].link}> Play now!</Button>
+                    </Card.Content>
+                </Card>
+                <Button style={{position:'absolute', top: '50vh', left: '30vw'}} icon='angle left' onClick={this.onChangeDirection}/>
+                <Button style={{position:'absolute', top: '50vh', left: '65vw'}} icon='angle right' onClick={this.onChangeDirection}/>
             </div>
         );
     }
 }
 
+
+//
 
 

@@ -1,4 +1,5 @@
 .settings-container {
+    background-color: #bc6c25;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -7,31 +8,42 @@
     justify-content: center;
 }
 
+.break{
+    display: block;
+   margin: 10% 0;
+}
+
 .title {
     margin-bottom: 3rem;
+    position: absolute;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-
+.form {
     padding: 5%;
     border-radius: 18px;
-    background-color: var(--clr-primary-1);
+    background-color: #faf3dd;
 
     box-shadow: 0 4px 16px 8px hsl(205, 86%, 17%, 0.4);
+    position: relative
 }
 
-form p {
-    color: white;
+.subform {
+    text-align: center;
+    padding: 2%;
+    border-radius: 18px;
+    background-color: #dda15e;
+
+    position: absolute
 }
 
-label {
-    color: white;
+.form p {
+    color: black;
 }
 
-input {
+.label {
+    color: black;
+}
+
+.input {
     width: 50%;
 }

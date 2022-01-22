@@ -104,7 +104,7 @@ h3,
 h4 {
   letter-spacing: var(--spacing);
   text-transform: capitalize;
-  line-height: 1.25;
+  line-height: 1;
   margin-bottom: 0.75rem;
   font-family: var(--ff-primary);
 }
@@ -190,6 +190,8 @@ main {
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: #dda15e;
+    
 }
 #value {
   font-size: 6rem;
@@ -218,21 +220,37 @@ main {
 .square{
   width : 150px;
   height : 150px;
-  background-color: #6e0fc7;
   cursor:pointer;
   position: absolute;
-  left: 0px;
-  top: 0px;
   font-size: 1rem;
   font-weight: bold;
+  border-radius: 10px;
   
 }
 
 .navbar {
-  text-align : 'left';
+  background-color: #dda15e;
+  height: 10%;
+  padding: 1%;
 }
+
+.navbar h3 {
+    text-align: center;
+    line-height: 1vh;
+}
+
+.navbar p{
+    text-align: center;
+  }
+.navbar h4 {
+  text-align: center;
+  line-height: 1vh;
+}
+  
 .countdown {
-  text-align: 'left';
+  text-align: 'right';
+  background-color: #dda15e;
+
 }
 
 .circle {

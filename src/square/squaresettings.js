@@ -3,6 +3,8 @@
 import React from 'react';
 import GameBoard from './square';
 import { randomfive } from './adaptations';
+import '../settings.css'
+import { Popup, Image } from 'semantic-ui-react';
 
 
 export class SquareSettings extends React.Component {
@@ -11,7 +13,7 @@ export class SquareSettings extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            quadrants: [
+            quadrants: [[
                 {
                     id: 'UL',
                     name: 'Upper left'
@@ -20,7 +22,7 @@ export class SquareSettings extends React.Component {
                 {
                     id: 'LL',
                     name: 'Lower left'
-                },
+                },],[
 
                 {
                     id: 'UR',
@@ -30,7 +32,15 @@ export class SquareSettings extends React.Component {
                 {
                     id: 'LR',
                     name: 'Lower Right'
-                }
+                },],[
+                {
+                    id: 'C',
+                    name: 'Centre'
+                },
+                {
+                    id: 'P',
+                    name: 'Periphery'
+                }]
             ],
 
             selected: [],
@@ -73,31 +83,33 @@ export class SquareSettings extends React.Component {
     ChangeDuration(event){this.setState({duration:event.target.value})}
 
     onSubmit(event){
+       
         // Testing multiple inputs
         if (this.state.selected.length === 0) {
-            this.setState({selected:['NIL']})
+            this.setState({selected:'NIL'})
         }
         if (this.state.noQuad.length === 0) {
-            this.setState({noQuad: ['NIL']})
+            this.setState({noQuad: 'NIL'})
         }
 
         this.setState({gamestart: true})
+    
         event.preventDefault()
     }
 
     // Testing multiple inputs
     onSelectQuadrant(event, id) {
-        let selected = this.state.selected
-        let find = selected.indexOf(id)
+        let s = this.state.selected
+        let find = s.indexOf(id)
         
         if(this.state.noQuad.includes(id)) {
             alert('Can\'t avoid and increase frequency in the same quadrants...'); 
             event.preventDefault() //prevents box from being checked
         }
         else{
-        if (find > -1) {selected.splice(find, 1)} 
-        else {selected.push(id)}
-        this.setState({ selected });
+        if (find > -1) {s.splice(find, 1)} 
+        else {s.push(id)}
+        this.setState({selected: s});
         }
     
     }
@@ -105,6 +117,7 @@ export class SquareSettings extends React.Component {
     onSelectAvoidQuadrant(event,id) {
         let unselected = this.state.noQuad
         let find = unselected.indexOf(id)
+
         if(this.state.selected.includes(id)) {
             alert('Can\'t avoid and increase frequency in the same quadrants...'); 
             event.preventDefault() //box wouldnt be checked
@@ -137,44 +150,102 @@ export class SquareSettings extends React.Component {
         else {
             return(
                 <div className='settings-container'>
-                    <div className='title'>
-                        <h1> Game Settings </h1>
+                    <form className='form' onSubmit = { this.onSubmit } style={{width: '60%', height: '60%'}}>
+                    <div className='title' style={{left: '38%', top: '10%'}}>
+                        <h1> Settings </h1>    
                     </div>
-
-                    <form onSubmit = { this.onSubmit } >
-                        <p> Increase frequency on: 
+                        <div className='subform' style ={{top: '30%', left: '10%', height: '37%', width: '28%'}}>
+                        <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }}/>}>
+                            <Popup.Header> Increasing Frequency: </Popup.Header>
+                            <Popup.Content>
+                                <p>Encourage further practice in visual scanning to the lost visual field</p>
+                                <p>Eg: If left visual field is lost but want to practice scanning to the left, increase frequency  in the left quadrants to encourage scanning to the left.</p>
+                                <p>Useful for teaching compensation of scanning when limited by cognition</p>
+                            </Popup.Content>
+                        </Popup>
+                        <h4 style={{position:'absolute', top: '0%', left:'20%'}}> Increase frequency <br/> in these quadrants:</h4>
+                        <br/>
+                        <p></p>
                             {
                                 this.state.quadrants.map(item => {
                                     return (
-                                        <label key={ item.id }>
-                                            <input id={ item.id } 
+                                        <div>
+                                        <label key={ item[0].id }>
+                                            <input id={ item[0].id } 
                                                 type="checkbox"
-                                                onClick={ (e) => this.onSelectQuadrant(e,item.id) }
-                                                // quad ={ this.state.selected.includes(item.id) }
+                                                onClick={ (e) => this.onSelectQuadrant(e,item[0].id) }
                                             ></input>
-                                            <span>{ item.name }</span>
+                                            <span>{ item[0].name }&nbsp;&nbsp;</span>
+                                            
+                                        </label>
+                                        <label key={ item[1].id }>
+                                            <input id={ item[1].id } 
+                                                type="checkbox"
+                                                onClick={ (e) => this.onSelectQuadrant(e,item[1].id) }
+                                            ></input>
+                                            <span>{ item[1].name }</span>
+                                            <br/>
                                         </label> 
+                                        </div>
                                     )
                                 })
                             }
-                        </p> 
-                        <p>Avoid following quadrants:
+                           
+                        </div>
+                        
+                        <div className='subform' style ={{ top: '30%', left: '40%',height: '37%', width: '28%' }}>
+                        <Popup position = 'bottom right'trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }} />} wide>
+                            <Popup.Header> Avoiding Quadrants</Popup.Header>
+                            <Popup.Content>
+                                <p>Useful for assessment, when comorbidities complicates assessment of particular deficit.</p>
+                                <p>Eg: When it is unclear if slow reaction to  left and right sides are from visual neglect or from poor control of said arm. Can be used in conjunction with instructions to further assess (eg. use only left arm to tap)</p>
+                                <p>Can also be used to encourage scanning in other fields</p>
+                            </Popup.Content>
+                        </Popup>
+                        <h4 style={{position:'absolute', top: '0%', left:'20%'}}> Avoid the <br/>following quadrants:</h4>
+                        <br/>
+                        <p></p>
                             {
                                 this.state.quadrants.map(item => {
                                     return (
-                                        <label key={ item.id }>
-                                            <input id={ item.id } 
+                                        <div>
+                                        <label key={ item[0].id }>
+                                            <input id={ item[0].id } 
                                                 type="checkbox"
-                                                onClick={ (e) => this.onSelectAvoidQuadrant(e,item.id) }
-                                                // quad ={ this.state.selected.includes(item.id) }
+                                                onClick={ (e) => this.onSelectAvoidQuadrant(e,item[0].id) }
                                             ></input>
-                                            <span>{ item.name }</span>
+                                            <span>{ item[0].name }&nbsp;&nbsp;</span>
+                                            
+                                        </label>
+                                        <label key={ item[1].id }>
+                                            <input id={ item[1].id } 
+                                                type="checkbox"
+                                                onClick={ (e) => this.onSelectAvoidQuadrant(e,item[1].id) }
+                                            ></input>
+                                            <span>{ item[1].name }</span>
+                                            <br/>
                                         </label> 
+                                        </div>
                                     )
                                 })
                             }
-                        </p> 
+                        </div>
 
+                        <div className='subform' style ={{ top: '30%', left: '70%', height: '60%', width: '25%'}}>
+                        <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }}/>}>
+                            <Popup.Header> Color picker</Popup.Header>
+                            <Popup.Content>
+                                <p>Useful to assess if clients are more sensitive to particular colors. High contrast increases stimulation where there might be neglect/visual field loss, hence encouraging scanning</p>
+                                <p>Can be used in a compensatory manner by selecting a suitable contrast most comfortable for clients allowing them to work on other skills, with the contrasting colours giving visual cues to complete the exercises.</p> 
+                            </Popup.Content>
+                            <br/>
+                            <Popup.Header> Square Size</Popup.Header>
+                            <Popup.Content>
+                                <p>The variation of size from small, medium to large allows for grading of accuracy training of the fine motor skills. The smaller the square, the more accurate the client needs to be.</p>
+                                <p>Fits in with the motor stage of motor learning, in which the focus is on the quality of the movement, mass practice and decreasing mistakes.</p>
+                            </Popup.Content>
+                        </Popup>
+                        <br/>
                         <label> Square size:
                             <select value ={this.state.size} onChange = {this.ChangeSize}>
                                 <option value = 's'> Small</option>
@@ -182,16 +253,13 @@ export class SquareSettings extends React.Component {
                                 <option value = 'l'> Large</option>
                             </select>
                         </label>
-                        <label> Game mode
-                            <select value ={this.state.mode} onChange = {this.ChangeMode}>
-                                <option value = '0'> Nil</option>
-                                <option value = '1'> Extra shapes</option>
-                                <option value = '2'> Counting taps</option>
-                            </select>
-                        </label>
-                        <label> Square color 
+                        <br/>
+                        <br/>
+                        <label> Square color:    
                             <input type= 'color' value= {this.state.color} onChange={this.ChangeColor}></input>
                         </label>
+                        <br/>
+                        <br/>
                         <label> Start from level:
                             <select value = {this.state.level} onChange = {this.ChangeLevel}>
                                 <option value = {1}> 1</option>
@@ -199,14 +267,42 @@ export class SquareSettings extends React.Component {
                                 <option value = {5}> 5</option>
                             </select>
                         </label>
-                        <label> Duration: (of each level)
+                        <br/>
+                        <br/>
+                        <label> Duration: 
                             <select value={this.state.duration} onChange={this.ChangeDuration}>
                                 <option value ={15}>15 seconds</option>
                                 <option value ={20}>20 seconds</option>
                                 <option value ={30}>30 seconds</option>
                             </select>
                         </label>
-                        <input type='submit' value='Submit'/>
+
+                        </div>
+
+                        <div className='subform' style ={{ top: '70%', left: '15%', width: '50%', height: '18%'}}>
+                        <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', left: '93%' }}/>}>
+                            <Popup.Header>Distractions</Popup.Header>
+                            <Popup.Content>
+                                <p>Alongside the designated square, circles of a different color would appear. Clients are to only tap the square and would lose a life if they tap a circle.</p>
+                                <p>This targets attention and information processing.</p>
+                            </Popup.Content>
+                            <br/>
+                            <Popup.Header>Numbered taps</Popup.Header>
+                            <Popup.Content>
+                                <p>A number will appear on each square and that will be the number of times you will need to press the square before it disappears and the next square appears.</p>
+                                <p>This targets sustained attention, information processing and short-term memory (remembering the number pressed) Increased repetition also targets UL.</p>
+                            </Popup.Content>
+                        </Popup>
+                        <h4 style={{top: '0px', left: '40%', position: 'absolute'}}> Game mode: </h4>
+                        <p/>
+                        <label>
+                            <label> <input type ='radio' value = '0' onChange={this.ChangeMode} id='nil'/> Normal   </label>
+                            <label><input type ='radio' value = '1' onChange={this.ChangeMode} id='one'/> Distractions   </label>
+                            <label><input type ='radio' value = '2' onChange={this.ChangeMode} id='two'/> Counting taps!  </label>
+                        </label>
+                        </div>
+
+                        <input style={{position:'absolute', left: '50%', top: '90%'}} type='submit' value='Submit'/>
                     </form>
                 </div>
             )

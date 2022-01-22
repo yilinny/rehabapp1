@@ -19,7 +19,7 @@ export class TimeComponent extends React.Component {
     };
     render(){
       if (this.state.seconds === 0){clearInterval(this.interval); this.props.onGameOver(); return (null)} 
-      else {return(<div> Countdown:{this.state.seconds} </div>);}
+      else {return( `Countdown:${this.state.seconds}`);}
     }
 
     componentDidMount() {
@@ -47,7 +47,7 @@ export const TimeUp = (props) =>{
   }, [seconds, props.marker]);
 
   return(
-    <div id='time'>Time Elapsed: {time}</div>
+    <div id='time' style={{backgroundColor:'#dda15e'}}><h4>Time Elapsed: {time}</h4></div>
   )
 }
 

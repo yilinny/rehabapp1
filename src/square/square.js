@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 import {TimeComponent} from '../general/countdown';
 import {GameOver, LevelUp}from '../general/screens';
 import { increase_distribution, randomfive, AdaptedSquare } from './adaptations';
 import { SquareSettings } from './squaresettings';
-import {Circle} from './adaptations'
+import {Circle} from './adaptations';
+import '../index.css'
 
 
 function generate_coordinates(side) {
@@ -28,14 +29,14 @@ const updateTarget = (level_increment) => {
 let score = 0
 
 function Square (props){
-    console.log(`Selected quadrants: ${props.quad}`);
-    console.log(`props.quad type: ${typeof(props.quad)}`);
-    let coords = [];
+
+    const [coords, setCoords] = useState([]);
 
     let size = [];
    
-    if (props.quad.includes('NIL') && props.noquad==='nil') {
-        coords = [generate_coordinates('x'), generate_coordinates('y')]
+    useEffect (()=>{if (props.quad === 'NIL' && props.noquad==='NIL') {
+        console.log('in here')
+        setCoords([generate_coordinates('x'), generate_coordinates('y')])
     }
     
     else {
@@ -43,14 +44,15 @@ function Square (props){
         let unchosen = props.noquad;
 
         console.log(`chosen_quad: ${chosen_quad}`);
+        console.log(`unchosen:${unchosen}`)
 
         if (typeof unchosen === 'string') {
             unchosen=[unchosen]
         }
         //convert string into array -if not the two letters would be read as a single array, and 'U' would not be recognized
         
-        coords = increase_distribution(chosen_quad, unchosen)
-    } 
+        setCoords(increase_distribution(chosen_quad, unchosen))        
+    } }, [props])
 
     if (props.size === 's') {
         size = ['2.5vw', '5vh']
@@ -64,7 +66,8 @@ function Square (props){
         size = ['5vw', '10vh']
     }
 
-    return(
+    console.log(coords);
+    return( 
         <button className='square' 
             style = {{
                             left: coords[0], 
@@ -237,16 +240,16 @@ class GameBoard extends React.Component { //react component starts with caps
         }
         else if (this.state.game_mode === '1') {
             return(
-            <div>
+            <div style={{backgroundColor: '#bc6c25', width:'100vw', height: '100vh' }}>
                 <div className='navbar'>
-                    { this.state.score_display } 
-                    lives left: { this.state.lives }
+                    <h3>{ this.state.score_display }</h3> 
+                    <h4>lives left: { this.state.lives} &nbsp; <TimeComponent 
+                    time = { this.props.duration } 
+                    onGameOver = { () => { this.gameOver() } }/></h4>
+                
                 </div>
 
-                <TimeComponent 
-                    time = { this.props.duration } 
-                    onGameOver = { () => { this.gameOver() } }
-                />
+               
 
                 <Square 
                     onClick = { () => { this.handleClick() } } 
@@ -272,12 +275,13 @@ class GameBoard extends React.Component { //react component starts with caps
 
         else if (this.state.game_mode === '2') {
             return(
-                <div>
-                    <div className='navbar'>{this.state.score_display}</div>
-                    <TimeComponent 
+                <div style={{backgroundColor: '#bc6c25',width:'100vw', height: '100vh'}}>
+                    <div className='navbar'><h3>{this.state.score_display}</h3>
+                    <h4><TimeComponent 
                         time = { this.props.duration } 
                         onGameOver = { () => { this.gameOver() } }
-                    />
+                    /></h4>
+                </div>
 
                     <AdaptedSquare 
                         onClick = { () => { this.handleASquare() } } 
@@ -293,15 +297,14 @@ class GameBoard extends React.Component { //react component starts with caps
 
         else {
             return (
-                <div>
+                <div style={{backgroundColor: '#bc6c25',width:'100vw', height: '100vh'}}>
                     <div className='navbar'>
-                        { this.state.score_display }
-                    </div>
-
-                    <TimeComponent 
+                        <h3 style={{textAlign:'center'}}>{ this.state.score_display }</h3>
+                        <TimeComponent 
                         time = {this.props.duration} 
-                        onGameOver = { () => { this.gameOver() } }
+                        onGameOver = { () => { this.gameOver() }}
                     />
+                    </div>
 
                     <Square 
                         onClick = { () => { this.handleClick() } } 
