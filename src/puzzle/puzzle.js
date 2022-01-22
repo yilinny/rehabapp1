@@ -241,7 +241,7 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
     if (tiles === 0) {
         return <p>Hang on as the puzzle loads.... If there is no response after 20 seconds, please return to the settings page, check the upload image link and retry. </p> } //css here pls
     return (
-    <div>
+    <div style={{backgroundColor:'#dda15e', width:'100vw',height:'100vh'}}>
         <TimeUp marker = {gameOver}/>
         <div ref={onRootElementRendered} onTouchMove={onRootMouseMove} onMouseMove={onRootMouseMove} onTouchEnd={onRootMouseUp} onMouseUp={onRootMouseUp} onTouchCancel={onRootMouseUp} onMouseLeave={onRootMouseUp} className="jigsaw-puzzle" 
     style={{ height: !calculatedHeight ? undefined : `${rootSize.height}px`, width: `${rootSize.width}px`, top: `${centered}vh`, left: `${centered}vw`, border: '3px solid #000000'}}
@@ -262,7 +262,7 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
                 backgroundPositionX: `${tile.correctPosition % columns / (columns - 1) * 100}%`,
                 backgroundPositionY: `${Math.floor(tile.correctPosition / columns) / (rows - 1) * 100}%`,
                 left: `${tile.currentPosXPerc * rootSize.width}px`,
-                top: `${tile.currentPosYPerc * rootSize.height}px`
+                top: `${tile.currentPosYPerc * rootSize.height }px`
             }}/>)} 
     </div>
 </div>);

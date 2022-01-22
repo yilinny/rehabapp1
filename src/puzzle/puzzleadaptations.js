@@ -14,18 +14,7 @@ function randomint(){
 function place_in_quad (quad_name, ratio) {
     let x;
     let y;
-    let total = 1 + 2 * ratio;
-
-
-    if(quad_name==='C'){
-        x = generate_coordinates(0.25*(total) - ratio ,0.75*total - ratio ); y = generate_coordinates(0.25*(total)- ratio ,0.75*total - ratio)}
-
-    else if (quad_name === 'P'){
-        if (randomint()%2 === 0){x=generate_coordinates(-ratio,0.25*(total)-ratio)} 
-        else {x=generate_coordinates(0.75*(total) - ratio , 1 + ratio )}
-        if (randomint()%2 === 0){y=generate_coordinates(-ratio,0.25*(total) - ratio)}
-        else {y=generate_coordinates(0.75*(total)- ratio , 1 + ratio)} //two different instances of randomint so it would not be a certain quad 
-    }
+    let total = 0.8 + ratio ;
 
     if (quad_name[0]==='U'){y=generate_coordinates(-ratio, 0.5)}
     else if (quad_name[0]=== 'L') {y=generate_coordinates(0.5, total)};

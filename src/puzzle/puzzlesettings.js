@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import { JigsawPuzzle } from './puzzle';
 import ReactDOM from 'react-dom'
-//import settings css if doneee 
+import '../settings.css';
+import { Popup, Image } from 'semantic-ui-react';
 
 export function PuzzleSettings (){
     //trying to use function instead of class
@@ -18,8 +19,10 @@ export function PuzzleSettings (){
     const [increase, setIncrease]= useState(['NIL'])
     const [imagesource, setSource]= useState('https://source.unsplash.com/random/1000x800')
     return (
-        <div>
-            <form onSubmit = {() => {
+        <div className='settings-container'>
+            
+            <form className='form' style={{width: '60%', height: '60%'}} onSubmit = {() => {
+
                  ReactDOM.render(
                     <JigsawPuzzle
                     imageSrc= {imagesource} //random image for now 
@@ -32,7 +35,21 @@ export function PuzzleSettings (){
                     document.getElementById('root')
                 ) //not sure why return does not work but then again idc
             }}> 
+            <div className='title' style={{left: '38%', top: '10%'}}>
+                        <h1> Settings </h1>    
+                    </div>
+                <div className='subform' style ={{top: '25%', left: '10%', height: '42%', width: '28%'}}>
+                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }}/>}>
+                            <Popup.Header> Number of pieces </Popup.Header>
+                            <Popup.Content>
+                                <p>Grade the difficulty of the puzzle by adjusting the number of pieces.</p>
+                                <p>The more the number of pieces, the more repetition involved in dragging the tiles to the right spot, great for accuracy training and fine motor.</p>
+                                <p> Increased number of pieces challenges visual processing. Encourages practice in visual form consistency.</p>
+                                <p>A half-solved puzzle with some pieces already on provides visual cues for clients who may have initial difficulty with visual processing</p>
+                            </Popup.Content>
+                        </Popup>
                 <label>Dimensions of puzzle:</label>
+                <br/>
                 <select value = {col} onChange = {(e)=> {setCols(e.target.value); if (changePiece === 'no') {setPieces(rows * e.target.value)}}}>
                 {choice.map(item => {
                     return(<option key={item} value = {item}>{item}</option>);
@@ -45,22 +62,14 @@ export function PuzzleSettings (){
                     return(<option key = {item} value = {item}>{item}</option>);
                 })}
                 </select>
-
-                <label> Size of puzzle (this would be further affected by no. of pieces) </label>
-                <select value = {size} onChange = {(e)=> {setSize(e.target.value)}}>
-                    <option value= {0.3}> Extra Small </option>
-                    <option value = {0.4}> Small </option>
-                    <option value = {0.6}> Normal </option>
-                    <option value = {0.8}> Large </option>
-                </select>
-                <br></br>
+                <br/>
                 <label> Use a half-solved puzzle? </label>
                 <select value = {changePiece} onChange={(e)=> {setMode(e.target.value)}}>
                     <option value = 'yes' > Yes </option>
                     <option value = 'no' > No </option>
                 </select>
-
-                <label>If yes, how many pieces should be left to solve?</label>
+                <br/>
+                <label>If yes, how many UN-solved pieces?</label>
                 <input type='text' onKeyDown= {(e) => {
                    
                     if (changePiece === 'no'){alert ('Only possible if using a half-solved puzzle. Else, change puzzle dimenstions directly to change no of pieces'); e.preventDefault()}
@@ -74,8 +83,28 @@ export function PuzzleSettings (){
                     }, 1000)}
 
                 }} />
-                <br></br> 
-                <p>Avoid placing pieces in certain quadrants?
+                </div>
+                <div className='subform' style ={{top: '25%', left: '40%', height: '42%', width: '50%'}}>
+                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', left: '93%' }}/>}>
+                            <Popup.Header>Visual Compensations</Popup.Header>
+                            <Popup.Content>
+                                <p>Size: Helps clients find pieces easily</p>
+                                <p>Increasing frequency can help teach scanning via the functional task of searching for pieces, especially where limited by cognition. </p>
+                                <p>Avoiding quadrants can help grade the activity, compensating for any neglect of visual quadrants. Useful for initial assessments, to isolate comorbidites</p>
+                            </Popup.Content>
+                        </Popup>
+                <label style={{position:'absolute', top: '15%', left: '18%'}}> Size of puzzle (further affected by no. of pieces) </label>
+                <br/>
+                <select style={{position:'absolute', top: '28%', left: '40%'}} value = {size} onChange = {(e)=> {setSize(e.target.value)}}>
+                    <option value= {0.3}> Extra Small </option>
+                    <option value = {0.4}> Small </option>
+                    <option value = {0.6}> Normal </option>
+                    <option value = {0.8}> Large </option>
+                </select>
+
+                <br/>
+                
+                <p>Avoid placing pieces in certain quadrants?<br/>
                 {quadrants.map(item => {return (
                                         <label key={ item.id }>
                                             <input id={ item.id } 
@@ -94,9 +123,8 @@ export function PuzzleSettings (){
                                             ></input>
                                             <span>{ item.name }</span>
                                         </label> 
-                                    )})}
-                </p>
-                <p>Increase distribution of pieces in certain quadrants?
+                                    )})}</p>
+                <p>Increase distribution of pieces in certain quadrants? <br/>
                 {quadrants.map(item => {return (
                                         <label key={ item.id }>
                                             <input id={ item.id } 
@@ -119,10 +147,19 @@ export function PuzzleSettings (){
                                         </label> 
                                     )})}
                 </p>
-                <label> Insert image link to customize image (leave blank otherwise): </label>
+                </div>
+                <div className='subform' style ={{top: '70%', left: '10%', height: '13%', width: '80%'}}>
+                <Popup wide='very' position='top center' style={{width: '80vw', height: 'auto'}} trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: 'auto', height: '60%', left: '98%' }}/>}>
+                            <Popup.Header>How to Customize Puzzle Image:</Popup.Header>
+                            <Popup.Content>
+                                <Image src={`game_menu_pics/Settings.png`} size='massive'></Image>
+                            </Popup.Content>
+                        </Popup>
+                    
+                <label style={{position: 'absolute', top: '15%', left: '25%'}}> Insert image link to customize image (leave blank otherwise): </label>
                 <input type='text' onChange= {(e) => {setSource(e.target.value);}}/>
-                
-                <input type='submit' value='Submit'/>
+                </div>
+                <input style ={{top: '90%', left: '90%', position:'absolute'}}type='submit' value='Submit'/>
 
             </form>
         </div>

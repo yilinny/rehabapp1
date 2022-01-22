@@ -28,8 +28,8 @@ const Grater = ({recipeNo , stepNo , difficulty, next_step}) =>{
 
     useEffect(()=>{
         setTimeout(()=>{
-            setText(null)
-        }, 2000)
+            setText(null);
+        }, 2000);
     },[text])
 
     return (
