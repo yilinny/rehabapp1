@@ -64,9 +64,12 @@ const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {
 
         if (task.adapt.type === 'wait'){
             let correct_arr = [];
-            for (var c = 0; c < ing_arr.length; c++){correct_arr.push(Math.floor(Math.random()*80) + 15)} //correct time would be half of this, when brightness 100%
-            setCorrect(correct_arr)
-            setCooking(Array(ing_arr.length).fill('running'))} //sets correct time for wait mode 
+            for (var c = 0; c < ing_arr.length; c++){
+                let a = 30;
+                correct_arr.push(a);} //correct time would be half of this, when brightness 100%
+            setCorrect(correct_arr);
+            setCooking(Array(ing_arr.length).fill('running'));
+        } //sets correct time for wait mode 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []) //setup on load. empty array ensures only once, no re-renders 
@@ -176,9 +179,9 @@ const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {
             //check time
             if (seconds > 0.35* correctseconds[ing_index] && seconds < 0.6*correctseconds[ing_index]) {
                 setTotalCorrect(correct + 1)
-                let current_state = cook
+                let current_state = cook;
                 current_state.splice(ing_index,1,'paused')
-                setCooking(current_state)
+                setCooking(current_state);
                 (seconds > 0.45* correctseconds[ing_index] && seconds < 0.5*correctseconds[ing_index]) ? setText('Perfect!') : setText('Great!')
             }
             if (correct === ing_arr.length -1){
@@ -235,6 +238,9 @@ const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {
             backgroundColor: 'green',
             animation: `progress ${total_seconds}s linear 0s 1 normal forwards`
         }}> </div>
+        
+        <p style={{top:'10%', opacity: `${(opacity === 1)? 0 :1 }`}}> Tap when the food is golden-brown and ready!!</p>
+        <div></div>
 
         <h1>{text}</h1> 
 

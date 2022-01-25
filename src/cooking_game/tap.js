@@ -164,13 +164,13 @@ function AddCarbs (props){
             //check for change, honestly just assume x will changed at least by 0.01 when moved. 
             if (Math.abs(rice[0]- potCoords.x) < potCoords.radiusX && Math.abs(rice[1]-potCoords.y)<potCoords.radiusY) {
                 if (props.carbs === 'rice') {props.onPass()}
-                else {setInitialX([rice[0], initialX[1]]); alert ('Please fill it with pasta instead!')} //changing initial means won't trigger repeated alerts
+                else {setInitialX([rice[0], initialX[1]]); alert (`Please fill it with ${props.carbs} instead!`)} //changing initial means won't trigger repeated alerts
             }
         }
         else if (pasta[0] !== initialX[1]) {
             if (Math.abs(pasta[0]- potCoords.x) < potCoords.radiusX && Math.abs(pasta[1]-potCoords.y)<potCoords.radiusY) {
                 if (props.carbs ==='pasta') {props.onPass()}
-                else {setInitialX([initialX[0],pasta[0]]); alert ('Please fill it with rice instead!')} //changing initial means won't trigger repeated alerts
+                else {setInitialX([initialX[0],pasta[0]]); alert (`Please fill it with ${props.carbs} instead!`)} //changing initial means won't trigger repeated alerts
             }
         }
 
