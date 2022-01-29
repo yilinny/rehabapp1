@@ -107,7 +107,6 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
                     top: '40%',
                     position: 'absolute'
                 }}>GREAT JOB!</h3>
-                <button onClick={generateStats}>See Stats</button>
                 </div>
                 
             )

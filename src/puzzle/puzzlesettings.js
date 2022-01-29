@@ -21,7 +21,7 @@ export function PuzzleSettings (){
     return (
         <div className='settings-container'>
             
-            <form className='form' style={{width: '60%', height: '60%'}} onSubmit = {() => {
+            <form className='form' style={{width: '80%'}} onSubmit = {() => {
 
                  ReactDOM.render(
                     <JigsawPuzzle
@@ -35,11 +35,13 @@ export function PuzzleSettings (){
                     document.getElementById('root')
                 ) //not sure why return does not work but then again idc
             }}> 
-            <div className='title' style={{left: '38%', top: '10%'}}>
+            <div className='subform' style={{width: '100%', backgroundColor:'#faf3dd'}} >
                         <h1> Settings </h1>    
-                    </div>
-                <div className='subform' style ={{top: '25%', left: '10%', height: '42%', width: '28%'}}>
-                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }}/>}>
+            </div>
+            <br/>
+
+                <div className='subform' style={{width: '30%'}}>
+                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end'}}/>}>
                             <Popup.Header> Number of pieces </Popup.Header>
                             <Popup.Content>
                                 <p>Grade the difficulty of the puzzle by adjusting the number of pieces.</p>
@@ -48,6 +50,7 @@ export function PuzzleSettings (){
                                 <p>A half-solved puzzle with some pieces already on provides visual cues for clients who may have initial difficulty with visual processing</p>
                             </Popup.Content>
                         </Popup>
+                <div>
                 <label>Dimensions of puzzle:</label>
                 <br/>
                 <select value = {col} onChange = {(e)=> {setCols(e.target.value); if (changePiece === 'no') {setPieces(rows * e.target.value)}}}>
@@ -62,15 +65,17 @@ export function PuzzleSettings (){
                     return(<option key = {item} value = {item}>{item}</option>);
                 })}
                 </select>
-                <br/>
-                <label> Use a half-solved puzzle? </label>
+                </div>
+                <div>
+                <label> Half-solved puzzle? </label>
                 <select value = {changePiece} onChange={(e)=> {setMode(e.target.value)}}>
                     <option value = 'yes' > Yes </option>
                     <option value = 'no' > No </option>
                 </select>
-                <br/>
-                <label>If yes, how many UN-solved pieces?</label>
-                <input type='text' onKeyDown= {(e) => {
+                </div>
+                <div>
+                <label>If yes, UN-solved pieces: </label>
+                <input type='text' style={{width:'10%'}} onKeyDown= {(e) => {
                    
                     if (changePiece === 'no'){alert ('Only possible if using a half-solved puzzle. Else, change puzzle dimenstions directly to change no of pieces'); e.preventDefault()}
                     else {
@@ -84,8 +89,9 @@ export function PuzzleSettings (){
 
                 }} />
                 </div>
-                <div className='subform' style ={{top: '25%', left: '40%', height: '42%', width: '50%'}}>
-                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', left: '93%' }}/>}>
+                </div>
+                <div className='subform'>
+                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end'}}/>}>
                             <Popup.Header>Visual Compensations</Popup.Header>
                             <Popup.Content>
                                 <p>Size: Helps clients find pieces easily</p>
@@ -93,14 +99,13 @@ export function PuzzleSettings (){
                                 <p>Avoiding quadrants can help grade the activity, compensating for any neglect of visual quadrants. Useful for initial assessments, to isolate comorbidites</p>
                             </Popup.Content>
                         </Popup>
-                <label style={{position:'absolute', top: '15%', left: '18%'}}> Size of puzzle (further affected by no. of pieces) </label>
-                <br/>
-                <select style={{position:'absolute', top: '28%', left: '40%'}} value = {size} onChange = {(e)=> {setSize(e.target.value)}}>
+                <div><label> Size of puzzle</label>
+                <select style ={{width: '30%'}}value = {size} onChange = {(e)=> {setSize(e.target.value)}}>
                     <option value= {0.3}> Extra Small </option>
                     <option value = {0.4}> Small </option>
                     <option value = {0.6}> Normal </option>
                     <option value = {0.8}> Large </option>
-                </select>
+                </select> </div>
 
                 <br/>
                 
@@ -148,18 +153,19 @@ export function PuzzleSettings (){
                                     )})}
                 </p>
                 </div>
-                <div className='subform' style ={{top: '70%', left: '10%', height: '13%', width: '80%'}}>
-                <Popup wide='very' position='top center' style={{width: '80vw', height: 'auto'}} trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: 'auto', height: '60%', left: '98%' }}/>}>
+                <br/>
+                <div className='subform' style={{width:'50%'}}>
+                <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end' }}/>}>
                             <Popup.Header>How to Customize Puzzle Image:</Popup.Header>
                             <Popup.Content>
                                 <Image src={`game_menu_pics/Settings.png`} size='massive'></Image>
                             </Popup.Content>
                         </Popup>
                     
-                <label style={{position: 'absolute', top: '15%', left: '25%'}}> Insert image link to customize image (leave blank otherwise): </label>
+                <label> Insert image link to customize image (leave blank otherwise): </label>
                 <input type='text' onChange= {(e) => {setSource(e.target.value);}}/>
                 </div>
-                <input style ={{top: '90%', left: '90%', position:'absolute'}}type='submit' value='Submit'/>
+                <input style ={{top: '90%', left: '80%', position:'absolute'}}type='submit' value='Submit'/>
 
             </form>
         </div>

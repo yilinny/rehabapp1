@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Draggable from 'react-draggable'
 import './fridge.css'
-import { useEffect } from 'react/cjs/react.development'
 
 function resizeContainer (){
     return (1080/1920 * window.innerWidth)

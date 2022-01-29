@@ -150,12 +150,12 @@ export class SquareSettings extends React.Component {
         else {
             return(
                 <div className='settings-container'>
-                    <form className='form' onSubmit = { this.onSubmit } style={{width: '60%', height: '60%'}}>
-                    <div className='title' style={{left: '38%', top: '10%'}}>
+                    <form className='form' onSubmit = { this.onSubmit } style={{width:'70%'}}>
+                    <div style={{width:'75%'}}>
                         <h1> Settings </h1>    
                     </div>
-                        <div className='subform' style ={{top: '30%', left: '10%', height: '37%', width: '28%'}}>
-                        <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }}/>}>
+                        <div className='subform' style ={{width: '28%'}}>
+                        <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', alignSelf:'flex-end'}}/>}>
                             <Popup.Header> Increasing Frequency: </Popup.Header>
                             <Popup.Content>
                                 <p>Encourage further practice in visual scanning to the lost visual field</p>
@@ -163,9 +163,7 @@ export class SquareSettings extends React.Component {
                                 <p>Useful for teaching compensation of scanning when limited by cognition</p>
                             </Popup.Content>
                         </Popup>
-                        <h4 style={{position:'absolute', top: '0%', left:'20%'}}> Increase frequency <br/> in these quadrants:</h4>
-                        <br/>
-                        <p></p>
+                        <h4 style={{marginTop:'0'}}> Increase frequency <br/> in these quadrants:</h4>
                             {
                                 this.state.quadrants.map(item => {
                                     return (
@@ -193,8 +191,8 @@ export class SquareSettings extends React.Component {
                            
                         </div>
                         
-                        <div className='subform' style ={{ top: '30%', left: '40%',height: '37%', width: '28%' }}>
-                        <Popup position = 'bottom right'trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }} />} wide>
+                        <div className='subform' style ={{width: '28%' }}>
+                        <Popup position = 'bottom right'trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', alignSelf:'flex-end'}} />} wide>
                             <Popup.Header> Avoiding Quadrants</Popup.Header>
                             <Popup.Content>
                                 <p>Useful for assessment, when comorbidities complicates assessment of particular deficit.</p>
@@ -202,9 +200,8 @@ export class SquareSettings extends React.Component {
                                 <p>Can also be used to encourage scanning in other fields</p>
                             </Popup.Content>
                         </Popup>
-                        <h4 style={{position:'absolute', top: '0%', left:'20%'}}> Avoid the <br/>following quadrants:</h4>
-                        <br/>
-                        <p></p>
+                        <h4 style={{marginTop:'0'}}> Avoid the <br/>following quadrants:</h4>
+        
                             {
                                 this.state.quadrants.map(item => {
                                     return (
@@ -214,7 +211,7 @@ export class SquareSettings extends React.Component {
                                                 type="checkbox"
                                                 onClick={ (e) => this.onSelectAvoidQuadrant(e,item[0].id) }
                                             ></input>
-                                            <span>{ item[0].name }&nbsp;&nbsp;</span>
+                                            <span>{ item[0].name }&nbsp;</span>
                                             
                                         </label>
                                         <label key={ item[1].id }>
@@ -231,8 +228,8 @@ export class SquareSettings extends React.Component {
                             }
                         </div>
 
-                        <div className='subform' style ={{ top: '30%', left: '70%', height: '60%', width: '25%'}}>
-                        <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', left: '93%' }}/>}>
+                        <div className='subform' style ={{width: '25%'}}>
+                        <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', alignSelf:'flex-end' }}/>}>
                             <Popup.Header> Color picker</Popup.Header>
                             <Popup.Content>
                                 <p>Useful to assess if clients are more sensitive to particular colors. High contrast increases stimulation where there might be neglect/visual field loss, hence encouraging scanning</p>
@@ -245,7 +242,7 @@ export class SquareSettings extends React.Component {
                                 <p>Fits in with the motor stage of motor learning, in which the focus is on the quality of the movement, mass practice and decreasing mistakes.</p>
                             </Popup.Content>
                         </Popup>
-                        <br/>
+                   
                         <label> Square size:
                             <select value ={this.state.size} onChange = {this.ChangeSize}>
                                 <option value = 's'> Small</option>
@@ -253,13 +250,11 @@ export class SquareSettings extends React.Component {
                                 <option value = 'l'> Large</option>
                             </select>
                         </label>
-                        <br/>
-                        <br/>
+                        
                         <label> Square color:    
                             <input type= 'color' value= {this.state.color} onChange={this.ChangeColor}></input>
                         </label>
-                        <br/>
-                        <br/>
+                        
                         <label> Start from level:
                             <select value = {this.state.level} onChange = {this.ChangeLevel}>
                                 <option value = {1}> 1</option>
@@ -267,8 +262,7 @@ export class SquareSettings extends React.Component {
                                 <option value = {5}> 5</option>
                             </select>
                         </label>
-                        <br/>
-                        <br/>
+                       
                         <label> Duration: 
                             <select value={this.state.duration} onChange={this.ChangeDuration}>
                                 <option value ={15}>15 seconds</option>
@@ -279,8 +273,8 @@ export class SquareSettings extends React.Component {
 
                         </div>
 
-                        <div className='subform' style ={{ top: '70%', left: '15%', width: '50%', height: '18%'}}>
-                        <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', left: '93%' }}/>}>
+                        <div className='subform' style ={{width: '30%'}}>
+                        <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', alignSelf:'flex-end' }}/>}>
                             <Popup.Header>Distractions</Popup.Header>
                             <Popup.Content>
                                 <p>Alongside the designated square, circles of a different color would appear. Clients are to only tap the square and would lose a life if they tap a circle.</p>
@@ -293,8 +287,8 @@ export class SquareSettings extends React.Component {
                                 <p>This targets sustained attention, information processing and short-term memory (remembering the number pressed) Increased repetition also targets UL.</p>
                             </Popup.Content>
                         </Popup>
-                        <h4 style={{top: '0px', left: '40%', position: 'absolute'}}> Game mode: </h4>
-                        <p/>
+                        <h4 style={{marginTop:'0'}}> Game mode: </h4>
+                        
                         <label>
                             <label> <input type ='radio' value = '0' onChange={this.ChangeMode} id='nil'/> Normal   </label>
                             <label><input type ='radio' value = '1' onChange={this.ChangeMode} id='one'/> Distractions   </label>
@@ -302,7 +296,7 @@ export class SquareSettings extends React.Component {
                         </label>
                         </div>
 
-                        <input style={{position:'absolute', left: '50%', top: '90%'}} type='submit' value='Submit'/>
+                        <input style={{position:'absolute', left: '90%', top: '90%'}} type='submit' value='Submit'/>
                     </form>
                 </div>
             )

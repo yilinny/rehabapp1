@@ -19,21 +19,46 @@
 }
 
 .form {
-    padding: 5%;
-    border-radius: 18px;
-    background-color: #faf3dd;
-
-    box-shadow: 0 4px 16px 8px hsl(205, 86%, 17%, 0.4);
-    position: relative
-}
-
-.subform {
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
     padding: 2%;
     border-radius: 18px;
-    background-color: #dda15e;
+    background-color: #faf3dd;
+    row-gap: 5vh;
+    column-gap: 2vw;
+    text-align: center;
+    justify-content: center;
 
-    position: absolute
+    box-shadow: 0 4px 16px 8px hsl(205, 86%, 17%, 0.4);
+    position: relative;
+}
+
+
+.subform {
+    display: flex;
+    padding: 2%;
+    flex-direction: column;
+    border-radius: 10px;
+    text-justify: auto;
+    background-color: #dda15e;
+    row-gap: 3%;
+}
+
+
+
+
+.cookingform{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    background-color: #faf3dd;
+    row-gap: 3vh;
+    padding:5%;
+
+    box-shadow: 0 4px 16px 8px hsl(205, 86%, 17%, 0.4);
+    position: absolute;   
+
 }
 
 .form p {

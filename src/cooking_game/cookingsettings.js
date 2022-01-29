@@ -51,7 +51,7 @@ export const CookingSettings = () =>{
     return(
         <div className='settings-container'>
             
-            <form className='form' style ={{width:'50%', height: '45%'}}onSubmit={(e)=>{submitForm(e)}}>
+            <form className='cookingform' onSubmit={(e)=>{submitForm(e)}}>
             <Popup wide='very' position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', left: '93%' , top: '2%', position:'absolute'}}/>}>
                             <Popup.Header> Skills </Popup.Header>
                             <Popup.Content>
@@ -60,8 +60,8 @@ export const CookingSettings = () =>{
                                 <p> Motor skills are graded by no. of repetition</p>     
                             </Popup.Content>
                         </Popup>
-            <h1 style ={{textAlign:'center', position: 'absolute', top: '10%', left:'38%'}}> Settings</h1> 
-            <br/><br/><br/>
+            <h1> Settings</h1> 
+           
                 {fields.map((item,index) => {
                 return(
                     <div style={{textAlign:'center'}}>
@@ -69,17 +69,17 @@ export const CookingSettings = () =>{
                     <select  onChange = {(e)=>{handleChange(e,index)}}>
                     {difficultyScale.map(item => {return(<option value = {item}>{item}</option>)})}
                     </select>  
-                    <br/><br/>
+                   
                     </div> 
                 )})} 
 
             
-                <label style={{left: '30%', position:'absolute'}}> Choose recipe: </label>
-                    <select style={{left: '45%', position:'absolute'}} onChange={(e)=>setRecipe(e.target.value)}>
+                <div><label > Choose recipe: </label>
+                    <select onChange={(e)=>setRecipe(e.target.value)}>
                     {recipe.map((item,index)=>{return(<option key= {`recipe-${index}`}value={index}>{item}</option>)
                     })} </select>
-                
-                <input style={{position: 'absolute', left:'90%', top: '90%'}}type='submit' value='Submit'/>
+                </div>
+                <input style={{position: 'absolute', left:'50%', top: '90%'}}type='submit' value='Submit'/>
             </form>
         </div>
 
