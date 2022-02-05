@@ -38,9 +38,9 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
         setTimeout(()=>{switchLevel(false)}, 5000)
         const instructions = [
             'Boil water!',
-            'Gather the ingredients!',
+            'Gather the ingredients-- drag ingredient to right of screen',
             'Time to cook! ',
-            'Chop ingredients',
+            'Chop ingredients -- Tap to chop!',
             'Mix ingredients.',
             'Grate cheese!'
         ]

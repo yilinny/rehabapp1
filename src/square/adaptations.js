@@ -31,19 +31,19 @@ function place_in_quad (quad_name) {
     let y;
 
     if(quad_name==='C'){
-        x = generate_coordinates(25,75, 'x'); y = generate_coordinates(25,75,'y')}
+        x = generate_coordinates(20,70, 'x'); y = generate_coordinates(20,70,'y')}
 
     else if (quad_name === 'P'){
-        if (randomint()%2 === 0){x=generate_coordinates(1,25,'x')} 
-        else {x=generate_coordinates(75,100,'x')}
-        if (randomint()%2 === 0){y=generate_coordinates(1,25,'y')}
-        else {y=generate_coordinates(75,100,'y')} //two different instances of randomint so it would not be a certain quad 
+        if (randomint()%2 === 0){x=generate_coordinates(1,20,'x')} 
+        else {x=generate_coordinates(70,90,'x')}
+        if (randomint()%2 === 0){y=generate_coordinates(1,20,'y')}
+        else {y=generate_coordinates(70,90,'y')} //two different instances of randomint so it would not be a certain quad 
     }
 
     else{
     console.log(quad_name[0]);
-    (quad_name[0]==='U') ? y= generate_coordinates(1,50,'y'):y=generate_coordinates(50,90,'y');
-    (quad_name[1]==='L') ? x=generate_coordinates(1,50,'x'): x=generate_coordinates(50,90,'x');
+    (quad_name[0]==='U') ? y= generate_coordinates(1,45,'y'):y=generate_coordinates(50,90,'y');
+    (quad_name[1]==='L') ? x=generate_coordinates(1,45,'x'): x=generate_coordinates(50,90,'x');
 
     }
 

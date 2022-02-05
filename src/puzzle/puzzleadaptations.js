@@ -16,12 +16,12 @@ function place_in_quad (quad_name, ratio) {
     let y;
     let total = 0.8 + ratio ;
 
-    if (quad_name[0]==='U'){y=generate_coordinates(-ratio, 0.5)}
-    else if (quad_name[0]=== 'L') {y=generate_coordinates(0.5, total)};
+    if (quad_name[0]==='U'){y=generate_coordinates(-ratio, 0.4)}
+    else if (quad_name[0]=== 'L') {y=generate_coordinates(0.4, total)};
     
 
-    if (quad_name[1]==='L'){x=generate_coordinates(-ratio, 0.5)}
-    else if (quad_name[1]==='R'){x=generate_coordinates(0.5, total)};
+    if (quad_name[1]==='L'){x=generate_coordinates(-ratio, 0.4)}
+    else if (quad_name[1]==='R'){x=generate_coordinates(0.4, total)};
 
     return ([x,y])
 }

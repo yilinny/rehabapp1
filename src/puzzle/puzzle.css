@@ -18,6 +18,16 @@
     z-index: 5;
     box-shadow: 1px 1px 5px 0px #00000091;
 }
+.loading{
+    height: 100%;
 
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #dda15e;
+}
 
   

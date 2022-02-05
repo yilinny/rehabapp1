@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { JigsawPuzzle } from './puzzle';
 import ReactDOM from 'react-dom'
 import '../settings.css';
-import { Popup, Image } from 'semantic-ui-react';
+import { Popup, Image, Button } from 'semantic-ui-react';
 
 export function PuzzleSettings (){
     //trying to use function instead of class
@@ -20,6 +20,10 @@ export function PuzzleSettings (){
     const [imagesource, setSource]= useState('https://source.unsplash.com/random/1000x800')
     return (
         <div className='settings-container'>
+            <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./'>  Back to Game menu</Button>
+            <div style={{left: '50%', padding: '2%'}}>
+                    <h1 style={{color:'#faf3dd'}}> Settings </h1>    
+            </div>
             
             <form className='form' style={{width: '80%'}} onSubmit = {() => {
 
@@ -35,10 +39,6 @@ export function PuzzleSettings (){
                     document.getElementById('root')
                 ) //not sure why return does not work but then again idc
             }}> 
-            <div className='subform' style={{width: '100%', backgroundColor:'#faf3dd'}} >
-                        <h1> Settings </h1>    
-            </div>
-            <br/>
 
                 <div className='subform' style={{width: '30%'}}>
                 <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end'}}/>}>

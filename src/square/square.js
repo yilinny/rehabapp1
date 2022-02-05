@@ -9,7 +9,7 @@ import '../index.css'
 
 
 function generate_coordinates(side) {
-    let coord = Math.floor(Math.random() * 100) + 1
+    let coord = Math.floor(Math.random() * 94) + 1
     let strcoord;
     if (side ==='x') {strcoord= String(coord) + 'vw'}
     else if (side ==='y') {strcoord= String(coord) + 'vh'}

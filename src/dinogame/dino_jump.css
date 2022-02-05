@@ -1,0 +1,86 @@
+.App {
+    text-align: center;
+}
+
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .grid {
+    width: 45vw;
+    left: 27.5vw; 
+    position: absolute;
+    height: 100vh;
+    position: relative;
+    font-size: 200px;
+    text-align: center;
+    background-image: url('./dino_pics/bg.png');
+    background-repeat: repeat;
+    background-size: contain;
+  }
+  
+  .doodler {
+    width: 7vw;
+    height: 15vh;
+    background-image: url('./dino_pics/dino.png');
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .platform {
+    width: 15%;
+    height: 1.5vh;
+    background-color: #12b4ff;
+    position: absolute;
+    border-radius: 5px;
+  }
+  
+  .instructions {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 1em;
+    color: #12b4ff;
+    background-color: white;
+    border-radius: 10px;
+    line-height: 1.5;
+    opacity: 0.8
+  }
+  
+  .score {
+    font-size: 44px;
+    top: 10px;
+    border-radius: 10px;
+    text-align: right;
+    margin-right: 0.5em;
+    color: white;
+  }
+  .flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #4bff9f;
+    border-top: 2px solid #ff4bd5;
+  }
+  .twitter,
+  .github {
+    height: 30px;
+    margin: 5px;
+  }
+  

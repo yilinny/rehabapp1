@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Icon, Image, Button } from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
+import './gamemenu.css'
 
 export class GameMenu extends React.Component {
     constructor(props) {
@@ -57,8 +58,8 @@ export class GameMenu extends React.Component {
 
     render() {
         return (
-            <div className="" style={{ height: '100vh', width: '100vw', backgroundColor: '#006D77' }}>
-                <Card style={{ backgroundColor: '#83C5BE', top: `30vh`, left: `38vw`, position: 'absolute'}} raised={true}>
+            <div className="menucontainer" style={{ backgroundColor: '#006D77' }}>
+                <Card style={{ backgroundColor: '#83C5BE'}} raised={true}>
                     <Card.Content>
                     <Image src={`game_menu_pics/bg-${this.state.chosenid}.png`} wrapped ui={false}></Image>
                         <Card.Header>{this.state.games[this.state.chosenid].name}</Card.Header>
@@ -72,8 +73,10 @@ export class GameMenu extends React.Component {
                         <Button href={this.state.games[this.state.chosenid].link}> Play now!</Button>
                     </Card.Content>
                 </Card>
-                <Button style={{position:'absolute', top: '50vh', left: '30vw'}} icon='angle left' onClick={this.onChangeDirection}/>
-                <Button style={{position:'absolute', top: '50vh', left: '65vw'}} icon='angle right' onClick={this.onChangeDirection}/>
+                <div>
+                <Button icon='angle left' onClick={this.onChangeDirection}/>
+                <Button  icon='angle right' onClick={this.onChangeDirection}/>
+                </div>
             </div>
         );
     }

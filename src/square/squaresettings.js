@@ -4,7 +4,7 @@ import React from 'react';
 import GameBoard from './square';
 import { randomfive } from './adaptations';
 import '../settings.css'
-import { Popup, Image } from 'semantic-ui-react';
+import { Popup, Image, Button } from 'semantic-ui-react';
 
 
 export class SquareSettings extends React.Component {
@@ -150,12 +150,14 @@ export class SquareSettings extends React.Component {
         else {
             return(
                 <div className='settings-container'>
-                    <form className='form' onSubmit = { this.onSubmit } style={{width:'70%'}}>
-                    <div style={{width:'75%'}}>
-                        <h1> Settings </h1>    
+                    <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./'>  Back to Game menu</Button>
+                    <div style={{left: '50%', padding: '2%'}}>
+                        <h1 style={{color:'#faf3dd'}}> Settings </h1>    
                     </div>
-                        <div className='subform' style ={{width: '28%'}}>
-                        <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', alignSelf:'flex-end'}}/>}>
+                    <form className='form' onSubmit = { this.onSubmit } style={{width:'70%'}}>
+                    
+                        <div className='subform' style ={{width: '40%'}}>
+                        <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end'}}/>}>
                             <Popup.Header> Increasing Frequency: </Popup.Header>
                             <Popup.Content>
                                 <p>Encourage further practice in visual scanning to the lost visual field</p>
@@ -191,8 +193,8 @@ export class SquareSettings extends React.Component {
                            
                         </div>
                         
-                        <div className='subform' style ={{width: '28%' }}>
-                        <Popup position = 'bottom right'trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', alignSelf:'flex-end'}} />} wide>
+                        <div className='subform' style ={{width: '40%' }}>
+                        <Popup position = 'bottom right'trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end'}} />} wide>
                             <Popup.Header> Avoiding Quadrants</Popup.Header>
                             <Popup.Content>
                                 <p>Useful for assessment, when comorbidities complicates assessment of particular deficit.</p>
@@ -228,8 +230,8 @@ export class SquareSettings extends React.Component {
                             }
                         </div>
 
-                        <div className='subform' style ={{width: '25%'}}>
-                        <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '10%', height: 'auto', alignSelf:'flex-end' }}/>}>
+                        <div className='subform' style ={{width: '40%'}}>
+                        <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end' }}/>}>
                             <Popup.Header> Color picker</Popup.Header>
                             <Popup.Content>
                                 <p>Useful to assess if clients are more sensitive to particular colors. High contrast increases stimulation where there might be neglect/visual field loss, hence encouraging scanning</p>
@@ -273,8 +275,8 @@ export class SquareSettings extends React.Component {
 
                         </div>
 
-                        <div className='subform' style ={{width: '30%'}}>
-                        <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', alignSelf:'flex-end' }}/>}>
+                        <div className='subform' style ={{width: '40%'}}>
+                        <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end' }}/>}>
                             <Popup.Header>Distractions</Popup.Header>
                             <Popup.Content>
                                 <p>Alongside the designated square, circles of a different color would appear. Clients are to only tap the square and would lose a life if they tap a circle.</p>
@@ -291,7 +293,9 @@ export class SquareSettings extends React.Component {
                         
                         <label>
                             <label> <input type ='radio' value = '0' onChange={this.ChangeMode} id='nil'/> Normal   </label>
+                            <br/>
                             <label><input type ='radio' value = '1' onChange={this.ChangeMode} id='one'/> Distractions   </label>
+                            <br/>
                             <label><input type ='radio' value = '2' onChange={this.ChangeMode} id='two'/> Counting taps!  </label>
                         </label>
                         </div>

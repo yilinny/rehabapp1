@@ -2,17 +2,21 @@
 
 import React from 'react';
 import '../index.css'
-
+import {Button } from 'semantic-ui-react';
 
 export function GameOver (props){
         return(
             <div className='gameover-container'> 
                 <h1> Game over!</h1>
-                
+                <br/>
                 <div className='score'>
                     <h2>Score:{props.score} </h2>
-                    <button onClick={props.onClick}> Retry</button>
-                    <button onClick={props.Settings}> Change Settings</button>
+                    <br/>
+                    <Button onClick={props.onClick}> Retry</Button>
+                    <Button onClick={props.Settings}> Change Settings</Button>
+                    <br/>
+                    <br/>
+                    <Button href='./'>Game menu</Button>
                 </div>
             </div>
         )

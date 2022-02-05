@@ -1,10 +1,10 @@
-import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css'; //can copy css from git hub and edit -- h1 text too large
 import React, {useState, useCallback, useRef, useEffect} from 'react'
 import './puzzle.css'
 import '../general/countdown'
 import { TimeUp } from '../general/countdown';
 import { increase_distribution_p } from './puzzleadaptations';
+import { EndGame, Puzzleright } from './popup';
 
 
 const clamp = (value, min, max) => {
@@ -19,33 +19,9 @@ const clamp = (value, min, max) => {
 
 const solveTolerancePercentage = 0.040;
 
-const Yay = () =>{
-    var time = document.getElementById('time').textContent
-    time = time.split(": ")[1]
 
 
-    confirmAlert({
-        title: 'Congrats!',
-        message: `Completed in: ${time} \n\nDo another one?`,
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => { 
-                window.location.reload()
-            }
-          },
-          {
-            label: 'View puzzle',
-            onClick: () => {
-                //stop the timer 
-            }
-          }
-        ]
-      });
-
-} //css here also
-
-export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, avoid , increase , onSolved = () => {Yay()} }) => {
+export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, avoid , increase}) => {
     const [tiles, setTiles] = useState(0); // is there a way to make 'loading' show, as 0 is shown before the pic loads  
     //useState as a way to create states inside of function instead of creating classes
     const [imageSize, setImageSize] = useState(0);
@@ -58,6 +34,7 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
     const centered = (1-percent)* 50; //vh and vw to centered the board
     const minmaxratio = (1-percent)/(2*percent); //clamps outside of the board
     const initialcorrect = rows*columns - wrong_piece //check wrong_piece is less than total
+    const timefinished = useRef(0);
 
     
     const onImageLoaded = useCallback((image) => { 
@@ -229,20 +206,33 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
                 ];
                 if (newState.every(tile => tile.solved)) {
                     setGameOver('over')
-                    onSolved();
+                    timefinished.current = document.getElementById('time').textContent
                 }
                 return newState;
             });
             draggingTile.current = undefined;
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps 
-    }, [draggingTile, setTiles, rootSize, onSolved]);
+    }, [draggingTile, setTiles, rootSize]);
     
     if (tiles === 0) {
-        return <p>Hang on as the puzzle loads.... If there is no response after 20 seconds, please return to the settings page, check the upload image link and retry. </p> } //css here pls
-    return (
+        return <div className='loading'> 
+            <h2> Loading... </h2>
+            <h4> Please wait for up to a minute</h4>
+        </div>
+    }
+
+    else if (gameOver==='over'){  
+        return(<EndGame time={timefinished.current} src={imageSrc}/>)
+
+    }
+    else return (
     <div style={{backgroundColor:'#dda15e', width:'100vw',height:'100vh'}}>
+        <br/>
         <TimeUp marker = {gameOver}/>
+        <br/>
+        <Puzzleright src={imageSrc}/>
+       
         <div ref={onRootElementRendered} onTouchMove={onRootMouseMove} onMouseMove={onRootMouseMove} onTouchEnd={onRootMouseUp} onMouseUp={onRootMouseUp} onTouchCancel={onRootMouseUp} onMouseLeave={onRootMouseUp} className="jigsaw-puzzle" 
     style={{ height: !calculatedHeight ? undefined : `${rootSize.height}px`, width: `${rootSize.width}px`, top: `${centered}vh`, left: `${centered}vw`, border: '3px solid #000000'}}
     onDragEnter={event => {
