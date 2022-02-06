@@ -24,6 +24,7 @@ body {
   
   .grid {
     width: 45vw;
+    top:0vh;
     left: 27.5vw; 
     position: absolute;
     height: 100vh;
@@ -53,23 +54,24 @@ body {
   }
   
   .instructions {
-    font-size: 24px;
+    font-size: 3vh;
     font-weight: bold;
     margin: 1em;
     color: #12b4ff;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 3vh;
     line-height: 1.5;
     opacity: 0.8
   }
   
   .score {
-    font-size: 44px;
+    font-size: 18vh;
     top: 10px;
     border-radius: 10px;
     text-align: right;
     margin-right: 0.5em;
     color: white;
+    position: absolute;
   }
   .flex {
     display: flex;

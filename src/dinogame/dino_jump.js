@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import './dino_jump.css';
-import { Button, Image } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+import AnimatedDino from './dino_pics/dinospace.gif';
 
 function Platforms(props) {
   return props?.platforms?.map((platform) => {
@@ -25,7 +26,8 @@ function Doodler(props) {
   );
 }
 
-export function Dino() {
+
+export function Dino({control=2, boost = 0, difficulty =3}) {
   const [isGameOver, setIsGameOver] = useState(true);
   const [platforms, setPlatforms] = useState([]);
   const [doodler, setDoodler] = useState({});
@@ -34,6 +36,9 @@ export function Dino() {
   const platformCount = 8;
   const startPoint = 20;
   const doodlerBottomSpace = startPoint;
+
+  const buttonsLocation=[{score: 79, scoretop:3, top:48, left:74, right:74}, {scoretop: 23, score: 10, top:75, left:15, right:90}, {scoretop:23, score:83, top:75, left:90, right:15} ]
+
 
   function makeOneNewPlatform(bottom) {
     const left = Math.random() * 28 + Math.random() * 45;
@@ -206,6 +211,8 @@ export function Dino() {
     setPlatforms(newPlatforms);
     setDoodler(createDoodler(doodlerBottomSpace, doodlerLeft));
   }
+
+ 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && isGameOver) {
       start();
@@ -235,27 +242,27 @@ export function Dino() {
   // conditionally render the components depending on wether the game is running
   return (
     <>
-    <Button icon='angle left' size='massive' style={{position:'absolute', top:'48vh', right: '74vw'}} onClick={turnLeft}/>
-    <Button  icon='angle right' size ='massive'style={{ position:'absolute', top: '48vh', left:'74vw'}} onClick={turnRight}/>
-    
-
-
-      <div className="grid">
+    <div style={{backgroundColor:'black', width:'100vw', height:'100vh', position:'absolute'}}></div>
+    <Button icon='angle left' size='massive' style={{position:'absolute', top:`${buttonsLocation[control].top}vh`, right:`${buttonsLocation[control].right}vw`}} onClick={turnLeft}/>
+    <Button  icon='angle right' size ='massive'style={{ position:'absolute', top:`${buttonsLocation[control].top}vh`, left:`${buttonsLocation[control].left}vw`}} onClick={turnRight}/>
+    <Button size='large' style={{opacity:{boost},position:'absolute',top:`${buttonsLocation[control].top -10 }vh`, left:`${buttonsLocation[control].left}vw`}}>BOOST</Button>
+    <div  className="score" style={{position:'absolute',opacity:{boost}, left:`${buttonsLocation[control].score -1}vw `, top:`${buttonsLocation[control].scoretop}vh`}}>{score}</div>
+    <div className="grid">
+        
         {!isGameOver && (
           <>
-            <div className="score">{score}</div>
             <Doodler doodler={doodler} />
             <Platforms platforms={platforms} />{' '}
           </>
         )}
         {isGameOver && (
           <>
-            <div className="score">{score}</div>
             <div className="instructions">
               {' '}
-              DoodleJump <br /> Navigate with the arrow keys to bounce off platforms. Don't hit the floor!
+              DinoJump <br /> Help Dino explore space! Use the arrow buttons on the sides to navigate and bounce off platforms.
             </div>
-            <Button onClick={()=>{start()}} size='massive' style={{position: 'absolute', top:'80vh', left: '20vw'}}  >Start</Button>
+            <img src={AnimatedDino} style={{position:'absolute', top:'30vh', left:'12vw', width:'20vw', height:'auto'}} alt=''/>
+            <Button onClick={()=>{start()}}  style={{position: 'absolute', top:'80vh', left: '15vw', width:'15vw', height:'auto'}} size='big' >Start</Button>
           </>
         )}
       </div>
