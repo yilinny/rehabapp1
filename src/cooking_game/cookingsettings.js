@@ -18,7 +18,7 @@ import React, { useState } from 'react'
 import CurrentScene from './main';
 import ReactDOM from 'react-dom';
 import '../settings.css';
-import {Popup, Image} from 'semantic-ui-react'
+import {Popup, Image,Button} from 'semantic-ui-react'
 
 export const CookingSettings = () =>{
     
@@ -50,6 +50,7 @@ export const CookingSettings = () =>{
 
     return(
         <div className='settings-container'>
+        <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='/'>  Back to Game menu</Button>
             
             <form className='cookingform' onSubmit={(e)=>{submitForm(e)}}>
             <Popup wide='very' position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', left: '93%' , top: '2%', position:'absolute'}}/>}>

@@ -1,3 +1,25 @@
 .lvluptext {
     text-align: center;
 }
+
+.finalpic {
+    background-image: url('./general/final/finaldish.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 15%;
+    height: 15%;
+    top: 33%;
+    left: 45%;
+    position: absolute;
+}
+
+.star{
+    background-image: url('./general/final/star.png');
+    background-size: contain;
+    background-repeat: repeat 3;
+    width: 17%;
+    height: 10%;
+    top: 50%;
+    right: 41%;
+    position: absolute;
+}

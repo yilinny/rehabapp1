@@ -6,6 +6,8 @@ import ChoppingBoard from "./chopping_board";
 import Counter from "./mixing";
 import Grater from "./grate";
 import recipes from "./recipes";
+import './main.css';
+import { Button } from 'semantic-ui-react'
 
 /*
     boilwater: 0
@@ -41,7 +43,7 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
             'Gather the ingredients-- drag ingredient to right of screen',
             'Time to cook! ',
             'Chop ingredients -- Tap to chop!',
-            'Mix ingredients.',
+            'Mix ingredients. Drag to add at the right time!',
             'Grate cheese!'
         ]
 
@@ -104,9 +106,13 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
                 }}> 
                 <h3 style={{
                     left: '43%',
-                    top: '40%',
+                    top: '25%',
                     position: 'absolute'
-                }}>GREAT JOB!</h3>
+                }}>DISH COMPLETED!</h3>
+                <div className="finalpic"></div>
+                <div className="star"></div> 
+                <Button href='/cooking' style={{width:'15%', height:'auto',top:'65%', left:'33%', position:'absolute'}}> Another recipe?</Button>
+                <Button href='/' style={{width:'15%', height:'auto',top:'65%', left:'53%', position:'absolute'}}> Main menu</Button>
                 </div>
                 
             )

@@ -32,15 +32,16 @@ const potCoords = {
         if (second_interval){clearInterval(second_interval)}
         second_interval = setTimeout(()=> {setSeconds(seconds+ 1)},1000);
         
-        if (seconds >= 17){
-            setPlay('paused')
-            alert ('Oh no, you went past the line! Try again.')
+        if (seconds >= 14){
+            setTimeout(()=>{setPlay('paused')}, 6000)
+            alert('Oh no, water overflowed! Please try again.')
+            setSeconds(0)
         }
     }
 
     else if (playState === 'paused') {
         clearInterval(second_interval)
-        if (seconds >= 13){
+        if (seconds >= 10){
             props.onPass()
         }
     }; 
@@ -65,7 +66,7 @@ const potCoords = {
             <div className= 'cup'> 
                <div className='waterlevel'
                 style = {{
-                    animation: `fade 25s ease-out 1 normal forwards ${playState}`
+                    animation: `fade 20s ease-out infinite normal forwards ${playState}`
                 }}></div>
             </div>
 
@@ -123,7 +124,6 @@ function DragCup (props){
         if (Math.abs(posX - potCoords.x) < potCoords.radiusX && Math.abs(posY - potCoords.y) < potCoords.radiusY) {
            props.onPass()
         }
-        return false
     }
 
     return(
@@ -174,7 +174,6 @@ function AddCarbs (props){
             }
         }
 
-        return false
     }
     return (
         <div>

@@ -8,7 +8,7 @@ import { GameMenu } from './gamemenu/gamemenu';
 import { SquareSettings } from './square/squaresettings';
 import { PuzzleSettings } from './puzzle/puzzlesettings';
 import { CookingSettings } from './cooking_game/cookingsettings';
-import {Dino} from './dinogame/dino_jump';
+import { DinoSettings } from './dinogame/dino_settings';
 
 const TitleSetter = ({ title }) => {
   useEffect(() => {
@@ -25,7 +25,7 @@ const Routing = () => {
         <Route path="/square" element={<SquareSettings />} />
         <Route path="/puzzle" element={<PuzzleSettings />} />
         <Route path="/cooking" element={<CookingSettings />} />
-        <Route path="/dino" element={<Dino />} />
+        <Route path="/dino" element={<DinoSettings />} />
       </Routes>
     </Router >
   );

@@ -27,17 +27,25 @@ function Doodler(props) {
 }
 
 
-export function Dino({control=2, boost = 0, difficulty =3}) {
+export function Dino({control=0, boost = 1, difficulty =3, arrowsensitivity = 0}) {
   const [isGameOver, setIsGameOver] = useState(true);
   const [platforms, setPlatforms] = useState([]);
   const [doodler, setDoodler] = useState({});
   const [score, setScore] = useState(0);
   const [direction, setDirection] = useState('none');
-  const platformCount = 8;
+  const boostdecider = boost;
+  const platformCounts = [15, 12, 9, 7, 5]
+  const platformCount = platformCounts[difficulty];
   const startPoint = 20;
   const doodlerBottomSpace = startPoint;
+  const [isFlying, setFlying] = useState(false);
+  const [boostloading, setLoading] = useState(0);
+  const displacement = [1.5,2,2.5]
 
-  const buttonsLocation=[{score: 79, scoretop:3, top:48, left:74, right:74}, {scoretop: 23, score: 10, top:75, left:15, right:90}, {scoretop:23, score:83, top:75, left:90, right:15} ]
+  const buttonsLocation=[
+    {score: 5, scoretop:3, top:48, left:74, right:74, boost:74, boosttop: 80}, 
+    {scoretop: 23, score: 10, top:75, left:15, right:90, boost:7, boosttop: 60}, 
+    {scoretop:23, score:83, top:75, left:90, right:15, boost:81, boosttop: 60} ]
 
 
   function makeOneNewPlatform(bottom) {
@@ -52,6 +60,7 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
         if (platformsToMove[0].bottom < 5) {
           platformsToMove.shift();
           setScore(score + 1);
+          setLoading(boostloading + 1)
           platformsToMove.push(makeOneNewPlatform(100));
         }
         setPlatforms(
@@ -63,7 +72,7 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
         return platformsToMove;
       }
     },
-    [score],
+    [score, boostloading],
   );
   // function for movement
   function moveStraight() {
@@ -107,17 +116,17 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
     (doodlerToJump) => {
       let newLeft = doodlerToJump.left;
       if (direction === 'left' && doodlerToJump.left >= 0) {
-        newLeft = doodlerToJump.left - 1.5;
+        newLeft = doodlerToJump.left - 2.5;
       }
       if (direction === 'right' && doodlerToJump.left <= 100) {
-        newLeft = doodlerToJump.left + 1.5;
+        newLeft = doodlerToJump.left + displacement[arrowsensitivity];
       }
       if (direction === 'none') {
         newLeft = doodlerToJump.left;
       }
       setDoodler({
         ...doodlerToJump,
-        bottom: doodlerToJump.bottom + 2,
+        bottom: doodlerToJump.bottom + displacement[arrowsensitivity],
         left: newLeft,
       });
       if (doodlerToJump.bottom > doodlerToJump.startPoint + 20) {
@@ -126,6 +135,28 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
     },
     [direction],
   );
+  //boost button functions 
+  const fly = useCallback(
+    (doodlerToJump) => {
+      setDoodler({
+        ...doodlerToJump,
+        bottom: doodlerToJump.bottom + 30,
+      });
+      if (doodlerToJump.bottom > doodlerToJump.startPoint + 20) {
+        setDoodler({ ...doodlerToJump, isJumping: false });
+      }
+    },[isFlying]
+  );
+  
+  const dinoFly = () => {
+    setFlying(true);   
+    setTimeout(()=>{
+      setFlying(false);
+      setLoading(0);
+    }, 5000)
+  }
+  //visual element to boost ending 
+
 
   // if the doodler hits a wall, reverse direction
   function checkCollision(doodlerforCollisionCheck) {
@@ -142,7 +173,12 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
       const interval = setInterval(() => {
         checkCollision(doodler);
         movePlatforms(platforms, doodler);
-        if (doodler.isJumping) {
+        if(isFlying){
+          fly(doodler);
+        }
+
+        else {
+          if (doodler.isJumping) {
             jump(doodler);
         }
         if (!doodler.isJumping) {
@@ -150,6 +186,7 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
         }
         // check for landing on a platform
         platforms.forEach((platform) => {
+          if (doodler.bottom <=80){
           if (
             doodler.bottom >= platform.bottom - 2&&
             doodler.bottom <= platform.bottom + 2 &&
@@ -163,11 +200,11 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
               startPoint: doodler.bottom,
             });
           }
-        });
+        }});}
       }, 50);
       return () => clearInterval(interval);
     }
-  }, [platforms, doodler, fall, isGameOver, jump, movePlatforms]);
+  }, [fly, platforms, doodler, fall, isGameOver, jump, movePlatforms, isFlying]);
 
   // create 5 evenly vertically spaced platform with a random horizontal placement
   function createPlatforms() {
@@ -208,6 +245,7 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
     const [newPlatforms, doodlerLeft] = createPlatforms();
     setIsGameOver(false);
     setScore(0);
+    setLoading(0);
     setPlatforms(newPlatforms);
     setDoodler(createDoodler(doodlerBottomSpace, doodlerLeft));
   }
@@ -243,10 +281,11 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
   return (
     <>
     <div style={{backgroundColor:'black', width:'100vw', height:'100vh', position:'absolute'}}></div>
+    <Button href='/dino' style={{top:'5%', left:'5%', position:'absolute'}}> Back to settings</Button>
     <Button icon='angle left' size='massive' style={{position:'absolute', top:`${buttonsLocation[control].top}vh`, right:`${buttonsLocation[control].right}vw`}} onClick={turnLeft}/>
     <Button  icon='angle right' size ='massive'style={{ position:'absolute', top:`${buttonsLocation[control].top}vh`, left:`${buttonsLocation[control].left}vw`}} onClick={turnRight}/>
-    <Button size='large' style={{opacity:{boost},position:'absolute',top:`${buttonsLocation[control].top -10 }vh`, left:`${buttonsLocation[control].left}vw`}}>BOOST</Button>
-    <div  className="score" style={{position:'absolute',opacity:{boost}, left:`${buttonsLocation[control].score -1}vw `, top:`${buttonsLocation[control].scoretop}vh`}}>{score}</div>
+    {boostdecider === 1 && <Button size='massive' style={{position:'absolute', top:`${buttonsLocation[control].boosttop}vh`, left:`${buttonsLocation[control].boost}vw`}} onClick={()=>{dinoFly()}} disabled={(boostloading>=15)?false:true}>BOOST</Button>}
+    <div  className="score" style={{position:'absolute', left:`${buttonsLocation[control].score -1}vw `, top:`${buttonsLocation[control].scoretop}vh`}}>{score}</div>
     <div className="grid">
         
         {!isGameOver && (
@@ -270,3 +309,4 @@ export function Dino({control=2, boost = 0, difficulty =3}) {
   );
 }
 
+export default Dino;
