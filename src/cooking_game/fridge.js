@@ -14,16 +14,27 @@ function resizeContainer (){
 function Instructions (props) {
     console.log(props.correct_ing)
     return(
-        <div key='instruction' style ={{backgroundColor:'white', width: '50%', height: '50%', top: '25%', left: '15%', position: 'absolute'}}>
-                <p> Gather these ingredients!</p>
+        <div key='instruction' style ={{backgroundColor:'white', width: '50%', height: '50%', top: '25%', left: '15%', position: 'absolute', display: 'flex', flexDirection: 'column',  borderRadius: '15px', 
+                                        borderColor: '#e7e7e7', 
+                                        boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
+                                        transition: '0.3s'}}>
+                <h2 style={{
+                        marginTop: '3rem',
+                        textAlign: 'center'
+                }}> Gather these ingredients!</h2>
                 {props.correct_ing.map(
                     (food,index) => 
                         <div key= {`instruction-${index}`}  className='ingredients' style ={{
                         backgroundImage: `url(/fridge_pics/ingredient${food}.png)`,
                         left: `${20*(index%3 + 1)}%`,
                         top: `${20*(Math.ceil((index + 1)/3))}%`,
+                        margin: '4rem 0rem',
                     }}></div>)}
-            <button onClick={props.onclick}>Let's go!</button> 
+            <button onClick={props.onclick} style = {{
+                    margin: '8rem 3rem',
+                    padding: '10px 25px',
+                    border: 'none',
+                    backgroundColor: '#e7e7e7'}}>Let's go!</button> 
             </div>
         
     )

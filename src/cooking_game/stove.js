@@ -236,9 +236,9 @@ const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {
         <div className='timebar' style = {{
             opacity: `${opacity}`,
             backgroundColor: 'green',
-            animation: `progress ${total_seconds}s linear 0s 1 normal forwards`
+            animation: `progress ${total_seconds}s linear 0s 1 normal forwards`,
         }}> </div>
-        <h2 style={{top:'20%', left: '15%',opacity: `${(opacity === 0)? 0 :1 }`}}> Add ingredient to pot at the right time by dragging!!</h2>
+        <h2 style={{top:'20%', left: '15%',opacity: `${(opacity === 0)? 0 :1 }`, paddingTop: '6.8rem'}}> Add ingredient to pot at the right time by dragging!!</h2>
         <h2 style={{top:'10%', opacity: `${(opacity === 1)? 0 :1 }`}}> Tap when the food is golden-brown and ready!!</h2>
         <div></div>
 

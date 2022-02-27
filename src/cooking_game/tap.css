@@ -6,11 +6,13 @@
 .stepscontainer {
     opacity: 1;
     background-color: white;
-    width: 40vw;
-    height: 20vh;
     position: fixed;
     top: 30vw;
-    left: 30vh
+    left: 30vh;
+    border-radius: 15px;
+    border-color: #e7e7e7;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
 } /*aesthetics here */ 
 
 .container {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Draggable from 'react-draggable'
 import './tap.css'
 import recipes from './recipes'
+import { notDependencies } from 'mathjs'
 
 function resizeContainer (){
     return (1080/1920 * window.innerWidth)
@@ -99,8 +100,15 @@ function Instructions (props){
             <div className= 'rice'></div>
             <div className= 'pasta'></div>
             <div className= 'stepscontainer'>
-                {required_instruction.map((instruction, index) => <p key={`instruction-${index}`}>{instruction}</p>)}
-                <button onClick= {props.onClick}> Let's start!</button>
+                {required_instruction.map((instruction, index) => <h4 key={`instruction-${index}`} style = {{
+                    margin: '2rem 3.5rem 0rem 3.5rem', fontSize: '1.3rem'
+                }}>{instruction}</h4>)}
+                <button onClick= {props.onClick} style = {{
+                    margin: '2rem 3.5rem 2em 3.5rem',
+                    padding: '5px 15px',
+                    border: 'none',
+                    backgroundColor: '#e7e7e7'
+                }}> Let's start!</button>
         </div>
         </div>
 

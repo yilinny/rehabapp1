@@ -51,19 +51,15 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
                 <div className= "container" style={{
                     backgroundImage: `url(/general/bg/levelup.png)`,
                     height: `${1080/1920 * window.innerWidth}px`,
-                    top: `${0.5*(window.innerHeight-(1080/1920*window.innerWidth))}px`
+                    top: `${0.5*(window.innerHeight-(1080/1920*window.innerWidth))}px`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    wordWrap: 'break-word',
                 }}> 
-                <h3 style={{
-                    left: '43%',
-                    top: '40%',
-                    position: 'absolute'
-                }}>NEXT UP: </h3>
-                <br/>
-                <h3 style={{
-                    left: '43%',
-                    top: '50%',
-                    position: 'absolute'
-                }}>{instructions[scenes[stepindex]]}</h3>
+                <h3>NEXT UP: </h3>
+                <h3>{instructions[scenes[stepindex]]}</h3>
                 </div>
         ) //CSS HERE PLS 
     }
