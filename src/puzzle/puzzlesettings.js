@@ -20,12 +20,12 @@ export function PuzzleSettings (){
     const [imagesource, setSource]= useState('https://source.unsplash.com/random/1000x800')
     return (
         <div className='settings-container'>
-            <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./'>  Back to Game menu</Button>
+            <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./games'>  Back to Game menu</Button>
             <div style={{left: '50%', padding: '2%'}}>
-                    <h1 style={{color:'#faf3dd'}}> Settings </h1>    
+                    <h1 style={{color:'#faf3dd'}}> SETTINGS </h1>    
             </div>
             
-            <form className='form' style={{width: '80%'}} onSubmit = {() => {
+            <form className='form' style ={{width:'60%'}}onSubmit = {() => {
 
                  ReactDOM.render(
                     <JigsawPuzzle
@@ -40,7 +40,7 @@ export function PuzzleSettings (){
                 ) //not sure why return does not work but then again idc
             }}> 
 
-                <div className='subform' style={{width: '30%'}}>
+                <div className='subform' >
                 <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end'}}/>}>
                             <Popup.Header> Number of pieces </Popup.Header>
                             <Popup.Content>
@@ -51,7 +51,7 @@ export function PuzzleSettings (){
                             </Popup.Content>
                         </Popup>
                 <div>
-                <label>Dimensions of puzzle:</label>
+                <label className='subheading'>Dimensions of puzzle:</label>
                 <br/>
                 <select value = {col} onChange = {(e)=> {setCols(e.target.value); if (changePiece === 'no') {setPieces(rows * e.target.value)}}}>
                 {choice.map(item => {
@@ -67,15 +67,15 @@ export function PuzzleSettings (){
                 </select>
                 </div>
                 <div>
-                <label> Half-solved puzzle? </label>
+                <label className='subheading'> Half-solved puzzle? </label>
                 <select value = {changePiece} onChange={(e)=> {setMode(e.target.value)}}>
                     <option value = 'yes' > Yes </option>
                     <option value = 'no' > No </option>
                 </select>
                 </div>
                 <div>
-                <label>If yes, UN-solved pieces: </label>
-                <input type='text' style={{width:'10%'}} onKeyDown= {(e) => {
+                <label className='subheading'>If yes, number of UN-solved pieces: </label>
+                <input type='text' onKeyDown= {(e) => {
                    
                     if (changePiece === 'no'){alert ('Only possible if using a half-solved puzzle. Else, change puzzle dimenstions directly to change no of pieces'); e.preventDefault()}
                     else {
@@ -99,7 +99,7 @@ export function PuzzleSettings (){
                                 <p>Avoiding quadrants can help grade the activity, compensating for any neglect of visual quadrants. Useful for initial assessments, to isolate comorbidites</p>
                             </Popup.Content>
                         </Popup>
-                <div><label> Size of puzzle</label>
+                <div><label className='subheading'> Size of puzzle: </label>
                 <select style ={{width: '30%'}}value = {size} onChange = {(e)=> {setSize(e.target.value)}}>
                     <option value= {0.3}> Extra Small </option>
                     <option value = {0.4}> Small </option>
@@ -107,9 +107,8 @@ export function PuzzleSettings (){
                     <option value = {0.8}> Large </option>
                 </select> </div>
 
-                <br/>
                 
-                <p>Avoid placing pieces in certain quadrants?<br/>
+                <h4><span className='subheading'>Avoid placing pieces in certain quadrants?</span><br/><br/>
                 {quadrants.map(item => {return (
                                         <label key={ item.id }>
                                             <input id={ item.id } 
@@ -128,11 +127,11 @@ export function PuzzleSettings (){
                                             ></input>
                                             <span>{ item.name }</span>
                                         </label> 
-                                    )})}</p>
-                <p>Increase distribution of pieces in certain quadrants? <br/>
+                                    )})}</h4>
+                <h4><span className='subheading'>Increase distribution of pieces in certain quadrants?</span><br/><br/>
                 {quadrants.map(item => {return (
                                         <label key={ item.id }>
-                                            <input id={ item.id } 
+                                            <input id={item.id } 
                                                 type="checkbox"
                                                 onClick={(e) => {
                                                     if (avoid.includes(item.id)) {e.preventDefault (); alert('Cannot increase and avoid same quadrants')}
@@ -148,13 +147,12 @@ export function PuzzleSettings (){
                                                     }
                                                 }}}
                                             ></input>
-                                            <span>{ item.name }</span>
+                                            <span>{`${item.name} ` }</span>
                                         </label> 
                                     )})}
-                </p>
+                </h4>
                 </div>
-                <br/>
-                <div className='subform' style={{width:'50%'}}>
+                <div className='subform'>
                 <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end' }}/>}>
                             <Popup.Header>How to Customize Puzzle Image:</Popup.Header>
                             <Popup.Content>
@@ -162,7 +160,7 @@ export function PuzzleSettings (){
                             </Popup.Content>
                         </Popup>
                     
-                <label> Insert image link to customize image (leave blank otherwise): </label>
+                <label className='subheading'> Insert image link to customize image (leave blank otherwise): </label>
                 <input type='text' onChange= {(e) => {setSource(e.target.value);}}/>
                 </div>
                 <input style ={{top: '90%', left: '80%', position:'absolute'}}type='submit' value='Submit'/>

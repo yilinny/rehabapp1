@@ -150,13 +150,12 @@ export class SquareSettings extends React.Component {
         else {
             return(
                 <div className='settings-container'>
-                    <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./'>  Back to Game menu</Button>
+                    <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./games'>  Back to Game menu</Button>
                     <div style={{left: '50%', padding: '2%'}}>
-                        <h1 style={{color:'#faf3dd'}}> Settings </h1>    
+                        <h1 style={{color:'#faf3dd'}}> SETTINGS </h1>    
                     </div>
-                    <form className='form' onSubmit = { this.onSubmit } style={{width:'70%'}}>
-                    
-                        <div className='subform' style ={{width: '40%'}}>
+                    <form className='form' onSubmit = { this.onSubmit }>
+                        <div className='subform'>
                         <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end'}}/>}>
                             <Popup.Header> Increasing Frequency: </Popup.Header>
                             <Popup.Content>
@@ -193,7 +192,7 @@ export class SquareSettings extends React.Component {
                            
                         </div>
                         
-                        <div className='subform' style ={{width: '40%' }}>
+                        <div className='subform'>
                         <Popup position = 'bottom right'trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end'}} />} wide>
                             <Popup.Header> Avoiding Quadrants</Popup.Header>
                             <Popup.Content>
@@ -230,7 +229,7 @@ export class SquareSettings extends React.Component {
                             }
                         </div>
 
-                        <div className='subform' style ={{width: '40%'}}>
+                        <div className='subform'>
                         <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end' }}/>}>
                             <Popup.Header> Color picker</Popup.Header>
                             <Popup.Content>
@@ -275,7 +274,7 @@ export class SquareSettings extends React.Component {
 
                         </div>
 
-                        <div className='subform' style ={{width: '40%'}}>
+                        <div className='subform'>
                         <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end' }}/>}>
                             <Popup.Header>Distractions</Popup.Header>
                             <Popup.Content>

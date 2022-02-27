@@ -50,23 +50,23 @@ export const CookingSettings = () =>{
 
     return(
         <div className='settings-container'>
-        <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='/'>  Back to Game menu</Button>
+        <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='/games'>  Back to Game menu</Button>
             
             <form className='cookingform' onSubmit={(e)=>{submitForm(e)}}>
             <Popup wide='very' position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '5%', height: 'auto', left: '93%' , top: '2%', position:'absolute'}}/>}>
                             <Popup.Header> Skills </Popup.Header>
                             <Popup.Content>
-                                <p>Grade the difficulty of each skill -- the higher the number the more the skills would be challenged</p>
-                                <p>In grading cognition skills, consider the cognitive hierarchy.</p>
-                                <p> Motor skills are graded by no. of repetition</p>     
+                                <p>Grade the difficulty of each skill; a higher number indicates a greater challenge.</p>
+                                <p>In grading cognition skills, consider the cognitive hierarchy (eg. attention is prerequiste for memory)</p>
+                                <p> Motor skills are graded by number of repetition</p>     
                             </Popup.Content>
                         </Popup>
-            <h1> Settings</h1> 
+            <h1 style={{fontSize: '2rem'}}> SETTINGS</h1> 
            
                 {fields.map((item,index) => {
                 return(
                     <div style={{textAlign:'center'}}>
-                    <label>{item}</label>
+                    <h4>{item}</h4>
                     <select  onChange = {(e)=>{handleChange(e,index)}}>
                     {difficultyScale.map(item => {return(<option value = {item}>{item}</option>)})}
                     </select>  
@@ -75,7 +75,7 @@ export const CookingSettings = () =>{
                 )})} 
 
             
-                <div><label > Choose recipe: </label>
+                <div><label className='heading'> Choose recipe: </label>
                     <select onChange={(e)=>setRecipe(e.target.value)}>
                     {recipe.map((item,index)=>{return(<option key= {`recipe-${index}`}value={index}>{item}</option>)
                     })} </select>

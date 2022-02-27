@@ -55,15 +55,15 @@ function Square (props){
     } }, [props])
 
     if (props.size === 's') {
-        size = ['2.5vw', '5vh']
+        size = ['2.5vw', '2.5vw']
     }
 
     else if (props.size === 'l') {
-        size = ['10vw', '20vh']
+        size = ['10vw', '10vw']
     }
 
     else {
-        size = ['5vw', '10vh']
+        size = ['5vw', '5vw']
     }
 
     console.log(coords);

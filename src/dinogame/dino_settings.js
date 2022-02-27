@@ -46,9 +46,9 @@ export const DinoSettings = () =>{
 
     return(
         <div className='settings-container'>
-           <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='/'>  Back to Game menu</Button>
+           <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='/games'>  Back to Game menu</Button>
             <form className='cookingform' onSubmit={(e)=>{submitForm(e)}}>
-            <h1> Settings</h1> 
+            <h1 style={{fontSize: '3rem'}}> SETTINGS</h1> 
                 {fields.map((item,index) => {
                 return(
                     <div style={{textAlign:'center'}}>

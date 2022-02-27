@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import 'semantic-ui-css/semantic.min.css'
 
+import {Home} from './misc_pages/home'
+import { AboutUs } from './misc_pages/about_us';
+import  {WhyGames}  from './misc_pages/whygame';
 import { GameMenu } from './gamemenu/gamemenu';
 import { SquareSettings } from './square/squaresettings';
 import { PuzzleSettings } from './puzzle/puzzlesettings';
@@ -21,7 +24,10 @@ const Routing = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<GameMenu />} />
+        <Route path="/" element={<Home/>} />
+        <Route path ="/aboutus" element ={<AboutUs/>} />
+        <Route path ="/whygames" element ={<WhyGames/>} />
+        <Route path="/games" element={<GameMenu />} />
         <Route path="/square" element={<SquareSettings />} />
         <Route path="/puzzle" element={<PuzzleSettings />} />
         <Route path="/cooking" element={<CookingSettings />} />
@@ -30,6 +36,7 @@ const Routing = () => {
     </Router >
   );
 };
+
 
 
 

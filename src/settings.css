@@ -1,5 +1,5 @@
 .settings-container {
-    background-color: #bc6c25;
+    background-color: #e29578;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -20,12 +20,11 @@
 
 .form {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    padding: 2%;
+    padding: 20px 20px 20px 20px;
     border-radius: 18px;
-    background-color: #faf3dd;
-    row-gap: 5vh;
-    column-gap: 2vw;
+    background-color: #ffddd2;
     text-align: center;
     justify-content: center;
 
@@ -40,7 +39,7 @@
     flex-direction: column;
     border-radius: 10px;
     text-justify: auto;
-    background-color: #dda15e;
+    background-color: #ffddd2;
     row-gap: 3%;
 }
 
@@ -52,7 +51,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 18px;
-    background-color: #faf3dd;
+    background-color: #f6eae6;
     row-gap: 3vh;
     padding:5%;
 
