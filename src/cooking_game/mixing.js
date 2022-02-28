@@ -179,7 +179,7 @@ const Counter = ({recipeNo,stepNo , difficulty, next_step}) => {
             animation: `progress ${total_seconds}s linear 0s 1 normal forwards`
         }}> </div>
 
-        <h1>{text}</h1> 
+        <h1 style={{textAlign:'center', paddingTop:'10rem'}}>{text}</h1> 
 
         {baring && baring.map((food)=> 
         <div key = {`div-${food.no}`}>

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 import {TimeComponent} from '../general/countdown';
@@ -17,11 +18,11 @@ function generate_coordinates(side) {
 }//randomly places square
 
 const updateTarget = (level_increment) => {
-    // y =  0.8x + 3 (x is current increment to level up)
-    // y-3/0.8 = x (y is new increment to level up)
-   let currentX = (level_increment-3)/(1.4)
+    // y = 1.5x + 3 (x is current increment to level up)
+    // y-3/1.5 = x (y is new increment to level up)
+   let currentX = (level_increment-3)/(1.5)
    currentX ++ 
-   level_increment = Math.ceil((currentX*1.4 + 3))
+   level_increment = Math.ceil((currentX*1.5 + 3))
    return (level_increment)
 } //ie. need to tap more squares /20s --> difficulty increases
 
@@ -35,7 +36,6 @@ function Square (props){
     let size = [];
    
     useEffect (()=>{if (props.quad === 'NIL' && props.noquad==='NIL') {
-        console.log('in here')
         setCoords([generate_coordinates('x'), generate_coordinates('y')])
     }
     
@@ -66,7 +66,6 @@ function Square (props){
         size = ['5vw', '5vw']
     }
 
-    console.log(coords);
     return( 
         <button className='square' 
             style = {{
@@ -124,9 +123,10 @@ class GameBoard extends React.Component { //react component starts with caps
     onTimeOut(){
         //what happens at the end of level up screen
         let score_increase;
+        
        
         if (this.state.game_mode === '2') {
-            score_increase = 3 + this.state.level
+            score_increase = Math.floor(3 + (parseInt(this.state.level)*1.3))
             //each level need to get one more square correct (different scoring system for number of taps)
         }
 
@@ -135,7 +135,7 @@ class GameBoard extends React.Component { //react component starts with caps
         this.setState({
             level_up: false, 
             level_increment:score_increase, 
-            next_level_score: score + score_increase
+            next_level_score: parseInt(score) + parseInt(score_increase)
         })
 
 
@@ -147,6 +147,9 @@ class GameBoard extends React.Component { //react component starts with caps
 
             this.setState({ circles:new_arr })
         }
+
+        console.log(`score increase is: ${score_increase}`)
+
     }
 
     handleClick() {
@@ -203,17 +206,21 @@ class GameBoard extends React.Component { //react component starts with caps
                 score_display: score
             })
 
+            console.log(`to level up: score require is ${this.state.next_level_score}`)
+            console.log(`status check. level=${level} score =${score}`)
+
             //check level up
-            if (level === 1 && score === 3)
+            if (level == 1 && score == 3)
                 {setTimeout(() => {this.onTimeOut()}, 3000);
                 this.setState({level_up: true})}
-            else if (level === 3 && score === 13)
+            else if (level == 3 && score == 7)
+                {console.log('levelling up')
+                setTimeout(() => {this.onTimeOut()}, 3000);
+                this.setState({level_up: true})}
+            else if (level == 5 && score == 11)
                 {setTimeout(() => {this.onTimeOut()}, 3000);
                 this.setState({level_up: true})}
-            else if (level === 5 && score === 35)
-                {setTimeout(() => {this.onTimeOut()}, 3000);
-                this.setState({level_up: true})}
-            else if ([1,3,5].includes(level) === false && score === this.state.next_level_score)
+            else if (score === this.state.next_level_score)
                 {setTimeout(() => {this.onTimeOut()}, 3000);
                 this.setState({level_up: true})}
             

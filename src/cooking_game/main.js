@@ -108,7 +108,7 @@ export const CurrentScene= ({recipe_no = 0, skills = [0,0,0,0,0]}) =>{
                 <div className="finalpic"></div>
                 <div className="star"></div> 
                 <Button href='/cooking' style={{width:'15%', height:'auto',top:'65%', left:'33%', position:'absolute'}}> Another recipe?</Button>
-                <Button href='/' style={{width:'15%', height:'auto',top:'65%', left:'53%', position:'absolute'}}> Main menu</Button>
+                <Button href='/games' style={{width:'15%', height:'auto',top:'65%', left:'53%', position:'absolute'}}> Main menu</Button>
                 </div>
                 
             )

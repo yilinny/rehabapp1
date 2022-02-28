@@ -4,7 +4,6 @@
     // conflicting instructions --> new shape
     // Number on a square, to be tapped accordingly. 
 
-import { useState } from 'react/cjs/react.development';
 import {check_brightness, LightenDarkenColor} from '../general/color'
 
 function generate_coordinates(min, max, dim) {
@@ -25,7 +24,6 @@ function randomint(){
 
 function place_in_quad (quad_name) {
     console.log(`Placing in: ${quad_name}`);
-    console.log(quad_name[0])
 
     let x;
     let y;
@@ -41,7 +39,6 @@ function place_in_quad (quad_name) {
     }
 
     else{
-    console.log(quad_name[0]);
     (quad_name[0]==='U') ? y= generate_coordinates(1,45,'y'):y=generate_coordinates(50,90,'y');
     (quad_name[1]==='L') ? x=generate_coordinates(1,45,'x'): x=generate_coordinates(50,90,'x');
 

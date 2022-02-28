@@ -21,37 +21,37 @@ export function WhyGames () {
     const benefits =[
                 {
                     title:'Motivation',
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar nulla scelerisque, iaculis neque vel, sagittis ipsum. Suspendisse interdum pellentesque lacus in eleifend. Nam vel justo at metus feugiat lobortis feugiat ut nulla. Etiam dapibus suscipit ultricies. Etiam dictum congue justo. In imperdiet turpis sem, sodales molestie sem rhoncus eget. Proin pellentesque purus nec est scelerisque hendrerit. Cras eget lacus felis. Curabitur quis dui quis augue pharetra viverra consectetur eget nisl. Maecenas enim metus, vestibulum nec augue nec, ullamcorper posuere felis. Etiam vitae nunc quis nunc euismod rhoncus eget sed mi.',
+                    text: 'Characteristics of games, including fantasy, sensory stimuli, challenge and clear rules and goals (Garris et al., 2002) contribute to the enjoyment of the game. Rewards associated with the achievement of in-game goals has also linked gamification to increased engagement in other fields (eg. education). Elaklouk et al. (2013) suggests by allowing for grading and the \'just right\' challenge, games enhances clients\' confidence and enjoyment. The increased motivation to adhere to interventions is associated with increased functional outcomes (Tincon et al., 2021)',
                     pic: motivation,
                 },
                 {
                     title:'Performance Skills',
-                    text:'Donec porttitor ante purus, nec dignissim felis elementum vitae. Nam felis metus, fermentum ut sapien eget, euismod semper dolor. Nullam eget nisl nulla. Maecenas scelerisque quam nec arcu elementum, a gravida lacus rutrum. Duis consectetur volutpat nisi ut tempor. Proin orci felis, imperdiet at velit eu, sagittis tempor nisi. Nullam aliquam sagittis libero, vel scelerisque ex vestibulum vel. Nullam tincidunt nisl vel ex viverra, ut tincidunt sem laoreet. Aenean condimentum congue mauris nec consequat. Nam et justo fermentum, tempor nulla nec, dapibus ex. Mauris venenatis quam mauris, sed gravida dolor scelerisque sed. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+                    text:'Elaklok et al. (2013) contends games are unique for it allows cliens to practice rehabilitation tasks without real world consequences, allowing for the gradual improvement of skills via trial and error. Cognitive measures shows using serious mobile-games as an intervention brough about improvement in participants with dementia (Rincon et al., 2021). Elaklouk et al., (2013) finds similar gains for the brain injured population. Meanwhile, exergames (serious games promoting exercise) has been found to increase adherance and engagement in physical therapy interventions. ',
                     pic:performanceskills
                 },
                 {
-                    title:'Virtual environment and risk taking',
-                    text:'',
+                    title:'Virtual environment',
+                    text:'The virtual environment allows for risk to be taken as elaborated upon earlier. Additionally, it allows for a degree of fantasy and sensory stimuli, and potentially mystery, further enhacning client\'s enjoyment and engagement in therapy (Rincon et al., 2021) The virtual environment also allows for adaptation of activity demands, so that it could be gradually increased allowing clients the opportunity for gradual skill development, whilst still being ecologically valid. For example, our cooking game is based on the occupation and tasks involved in cooking, but allows for skills to be gradually challenged.' ,
                     pic:virtualenv
                 },{
                     title:'Control and grading',
-                    text:'',
+                    text:'The biggest difference between off the shelf games and Gamified Rehab is the potential for control and grading. Elaklouk et al. (2013) contends this is essential for the game to be focused on the achievement of client\'s therapeutic goals; whilst simulataneouly allowing for the game to address a huge range of impairments which different clients present with.The increased control offered by the game also allows for a degree of personalization, in line with the client-centered principles of occupational therapy (RCOT, 2021).',
                     pic:control
                 },{
-                    title:'Potential for personalization',
-                    text:'',
-                    pic: logo3,
-                },{
                     title:'Data analytics',
-                    text: '',
+                    text: 'Games have the potential to produce objective data measures that allow for the monitering of outcomes (Elaklouk et al., 2013). Harnessing the data as a form of outcome measure is part of RCOT (2021) new strategy of improved data literarcy amongst occupational therapists. Elaklouk et al (2013) suggests presenting the data to clients over time can help further improve motivation. On the other hand, collecting data on usage timings allow for therapist to track therapy adherence utside of therapy hours.',
                     pic:data
+                },{
+                    title:'Referenced resources',
+                    text:'1) Elaklouk, A.M., Mat Zin, N.A. and Shapii, A., 2013, November. Game design for acquired brain injury cognitive rehabilitation: a conceptual framework. In International Visual Informatics Conference (pp. 218-230). Springer, Cham. 2) Liu, L., 2018. Occupational therapy in the fourth industrial revolution. Canadian Journal of Occupational Therapy, 85(4), pp.272-283. 3) Ríos Rincón, A.M., Daum, C., Miguel Cruz, A., Liu, L. and Stroulia, E., 2022. Feasibility and Acceptability of a Serious Mobile-Game Intervention for Older Adults. Physical & Occupational Therapy In Geriatrics, pp.1-24. This list is not all inclusive, but a list of key references',
+                    pic:logo4
                 }
     ];
 
     const onChangeDirection= (direction) =>  {
         let a= chosen_id;
         (direction=== 'L')? a= a -1 : a = a+1
-        if (a > 5 || a < 0) {
+        if (a > 5|| a < 0) {
             (a > 5)? a=0 : a=5
         }
         setChosenId(a)
@@ -91,9 +91,9 @@ export function WhyGames () {
                 <img style={{width:'250px', height:'auto'}} src={logo4} alt='www icon'></img>
                 <p style={{flexGrow:'2'}}> If you've found the games useful, check out: my-therappy.co.uk or the OT Toolbox for other games suitable for OT </p>
             </div>
-            <h3> FEEDBACK </h3>
             <p> This is a game, designed for both clients and clinicians alike (read the information manual embedded in the game for details!). As we are no coding experts and are merely at the start of our OT career, we understand that our games are by no means perfect, so we welcome any feedback here. In the meantime, happy playing!</p>
-            <div style={{justifyContent:'center', paddingBottom:'10vh'}}>
+            <div style={{justifyContent:'center', paddingBottom:'10vh', paddingLeft:'35vw'}}>
+                <a href='https://forms.gle/FiRetJqLarm4bFWUA'><btn className='backbtn' style={{position:'relative'}}>feedback here</btn></a>
 
             </div>
         </div>

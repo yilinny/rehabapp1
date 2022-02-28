@@ -27,8 +27,10 @@ function generateinitialcoords_wait (ing){
 
 const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {  
     console.log(difficulty)
+    
     //variables for use 
     let task = recipes[recipeNo].step[stepNo]
+    console.log(task.ing[difficulty[1]])   
     const time_arr= [15,20,30,40,50]
     const total_seconds = time_arr[difficulty[0]] //adapt based on sustained attention
     const ing_arr = (task.adapt.type === 'add') ? task.ing[difficulty[1]]: task.ing// ingredient list no change for other mode
@@ -238,11 +240,11 @@ const Stove = ({recipeNo, stepNo,  difficulty, next_step}) => {
             backgroundColor: 'green',
             animation: `progress ${total_seconds}s linear 0s 1 normal forwards`,
         }}> </div>
-        <h2 style={{top:'20%', left: '15%',opacity: `${(opacity === 0)? 0 :1 }`, paddingTop: '6.8rem'}}> Add ingredient to pot at the right time by dragging!!</h2>
-        <h2 style={{top:'10%', opacity: `${(opacity === 1)? 0 :1 }`}}> Tap when the food is golden-brown and ready!!</h2>
+        <h2 style={{textAlign:'center', opacity: `${(opacity === 0)? 0 :1 }`, paddingTop: '10rem'}}> Add ingredient to pot at the right time by dragging!!</h2>
+        <h2 style={{textAlign:'center', opacity: `${(opacity === 1)? 0 :1 }`}}> Tap when the food is golden-brown and ready!!</h2>
         <div></div>
 
-        <h1>{text}</h1> 
+        <h1 style={{textAlign:'center', margin: '0.1rem'}}>{text}</h1> 
 
         {baring && baring.map((food)=> 
         <div key = {`div-${food.no}`}>

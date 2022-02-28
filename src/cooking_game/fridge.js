@@ -14,6 +14,7 @@ function resizeContainer (){
 function Instructions (props) {
     console.log(props.correct_ing)
     return(
+        <div>
         <div key='instruction' style ={{backgroundColor:'white', width: '50%', height: '50%', top: '25%', left: '15%', position: 'absolute', display: 'flex', flexDirection: 'column',  borderRadius: '15px', 
                                         borderColor: '#e7e7e7', 
                                         boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
@@ -30,10 +31,14 @@ function Instructions (props) {
                         top: `${20*(Math.ceil((index + 1)/3))}%`,
                         margin: '4rem 0rem',
                     }}></div>)}
+            </div>
             <button onClick={props.onclick} style = {{
                     margin: '8rem 3rem',
                     padding: '10px 25px',
                     border: 'none',
+                    position:'absolute',
+                    top: '55vh',
+                    left:'50vw',
                     backgroundColor: '#e7e7e7'}}>Let's go!</button> 
             </div>
         
