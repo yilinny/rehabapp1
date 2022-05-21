@@ -5,6 +5,7 @@ import '../general/countdown'
 import { TimeUp } from '../general/countdown';
 import { increase_distribution_p } from './puzzleadaptations';
 import { EndGame, Puzzleright } from './popup';
+import { Button } from 'semantic-ui-react';
 
 
 const clamp = (value, min, max) => {
@@ -36,18 +37,17 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
     const initialcorrect = rows*columns - wrong_piece //check wrong_piece is less than total
     const timefinished = useRef(0);
 
+    function CalculateRightCoords (position) {
+        let xPercent = position % columns / columns
+        let yPercent = Math.floor(position/ columns) / rows 
+        return ([xPercent,yPercent])
+    }
+
     
     const onImageLoaded = useCallback((image) => { 
         setImageSize({width:(percent)* window.innerWidth, height:(image.height/image.width)*percent*window.innerWidth});
         //resizing image height based on width
         //width is set to 0.8vw
-
-        function CalculateRightCoords (position) {
-            let xPercent = position % columns / columns
-            let yPercent = Math.floor(position/ columns) / rows 
-            return ([xPercent,yPercent])
-
-        }
 
         let initialCorrectTiles = []
         //decide which tiles are correct 
@@ -64,7 +64,6 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
         let randomCoords = []
         for (var b = 0; b < rows*columns; b ++ ){
             if (initialCorrectTiles.includes(b)){
-                console.log('adding correct')
                 randomCoords = [...randomCoords, CalculateRightCoords(b)]
             } 
             else{
@@ -227,14 +226,17 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
 
     }
     else return (
-    <div style={{backgroundColor:'#dda15e', width:'100vw',height:'100vh'}}>
+    <div draggable={false}style={{backgroundColor:'#dda15e', width:'100vw',height:'100vh', overflow:'hidden'}}>
         <br/>
         <TimeUp marker = {gameOver}/>
         <br/>
+        <Button href='./puzzle'> Back </Button>
         <Puzzleright src={imageSrc}/>
+        <br/>
+        
        
         <div ref={onRootElementRendered} onTouchMove={onRootMouseMove} onMouseMove={onRootMouseMove} onTouchEnd={onRootMouseUp} onMouseUp={onRootMouseUp} onTouchCancel={onRootMouseUp} onMouseLeave={onRootMouseUp} className="jigsaw-puzzle" 
-    style={{ height: !calculatedHeight ? undefined : `${rootSize.height}px`, width: `${rootSize.width}px`, top: `${centered}vh`, left: `${centered}vw`, border: '3px solid #000000'}}
+    style={{height: !calculatedHeight ? undefined : `${rootSize.height}px`, width: `${rootSize.width}px`, top: `${centered}vh`, left: `${centered}vw`, border: '3px solid #000000'}}
     onDragEnter={event => {
             event.stopPropagation();
             event.preventDefault();
@@ -253,7 +255,18 @@ export const JigsawPuzzle = ({imageSrc, rows , columns, percent, wrong_piece, av
                 backgroundPositionY: `${Math.floor(tile.correctPosition / columns) / (rows - 1) * 100}%`,
                 left: `${tile.currentPosXPerc * rootSize.width}px`,
                 top: `${tile.currentPosYPerc * rootSize.height }px`
-            }}/>)} 
+            }}/>)}
+    
+    {Array.from(Array(rows * columns).keys()).map(number => <div style ={{
+        borderStyle:'solid',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        height: `${(1 / rows * 101)}%`,
+        width: `${(1 / columns * 101)}%`,
+        left: `${CalculateRightCoords(number)[0]* rootSize.width}px`,
+        top: `${CalculateRightCoords(number)[1]* rootSize.height}px`
+
+    }}/>)}
     </div>
 </div>);
 };

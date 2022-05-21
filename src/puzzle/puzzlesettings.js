@@ -17,7 +17,10 @@ export function PuzzleSettings (){
     const quadrants= [{id: 'UL', name: 'Upper Left'}, {id: 'LL', name: 'Lower Left'}, {id: 'UR', name: 'Upper Right'}, {id: 'LR', name:'Lower Right'}]
     const [avoid, setAvoid] = useState(['NIL'])
     const [increase, setIncrease]= useState(['NIL'])
-    const [imagesource, setSource]= useState('https://source.unsplash.com/random/1000x800')
+    const width = Math.floor(window.innerWidth)
+    const height = Math.floor(window.innerHeight)
+    console.log(`${width} x ${height}`)
+    const [imagesource, setSource]= useState(`https://source.unsplash.com/random/${width}x${height}`)
     return (
         <div className='settings-container'>
             <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./games'>  Back to Game menu</Button>

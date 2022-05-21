@@ -33,7 +33,7 @@ const potCoords = {
         if (second_interval){clearInterval(second_interval)}
         second_interval = setTimeout(()=> {setSeconds(seconds+ 1)},1000);
         
-        if (seconds >= 14){
+        if (seconds >= 16){
             setTimeout(()=>{setPlay('paused')}, 6000)
             alert('Oh no, water overflowed! Please try again.')
             setSeconds(0)

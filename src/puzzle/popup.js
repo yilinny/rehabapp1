@@ -21,8 +21,8 @@ export function Puzzleright(props){
 
     return( 
         <div>
-        <Button onClick={buttonClick}> {text} </Button> 
-        <Image src={props.src} hidden={hide} style={{width: '20vw', height:'auto'}}></Image>  
+        <Button style ={{position: 'absolute', top: '5%',left: '85%'}} onClick={buttonClick}> {text} </Button> 
+        <Image src={props.src} hidden={hide} style={{width: '20vw', height:'auto', position: 'absolute', top: '10%', left: '80%'}}></Image>  
         </div> 
     )
 }

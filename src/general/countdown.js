@@ -15,15 +15,17 @@ const StringTime = seconds => {
 export class TimeComponent extends React.Component {
     constructor(props){
       super(props);
-      this.state = {seconds: props.time, interval : 0};
+      this.state = {seconds: props.time, interval : 0, paused : props.paused};
     };
     render(){
       if (this.state.seconds === 0){clearInterval(this.interval); this.props.onGameOver(); return (null)} 
-      else {return( `Countdown:${this.state.seconds}`);}
+      else {return( <div style={{left: '90vw'}}> Countdown:{this.state.seconds}</div>);}
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => {this.setState({seconds: this.state.seconds -1})}, 1000);
+      if (this.state.paused === false){
+        this.interval = setInterval(() => {this.setState({seconds: this.state.seconds -1})}, 1000);}
+      
     }
     componentWillUnmount() {
         clearInterval(this.interval);

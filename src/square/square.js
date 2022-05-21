@@ -7,10 +7,11 @@ import { increase_distribution, randomfive, AdaptedSquare } from './adaptations'
 import { SquareSettings } from './squaresettings';
 import {Circle} from './adaptations';
 import '../index.css'
+import { Button } from 'semantic-ui-react';
 
 
 function generate_coordinates(side) {
-    let coord = Math.floor(Math.random() * 94) + 1
+    let coord = Math.floor(Math.random() * 90) + 1
     let strcoord;
     if (side ==='x') {strcoord= String(coord) + 'vw'}
     else if (side ==='y') {strcoord= String(coord) + 'vh'}
@@ -106,7 +107,10 @@ class GameBoard extends React.Component { //react component starts with caps
           lives: props.lives,
           circles: circle_arr,
           square_no: props.square_no,
-          count_one : true //only passed down to adapted square, auto set as true for initial 
+          paused: false, 
+          count_one : true, //only passed down to adapted square, auto set as true for initial 
+          myref : React.createRef(), 
+          secondsleft: this.props.duration 
         };
 
         //need this to hold settings as well, passing the function to set state down into the settings function 
@@ -114,17 +118,18 @@ class GameBoard extends React.Component { //react component starts with caps
         this.handleClick= this.handleClick.bind(this);
         this.onTimeOut= this.onTimeOut.bind(this);
         this.gameOver= this.gameOver.bind(this);
-        this.onReset= this.onReset.bind(this)
-        this.onChangeSettings= this.onChangeSettings.bind(this)
-        this.handleCircle= this.handleCircle.bind(this)
-        this.handleASquare = this.handleASquare.bind(this)
+        this.onReset= this.onReset.bind(this);
+        this.onChangeSettings= this.onChangeSettings.bind(this);
+        this.handleCircle= this.handleCircle.bind(this);
+        this.handleASquare = this.handleASquare.bind(this);
+        this.changePaused = this.changePaused.bind(this)
+
     };
     
     onTimeOut(){
         //what happens at the end of level up screen
         let score_increase;
         
-       
         if (this.state.game_mode === '2') {
             score_increase = Math.floor(3 + (parseInt(this.state.level)*1.3))
             //each level need to get one more square correct (different scoring system for number of taps)
@@ -206,8 +211,6 @@ class GameBoard extends React.Component { //react component starts with caps
                 score_display: score
             })
 
-            console.log(`to level up: score require is ${this.state.next_level_score}`)
-            console.log(`status check. level=${level} score =${score}`)
 
             //check level up
             if (level == 1 && score == 3)
@@ -233,6 +236,19 @@ class GameBoard extends React.Component { //react component starts with caps
         this.setState({square_no: this.state.square_no -1})
         } 
     }//change in states would trigger rerender of adapted square
+
+    changePaused (){
+        if (this.state.paused == false){ 
+            var timeleft = this.state.myref.current.state.seconds
+            this.setState({
+                paused: true,
+                secondsleft: timeleft
+            })}
+        else {
+            console.log(this.state.secondsleft)
+            this.setState({paused: false})
+        }
+    }
     
     render (){
         if (this.state.settings_page===true){
@@ -245,18 +261,30 @@ class GameBoard extends React.Component { //react component starts with caps
         else if (this.state.level_up === true) {
             return <LevelUp />
         }
+
+        else if (this.state.paused === true){
+            return (
+            <div className='levelup-container'>
+                <h1>Paused</h1>
+                <Button onClick={this.changePaused}>Resume</Button>
+            </div>
+            )
+        }
         else if (this.state.game_mode === '1') {
             return(
-            <div style={{backgroundColor: '#bc6c25', width:'100vw', height: '100vh' }}>
+            <div style={{backgroundColor: '#bc6c25', width:'100vw', height: '100vh', overflow:'hidden' }}>
+                <Button style={{position:'absolute', left: '93vw', top: '1vh'}} href='./square'> Back </Button>
+                    <Button style ={{left: '93vw',top: '6vh', position: 'absolute'}}
+                            onClick={this.changePaused}>Pause</Button>
                 <div className='navbar'>
                     <h3>{ this.state.score_display }</h3> 
                     <h4>lives left: { this.state.lives} &nbsp; <TimeComponent 
-                    time = { this.props.duration } 
+                    ref={this.state.myref}
+                    time = { this.state.secondsleft} 
+                    paused = { this.state.paused }
                     onGameOver = { () => { this.gameOver() } }/></h4>
                 
                 </div>
-
-               
 
                 <Square 
                     onClick = { () => { this.handleClick() } } 
@@ -282,10 +310,15 @@ class GameBoard extends React.Component { //react component starts with caps
 
         else if (this.state.game_mode === '2') {
             return(
-                <div style={{backgroundColor: '#bc6c25',width:'100vw', height: '100vh'}}>
+                <div style={{backgroundColor: '#bc6c25',width:'100vw', height: '100vh', overflow:'hidden'}}>
+                    <Button style={{position:'absolute', left: '93vw', top: '1vh'}} href='./square'> Back </Button>
+                    <Button style ={{left: '93vw',top: '6vh', position: 'absolute'}}
+                            onClick={this.changePaused}>Pause</Button>
                     <div className='navbar'><h3>{this.state.score_display}</h3>
                     <h4><TimeComponent 
-                        time = { this.props.duration } 
+                        ref = { this.state.myref }
+                        time = { this.state.secondsleft } 
+                        paused = { this.state.paused }
                         onGameOver = { () => { this.gameOver() } }
                     /></h4>
                 </div>
@@ -304,11 +337,16 @@ class GameBoard extends React.Component { //react component starts with caps
 
         else {
             return (
-                <div style={{backgroundColor: '#bc6c25',width:'100vw', height: '100vh'}}>
+                <div style={{backgroundColor: '#bc6c25',width:'100vw', height: '100vh', overflow:'hidden'}}>
+                    <Button style={{position:'absolute', left: '93vw', top: '1vh'}} href='./square'> Back </Button>
+                    <Button style ={{left: '93vw',top: '6vh', position: 'absolute'}}
+                            onClick={this.changePaused}>Pause</Button>
                     <div className='navbar'>
                         <h3 style={{textAlign:'center'}}>{ this.state.score_display }</h3>
                         <TimeComponent 
-                        time = {this.props.duration} 
+                        ref = {this.state.myref}
+                        time = {this.state.secondsleft} 
+                        paused = { this.state.paused }
                         onGameOver = { () => { this.gameOver() }}
                     />
                     </div>
@@ -325,6 +363,7 @@ class GameBoard extends React.Component { //react component starts with caps
         )};
         //passed down chosen quad from settings to square using quad = {this.props.quad}
     }
+
 }
 
 export default GameBoard;
