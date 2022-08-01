@@ -19,7 +19,7 @@ export class TimeComponent extends React.Component {
     };
     render(){
       if (this.state.seconds === 0){clearInterval(this.interval); this.props.onGameOver(); return (null)} 
-      else {return( <div style={{left: '90vw'}}> Countdown:{this.state.seconds}</div>);}
+      else {return( `Countdown:${this.state.seconds}`);}
     }
 
     componentDidMount() {

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import Draggable from 'react-draggable'
 import './tap.css'
 import recipes from './recipes'
-import { notDependencies } from 'mathjs'
 
 function resizeContainer (){
     return (1080/1920 * window.innerWidth)

@@ -11,7 +11,8 @@ import { GameMenu } from './gamemenu/gamemenu';
 import { SquareSettings } from './square/squaresettings';
 import { PuzzleSettings } from './puzzle/puzzlesettings';
 import { CookingSettings } from './cooking_game/cookingsettings';
-import { DinoSettings } from './dinogame/dino_settings';
+import { Dino } from './newdino/dino';
+import { DinoSettings } from './newdino/dinosettings';
 
 const TitleSetter = ({ title }) => {
   useEffect(() => {

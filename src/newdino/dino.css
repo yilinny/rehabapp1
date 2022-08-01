@@ -31,7 +31,7 @@ body {
     position: relative;
     font-size: 200px;
     text-align: center;
-    background-image: url('./dino_pics/bg.png');
+    background-image: url('./pics/bg.png');
     background-repeat: repeat;
     background-size: contain;
   }
@@ -39,19 +39,21 @@ body {
   .doodler {
     width: 7vw;
     height: 15vh;
-    background-image: url('./dino_pics/dino.png');
+    background-image: url('./pics/dino.png');
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .obstacle {
+    width: 7vw;
+    height: 15vh;
+    background-image: url('./pics/spacerock.png');
     position: absolute;
     background-size: contain;
     background-repeat: no-repeat;
   }
   
-  .platform {
-    width: 15%;
-    height: 1.5vh;
-    background-color: #12b4ff;
-    position: absolute;
-    border-radius: 5px;
-  }
   
   .instructions {
     font-size: 3vh;
@@ -65,7 +67,7 @@ body {
   }
   
   .score {
-    font-size: 18vh;
+    font-size: 10vh;
     top: 10px;
     border-radius: 10px;
     text-align: right;
