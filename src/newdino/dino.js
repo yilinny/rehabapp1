@@ -31,7 +31,7 @@
 
     }
 
-    export function Dino ({control=2, progressive = 1, difficulty = 6, arrowsensitivity = 2}){
+    export function Dino ({control=2, progressive = 1, difficulty = 0, arrowsensitivity = 2}){
         const [dino, SetDino] = useState({})
         const [isGameOver, setIsGameOver] = useState(true)
         const [obstacle, setObstacle] = useState ([])
@@ -39,7 +39,7 @@
         const [text, setText] = useState ()
         const displacement = (arrowsensitivity+1) * 2
         const [currentDiff, setDiff] = useState(difficulty)
-        const [speed, setSpeed] = useState(100-(difficulty*10))
+        const [speed, setSpeed] = useState(100-((difficulty+1)*10))
         const [pause, setPause] = useState(false)
         const [stop, setStop] = useState(false) //stop checking for correct if stop === true, then no check 
 
@@ -143,11 +143,14 @@
         //function to check collision 
         useEffect (()=>{
             let interval;
+            console.log(speed)
             if (pause === false){
             interval = setInterval (()=>{
+                console.log('hi i am checking')
                 if (obstacle.length > 0){
                     var i;
                     for (i=0; i<obstacle.length; i++){
+                        console.log(obstacle[i]);
                         if (obstacle[i].bottom < 40 && obstacle[i].bottom> 25){
                             let difference = Math.abs(obstacle[i].left - dino.left)
                             if (difference<10 && stop === false){
