@@ -5,6 +5,7 @@ import GameBoard from './square';
 import { randomfive } from './adaptations';
 import '../settings.css'
 import { Popup, Image, Button } from 'semantic-ui-react';
+import './square.css'
 
 
 export class SquareSettings extends React.Component {
@@ -53,6 +54,7 @@ export class SquareSettings extends React.Component {
             'square_no': 0,
             'color': '#000000',
             'level': 1,
+            'tab': 0,
             duration: 20
         }
 
@@ -150,12 +152,29 @@ export class SquareSettings extends React.Component {
         else {
             return(
                 <div className='settings-container'>
-                    <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./games'>  Back to Game menu</Button>
+                    <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./games '>  Back to Game menu</Button>
                     <div style={{left: '50%', padding: '2%'}}>
                         <h1 style={{color:'#faf3dd'}}> SETTINGS </h1>    
                     </div>
-                    <form className='form' onSubmit = { this.onSubmit }>
-                        <div className='subform'>
+                    <div style={{
+                    display:'flex', flexDirection:'row', columnGap:'3%', 
+                    position:'absolute', top: '36.8%', left: '20%'}}>
+                        <div className='tabbutton' 
+                            style={{zIndex:`${(this.state.tab===0)? 1:0}`}} 
+                            onClick={()=>{this.setState({tab: 0})}}>
+                            <h3> Quadrants adjustments</h3>
+                        </div>
+                        <div className='tabbutton' style={{zIndex:`${(this.state.tab===1)? 1:0}`}} onClick={()=>{this.setState({tab: 1})}}>
+                            <h3> Difficulty</h3>
+                        </div>
+                        <div className='tabbutton' style={{zIndex:`${(this.state.tab===2)? 1:0}`}} onClick={()=>{this.setState({tab:2})}}>
+                            <h3> Game Mode</h3>
+                        </div>
+                    </div>
+                    
+                    <form className='settings' onSubmit = { this.onSubmit } style ={{width: '60%', height:'40%', boxShadow:'#ffddd2', justifyContent:'normal'}}>
+                        {this.state.tab === 0 && (
+                        <div style={{display:'flex', flexDirection:'row', columnGap:'5vw'}}><div>
                         <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end'}}/>}>
                             <Popup.Header> Increasing Frequency: </Popup.Header>
                             <Popup.Content>
@@ -186,13 +205,9 @@ export class SquareSettings extends React.Component {
                                             <br/>
                                         </label> 
                                         </div>
-                                    )
-                                })
-                            }
-                           
+                                    )})} 
                         </div>
-                        
-                        <div className='subform'>
+                        <div >
                         <Popup position = 'bottom right'trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end'}} />} wide>
                             <Popup.Header> Avoiding Quadrants</Popup.Header>
                             <Popup.Content>
@@ -221,16 +236,11 @@ export class SquareSettings extends React.Component {
                                                 onClick={ (e) => this.onSelectAvoidQuadrant(e,item[1].id) }
                                             ></input>
                                             <span>{ item[1].name }</span>
-                                            <br/>
-                                        </label> 
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
+                                            <br/></label> </div>)})}</div> </div>)}
 
-                        <div className='subform'>
-                        <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end' }}/>}>
+                        {this.state.tab === 1 && (
+                        <div style={{display:'flex', flexDirection:'column', flexWrap: 'wrap', padding:'10px 10px 10px 10px', rowGap:'2vh', maxHeight:'100%', position:'absolute'}}>
+                        <Popup position='bottom right' wide trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{position: 'absolute', height: 'auto', width: '2vw', left: '90%'}}/>}>
                             <Popup.Header> Color picker</Popup.Header>
                             <Popup.Content>
                                 <p>Useful to assess if clients are more sensitive to particular colors. High contrast increases stimulation where there might be neglect/visual field loss, hence encouraging scanning</p>
@@ -271,10 +281,9 @@ export class SquareSettings extends React.Component {
                                 <option value ={30}>30 seconds</option>
                             </select>
                         </label>
+                        </div>)}
 
-                        </div>
-
-                        <div className='subform'>
+                        {this.state.tab === 2 && (<div className='subform'>
                         <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', height: 'auto', alignSelf:'flex-end' }}/>}>
                             <Popup.Header>Distractions</Popup.Header>
                             <Popup.Content>
@@ -297,7 +306,7 @@ export class SquareSettings extends React.Component {
                             <br/>
                             <label><input type ='radio' value = '2' onChange={this.ChangeMode} id='two'/> Counting taps!  </label>
                         </label>
-                        </div>
+                        </div>)}
 
                         <input style={{position:'absolute', left: '90%', top: '90%'}} type='submit' value='Submit'/>
                     </form>

@@ -11,7 +11,7 @@ export const DinoSettings = () =>{
     const [finalProps, setProps] = useState([0,0,2,1])
     const fields = [
         {name:'Control', options:['Normal', 'Left', 'Right'], description: 'Normal mode allows for bimanual control. Controls can be placed on left or right side to compensate for loss of function OR to promote use of weaker side.'},
-        {name:'Difficulty', options:['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], description: 'Affects speed. Can be graded as per client\'s fustration tolerance, or provide the just right challenge to keep clients engaged.'},
+        {name:'Difficulty', options:['1', '2', '3', '4', '5', '6', '7', '8'], description: 'Affects speed. Can be graded as per client\'s fustration tolerance, or provide the just right challenge to keep clients engaged.'},
         {name:'Auto progress', options:['No', 'Yes'], description: 'Auto progression makes levels more difficult automatically. This can keep clients engaged for longer. It can be turned off however, to track how the client performs at a specific level.' },
         {name:'Sensitivity', options:['1', '2', '3', '4','5'], description:'The less sensitive, the more presses required for the dinosaur to fly in the chosen direction. Lower sensitivities can promote increased movement whilst greater sensitivities can make the game easier.'}
     ]

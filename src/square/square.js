@@ -44,9 +44,6 @@ function Square (props){
         let chosen_quad = props.quad;
         let unchosen = props.noquad;
 
-        console.log(`chosen_quad: ${chosen_quad}`);
-        console.log(`unchosen:${unchosen}`)
-
         if (typeof unchosen === 'string') {
             unchosen=[unchosen]
         }

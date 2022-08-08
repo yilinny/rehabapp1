@@ -1,36 +1,3 @@
-.jigsaw-puzzle {
-    position: absolute;
-}
-
-.jigsaw-puzzle__piece {
-    position: absolute;
-    border: 1px solid #cecece;
-    cursor: pointer;
-    z-index: 1;
-    user-select: none;
-}
-
-.jigsaw-puzzle__piece.jigsaw-puzzle__piece--solved {
-    border-color: #000;
-    z-index: 0;
-}
-.jigsaw-puzzle__piece.jigsaw-puzzle__piece--dragging {
-    z-index: 5;
-    box-shadow: 1px 1px 5px 0px #00000091;
-}
-.loading{
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #dda15e;
-}
-
-
 .settings{
     display: flex;
     flex-direction: row;
@@ -40,24 +7,30 @@
     background-color: #ffddd2;
     text-align: left;
     justify-content: left;
-    position: relative;
+    position: absolute;
+    top: 8%;
 
     border-color: #000;
     border-width: 0.2rem;
     border-style: solid;
 }
 
-.puzzletab {
+
+.squaretab {
     display: flex;
     padding: 2%;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     border-radius: 10px;
     background-color: #ffddd2;
     row-gap: 3%;
     align-items: left;
+    position: absolute;
+    
 
     height: 100%;
     width: 100%;
+
 
 }
 
@@ -76,4 +49,11 @@
     border-style: solid;
     border-bottom-style: hidden;
 }
-  
+
+@media screen and (max-width: 700px) {
+    .tabbutton{
+        max-width: 21vw !important;
+    }
+    
+}
+    

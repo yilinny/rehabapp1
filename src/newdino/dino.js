@@ -72,8 +72,6 @@
             SetDino(createDino())
             const newObstacles = createNewObstacle()
             if (currentDiff > 5){
-                console.log(currentDiff)
-                console.log('extra set being pushed')
                 newObstacles.push({
                 left: Math.random() * 100,
                 bottom: 120
@@ -143,14 +141,11 @@
         //function to check collision 
         useEffect (()=>{
             let interval;
-            console.log(speed)
             if (pause === false){
             interval = setInterval (()=>{
-                console.log('hi i am checking')
                 if (obstacle.length > 0){
                     var i;
                     for (i=0; i<obstacle.length; i++){
-                        console.log(obstacle[i]);
                         if (obstacle[i].bottom < 40 && obstacle[i].bottom> 25){
                             let difference = Math.abs(obstacle[i].left - dino.left)
                             if (difference<10 && stop === false){

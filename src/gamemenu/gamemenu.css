@@ -14,8 +14,18 @@
     padding: 2%;
     align-items: center;
     margin: 2%;
-    margin-left: 25%;
-    margin-right: 25%;
+    width: 25vw;
+    max-height: 38vh;
+}
+
+@media screen and (max-height:500px){
+    .gamecard {
+        height: 40vh;
+    }
+    .gamecard img {
+        width: auto !important;
+        height: 40% !important; 
+    }
 }
 
 .gamecard p{
@@ -23,7 +33,7 @@
 }
 
 .gamecard img{
-    width: 20%;
+    width: 65%;
     height:auto
 
 }
@@ -33,13 +43,13 @@
         background: whitesmoke;
         color: var(--clr-black);
         padding: 0.375rem 0.75rem;
-        letter-spacing: var(--spacing);
         display: inline-block;
         transition: var(--transition);
         font-size: 0.875rem;
         border: 2px solid var(--clr-black);
         cursor: pointer;
         border-radius: var(--radius);
+        justify-content: center;
 }
 
 

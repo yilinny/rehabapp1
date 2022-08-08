@@ -21,16 +21,35 @@ export function PuzzleSettings (){
     const height = Math.floor(window.innerHeight)
     console.log(`${width} x ${height}`)
     const [imagesource, setSource]= useState(`https://source.unsplash.com/random/${width}x${height}`)
+
+
+    //form ui -- javascript to set different tabs and display accordingly
+    const [tab, setTab] = useState(0)
+
+
     return (
         <div className='settings-container'>
             <Button style ={{position: 'absolute', left: '5%', top:'5%'}} href='./games'>  Back to Game menu</Button>
-            <div style={{left: '50%', padding: '2%'}}>
+            <div style={{ padding: '2%', position:'absolute', top:'20%', left: '40%'}}>
                     <h1 style={{color:'#faf3dd'}}> SETTINGS </h1>    
             </div>
-            
-            <form className='form' style ={{width:'60%'}}onSubmit = {() => {
-
-                 ReactDOM.render(
+            <div style={{
+                    display:'flex', flexDirection:'row', columnGap:'3%', 
+                    position:'absolute', top: '36.8%', left: '20%'}}>
+                <div className='tabbutton' 
+                    style={{zIndex:`${(tab===0)? 1:0}`}} 
+                    onClick={()=>{setTab(0)}}>
+                    <h3> Difficulty level</h3>
+                </div>
+                <div className='tabbutton' style={{zIndex:`${(tab===1)? 1:0}`}} onClick={()=>{setTab(1)}}>
+                    <h3> Visual Compensations</h3>
+                </div>
+                <div className='tabbutton' style={{zIndex:`${(tab===2)? 1:0}`}} onClick={()=>{setTab(2)}}>
+                    <h3> Customize puzzle</h3>
+                </div>
+            </div>
+            <form className='settings' style ={{width: '60%', height: '40% ', position: 'absolute', top: '45%'}} onSubmit = {() => {
+                ReactDOM.render(
                     <JigsawPuzzle
                     imageSrc= {imagesource} //random image for now 
                     rows = {rows}
@@ -43,80 +62,80 @@ export function PuzzleSettings (){
                 ) //not sure why return does not work but then again idc
             }}> 
 
-                <div className='subform' >
-                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end'}}/>}>
-                            <Popup.Header> Number of pieces </Popup.Header>
-                            <Popup.Content>
-                                <p>Grade the difficulty of the puzzle by adjusting the number of pieces.</p>
-                                <p>The more the number of pieces, the more repetition involved in dragging the tiles to the right spot, great for accuracy training and fine motor.</p>
-                                <p> Increased number of pieces challenges visual processing. Encourages practice in visual form consistency.</p>
-                                <p>A half-solved puzzle with some pieces already on provides visual cues for clients who may have initial difficulty with visual processing</p>
-                            </Popup.Content>
-                        </Popup>
-                <div>
-                <label className='subheading'>Dimensions of puzzle:</label>
-                <br/>
-                <select value = {col} onChange = {(e)=> {setCols(e.target.value); if (changePiece === 'no') {setPieces(rows * e.target.value)}}}>
-                {choice.map(item => {
-                    return(<option key={item} value = {item}>{item}</option>);
-                })}
-                </select>
+                { tab === 0 && (
+                    <div className='puzzletab'>
+                    <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '30px', alignSelf:'flex-end', position: 'absolute'}}/>}>
+                                <Popup.Header> Number of pieces </Popup.Header>
+                                <Popup.Content>
+                                    <p>Grade the difficulty of the puzzle by adjusting the number of pieces.</p>
+                                    <p>The more the number of pieces, the more repetition involved in dragging the tiles to the right spot, great for accuracy training and fine motor.</p>
+                                    <p> Increased number of pieces challenges visual processing. Encourages practice in visual form consistency.</p>
+                                    <p>A half-solved puzzle with some pieces already on provides visual cues for clients who may have initial difficulty with visual processing</p>
+                                </Popup.Content>
+                            </Popup>
+                    <div>
+                    <label className='subheading'>Dimensions of puzzle:</label>
+                    <br/>
+                    <select value = {col} onChange = {(e)=> {setCols(e.target.value); if (changePiece === 'no') {setPieces(rows * e.target.value)}}}>
+                    {choice.map(item => {
+                        return(<option key={item} value = {item}>{item}</option>);
+                    })}
+                    </select>
+                    <label>x</label>
+                    <select value = {rows} onChange = {(e)=> {setRows(e.target.value);if (changePiece === 'no'){setPieces(col* e.target.value)}}}>
+                    {choice.map(item => {
+                        return(<option key = {item} value = {item}>{item}</option>);
+                    })}
+                    </select>
+                    </div>
+                    <div>
+                    <label className='subheading'> Half-solved puzzle? </label>
+                    <select value = {changePiece} onChange={(e)=> {setMode(e.target.value)}}>
+                        <option value = 'yes' > Yes </option>
+                        <option value = 'no' > No </option>
+                    </select>
+                    </div>
+                    <div>
+                    <label className='subheading'>If yes, number of UN-solved pieces: </label>
+                    <input type='text' onKeyDown= {(e) => {
+                    
+                        if (changePiece === 'no'){alert ('Only possible if using a half-solved puzzle. Else, change puzzle dimenstions directly to change no of pieces'); e.preventDefault()}
+                        else {
+                        setTimeout(() => {
+                            var num = parseInt(e.target.value)
+                            if (isNaN(num) && e.target.value !== '')  {alert ('Please input as a number: eg. 3 instead of three! Please edit, if not, the game would not work.');}
+                            else if (num === 0) {alert('0 is an invalid input.')}
+                            else if (e.target.value < rows*col) {setPieces(num)}
+                            else {alert ('Puzzle pieces to be solved cannot exceed total number of pieces. Please edit, or the game would not work properly.');}
+                        }, 1000)}
 
-                <label>x</label>
-                <select value = {rows} onChange = {(e)=> {setRows(e.target.value);if (changePiece === 'no'){setPieces(col* e.target.value)}}}>
-                {choice.map(item => {
-                    return(<option key = {item} value = {item}>{item}</option>);
-                })}
-                </select>
-                </div>
-                <div>
-                <label className='subheading'> Half-solved puzzle? </label>
-                <select value = {changePiece} onChange={(e)=> {setMode(e.target.value)}}>
-                    <option value = 'yes' > Yes </option>
-                    <option value = 'no' > No </option>
-                </select>
-                </div>
-                <div>
-                <label className='subheading'>If yes, number of UN-solved pieces: </label>
-                <input type='text' onKeyDown= {(e) => {
-                   
-                    if (changePiece === 'no'){alert ('Only possible if using a half-solved puzzle. Else, change puzzle dimenstions directly to change no of pieces'); e.preventDefault()}
-                    else {
-                    setTimeout(() => {
-                        var num = parseInt(e.target.value)
-                        if (isNaN(num) && e.target.value !== '')  {alert ('Please input as a number: eg. 3 instead of three! Please edit, if not, the game would not work.');}
-                        else if (num === 0) {alert('0 is an invalid input.')}
-                        else if (e.target.value < rows*col) {setPieces(num)}
-                        else {alert ('Puzzle pieces to be solved cannot exceed total number of pieces. Please edit, or the game would not work properly.');}
-                    }, 1000)}
+                    }} />
+                    </div>
+                    </div>)}
 
-                }} />
-                </div>
-                </div>
-                <div className='subform'>
-                <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end'}}/>}>
-                            <Popup.Header>Visual Compensations</Popup.Header>
-                            <Popup.Content>
-                                <p>Size: Helps clients find pieces easily</p>
-                                <p>Increasing frequency can help teach scanning via the functional task of searching for pieces, especially where limited by cognition. </p>
-                                <p>Avoiding quadrants can help grade the activity, compensating for any neglect of visual quadrants. Useful for initial assessments, to isolate comorbidites</p>
-                            </Popup.Content>
-                        </Popup>
-                <div><label className='subheading'> Size of puzzle: </label>
-                <select style ={{width: '30%'}}value = {size} onChange = {(e)=> {setSize(e.target.value)}}>
-                    <option value= {0.3}> Extra Small </option>
-                    <option value = {0.4}> Small </option>
-                    <option value = {0.6}> Normal </option>
-                    <option value = {0.8}> Large </option>
-                </select> </div>
-
-                
-                <h4><span className='subheading'>Avoid placing pieces in certain quadrants?</span><br/><br/>
-                {quadrants.map(item => {return (
-                                        <label key={ item.id }>
-                                            <input id={ item.id } 
+                    {tab ===1 && (
+                    <div className='puzzletab'>
+                    <Popup wide position='bottom right' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '30px', alignSelf:'flex-end', position: 'absolute'}}/>}>
+                                <Popup.Header>Visual Compensations</Popup.Header>
+                                <Popup.Content>
+                                    <p>Size: Helps clients find pieces easily</p>
+                                    <p>Increasing frequency can help teach scanning via the functional task of searching for pieces, especially where limited by cognition. </p>
+                                    <p>Avoiding quadrants can help grade the activity, compensating for any neglect of visual quadrants. Useful for initial assessments, to isolate comorbidites</p>
+                                </Popup.Content>
+                            </Popup>
+                    <div><label className='subheading'> Size of puzzle: </label>
+                    <select style ={{width: '30%'}}value = {size} onChange = {(e)=> {setSize(e.target.value)}}>
+                        <option value= {0.3}> Extra Small </option>
+                        <option value = {0.4}> Small </option>
+                        <option value = {0.6}> Normal </option>
+                        <option value = {0.8}> Large </option>
+                    </select> </div>
+                    <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap', columnGap:'2%'}}>
+                    <h4>Avoid placing pieces in:</h4>
+                    {quadrants.map(item => {return (
+                                                <label key={ item.id }> <input id={item.id } 
                                                 type="checkbox"
-                                                onClick={(e) => {
+                                                onClick ={(e) => {
                                                     if (increase.includes(item.id)) {e.preventDefault(); alert('Cannot increase and avoid the same quadrants')}
                                                     else{
                                                     if (avoid.includes(item.id) === false){
@@ -126,46 +145,45 @@ export function PuzzleSettings (){
                                                         let new_array = avoid.filter(quad => quad !== item.id);
                                                         if (new_array.length === 0){setAvoid(['NIL'])}
                                                         else {setAvoid(new_array)}
-                                                    }}}}
-                                            ></input>
-                                            <span>{ item.name }</span>
-                                        </label> 
-                                    )})}</h4>
-                <h4><span className='subheading'>Increase distribution of pieces in certain quadrants?</span><br/><br/>
-                {quadrants.map(item => {return (
-                                        <label key={ item.id }>
-                                            <input id={item.id } 
-                                                type="checkbox"
-                                                onClick={(e) => {
-                                                    if (avoid.includes(item.id)) {e.preventDefault (); alert('Cannot increase and avoid same quadrants')}
-                                                    else{
-                                                    if (increase.includes(item.id) === false){
-                                                        if (increase.includes('NIL')){setIncrease([item.id])}
-                                                        else {setIncrease([...increase, item.id]);}
-                                                    }
-                                                    else {
-                                                        let new_array = increase.filter(quad => quad !== item.id);
-                                                        if (new_array.length === 0){setIncrease(['NIL'])}
-                                                        else {setIncrease(new_array)}
-                                                    }
-                                                }}}
-                                            ></input>
-                                            <span>{`${item.name} ` }</span>
-                                        </label> 
-                                    )})}
-                </h4>
-                </div>
-                <div className='subform'>
-                <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '2vw', alignSelf:'flex-end' }}/>}>
-                            <Popup.Header>How to Customize Puzzle Image:</Popup.Header>
-                            <Popup.Content>
-                                <Image src={`game_menu_pics/Settings.png`} size='massive'></Image>
-                            </Popup.Content>
-                        </Popup>
-                    
-                <label className='subheading'> Insert image link to customize image (leave blank otherwise): </label>
-                <input type='text' onChange= {(e) => {setSource(e.target.value);}}/>
-                </div>
+                                                    }}}}>
+                                                    </input>
+                                                <span>{`${item.name} ` }</span></label> )})}
+                                            </div>
+                    <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap', columnGap:'2%'}}>
+                    <h4>Increase distribution in:</h4>
+                    {quadrants.map(item => {return (
+                                            <label key={ item.id }> <input id={item.id } 
+                                                    type="checkbox"
+                                                    onClick={(e) => {
+                                                        if (avoid.includes(item.id)) {e.preventDefault (); alert('Cannot increase and avoid same quadrants')}
+                                                        else{
+                                                        if (increase.includes(item.id) === false){
+                                                            if (increase.includes('NIL')){setIncrease([item.id])}
+                                                            else {setIncrease([...increase, item.id]);}
+                                                        }
+                                                        else {
+                                                            let new_array = increase.filter(quad => quad !== item.id);
+                                                            if (new_array.length === 0){setIncrease(['NIL'])}
+                                                            else {setIncrease(new_array)}
+                                                        }
+                                                    }}}></input>
+                                                <span>{`${item.name} ` }</span>
+                                            </label> 
+                                        )})}</div>
+                    </div>)}
+
+                    {tab === 2 && (
+                    <div className='puzzletab'>
+                    <Popup wide='very' position='top center' trigger={<Image src={`game_menu_pics/Info-Button.png`} style ={{width: '30px',position: 'absolute', alignSelf:'flex-end' }}/>}>
+                                <Popup.Header>How to Customize Puzzle Image:</Popup.Header>
+                                <Popup.Content>
+                                    <Image src={`game_menu_pics/Settings.png`} size='massive'></Image>
+                                </Popup.Content>
+                            </Popup>
+                        
+                    <label className='subheading'> Insert image link to customize image (leave blank otherwise): </label>
+                    <input type='text' onChange= {(e) => {setSource(e.target.value);}}/>
+                    </div>)}
                 <input style ={{top: '90%', left: '80%', position:'absolute'}}type='submit' value='Submit'/>
 
             </form>
