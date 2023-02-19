@@ -1,6 +1,7 @@
 .settings-container {
     background-color: #e29578;
-    height: 100%;
+    min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
 
@@ -8,9 +9,21 @@
     justify-content: center;
 }
 
-.break{
+.quick-settings {
+    background-color: #e4aa95;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+.break {
     display: block;
-   margin: 10% 0;
+    margin: 10% 0;
 }
 
 .title {
@@ -46,17 +59,17 @@
 
 
 
-.cookingform{
+.cookingform {
     text-align: center;
     display: flex;
     flex-direction: column;
     border-radius: 18px;
     background-color: #f6eae6;
     row-gap: 3vh;
-    padding:5%;
+    padding: 5%;
 
     box-shadow: 0 4px 16px 8px hsl(205, 86%, 17%, 0.4);
-    position: absolute;   
+    position: absolute;
 
 }
 

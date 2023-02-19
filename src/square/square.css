@@ -1,4 +1,4 @@
-.settings{
+.settings {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -26,7 +26,7 @@
     row-gap: 3%;
     align-items: left;
     position: absolute;
-    
+
 
     height: 100%;
     width: 100%;
@@ -39,10 +39,10 @@
     flex-direction: column;
     flex-wrap: wrap;
     max-width: 18vw;
-    padding: 10px 5px 20px 13px ;
+    padding: 10px 5px 20px 13px;
     text-align: flex-start;
     background-color: #ffddd2;
-    
+
     align-self: left;
     border-color: #000;
     border-width: 0.2rem;
@@ -51,9 +51,8 @@
 }
 
 @media screen and (max-width: 700px) {
-    .tabbutton{
+    .tabbutton {
         max-width: 21vw !important;
     }
-    
+
 }
-    

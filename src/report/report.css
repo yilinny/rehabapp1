@@ -1,0 +1,68 @@
+.icons {
+    width: auto;
+    height: 20vh
+}
+
+.generalsub {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.textbox {
+    height: 21vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.textbox p {
+    margin: 0 0 0;
+    color: black;
+    font-family: 'Fraunces', serif;
+}
+
+.textbox h1 {
+    margin: 0 0 0;
+}
+
+.textbox h4 {
+    margin: 0 0 0;
+}
+
+
+.gameheaders {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.gameheaders h1 {
+    margin: 0 0 0 0;
+}
+
+.gameheaders h2 {
+    padding-left: 2vw;
+    margin: 0 0 0 0;
+    font-family: 'Baloo Thambi 2', serif;
+}
+
+.gametext {
+    display: flex;
+    flex-direction: column;
+    padding-left: 16vw;
+    padding-right: 5vw;
+}
+
+.gametext p {
+    color: black;
+    font-family: 'Fraunces', serif;
+    font-size: large;
+}
+
+.results {
+    white-space: pre-line;
+}

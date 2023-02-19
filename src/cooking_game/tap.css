@@ -68,11 +68,6 @@
     position: absolute;
 }
 
-.btn {
-    top: 45%;
-    left: 80%;
-    position: absolute;
-} /*make button pretty */ 
 
 
 @keyframes drip {

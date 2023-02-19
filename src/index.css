@@ -1,8 +1,3 @@
-html, body, #root {
-  height: 100%;
-  width: 100%;
-}
-
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -12,6 +7,9 @@ body {
   color: var(--clr-grey-1);
   line-height: 1.5;
   font-size: 0.875rem;
+  height: fit-content;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 code {
@@ -76,6 +74,7 @@ Variables
   --max-width: 1170px;
   --fixed-width: 620px;
 }
+
 /*
 =============== 
 Global Styles
@@ -93,9 +92,11 @@ Global Styles
 ul {
   list-style-type: none;
 }
+
 a {
   text-decoration: none;
 }
+
 h1,
 h2,
 h3,
@@ -105,53 +106,87 @@ h4 {
   line-height: 1;
   margin-bottom: 0.75rem;
 }
+
 h1 {
   font-size: 3rem;
   font-family: 'Baloo Thambi 2', cursive;
 }
+
 h2 {
   font-size: 2rem;
   font-family: 'Fraunces', serif;
 }
+
 h3 {
   font-size: 1.25rem;
 }
+
 h4 {
   font-size: 0.875rem;
   font-family: 'Baloo Thambi 2', cursive;
 }
+
 p {
   margin-bottom: 1.25rem;
   color: var(--clr-grey-5);
   font-family: 'Alegreya', serif;
 }
 
-@media screen and (max-width: 900px){
-  h1 {font-size: 2 rem};
-  h2 {font-size: 1.5 rem};
-  h3 {font-size: 1 rem};
-  h4{font-size: 0.8 rem};
+@media screen and (max-width: 900px) {
+  h1 {
+    font-size: 2 rem
+  }
 
-  h1,h2,h3,h4 {line-height: 0.5;}
-  
+  ;
+
+  h2 {
+    font-size: 1.5 rem
+  }
+
+  ;
+
+  h3 {
+    font-size: 1 rem
+  }
+
+  ;
+
+  h4 {
+    font-size: 0.8 rem
+  }
+
+  ;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 0.5;
+  }
+
 }
 
 @media screen and (min-width: 900px) {
   h1 {
     font-size: 4rem;
   }
+
   h2 {
     font-size: 2.5rem;
   }
+
   h3 {
     font-size: 1.75rem;
   }
+
   h4 {
     font-size: 1rem;
   }
+
   body {
     font-size: 1rem;
   }
+
   h1,
   h2,
   h3,
@@ -159,6 +194,7 @@ p {
     line-height: 1;
   }
 }
+
 /*  global classes */
 
 /* section */
@@ -171,11 +207,13 @@ p {
   margin: 0 auto;
   max-width: 1170px;
 }
+
 @media screen and (min-width: 992px) {
   .section-center {
     width: 95vw;
   }
 }
+
 main {
   min-height: 100vh;
   display: grid;
@@ -194,20 +232,22 @@ main {
   place-items: center;
 }
 
-.heading{
-  font-family:'Baloo Thambi 2', cursive;
+.heading {
+  font-family: 'Baloo Thambi 2', cursive;
 }
 
-.subheading{
+.subheading {
   font-family: 'Fraunces', serif;
 }
 
-.smallwords{
+.smallwords {
   font-family: 'Alegreya', serif;
 }
 
-.gameover-container, .levelup-container {
-  height: 100%;
+.gameover-container,
+.levelup-container {
+  min-width: 100vw;
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
@@ -216,8 +256,9 @@ main {
   align-items: center;
   text-align: center;
   background-color: #dda15e;
-    
+
 }
+
 #value {
   font-size: 6rem;
   font-weight: bold;
@@ -238,19 +279,40 @@ main {
   border-radius: var(--radius);
   margin: 0.5rem;
 }
+
 .btn:hover {
   color: var(--clr-white);
   background: var(--clr-black);
 }
-.square{
-  width : 150px;
-  height : 150px;
-  cursor:pointer;
+
+.square {
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
   position: absolute;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 10px;
-  
+
+}
+
+@media screen and (max-width: 900px) {
+  .shrink {
+    row-gap: 1vh;
+  }
+
+  .h1 {
+    font-size: 2rem !important;
+  }
+
+  .h2 {
+    font-size: 1rem !important;
+  }
+
+  .input {
+    font-size: 1rem !important;
+  }
+
 }
 
 .navbar {
@@ -260,18 +322,19 @@ main {
 }
 
 .navbar h3 {
-    text-align: center;
-    line-height: 1vh;
+  text-align: center;
+  line-height: 1vh;
 }
 
-.navbar p{
-    text-align: center;
-  }
+.navbar p {
+  text-align: center;
+}
+
 .navbar h4 {
   text-align: center;
   line-height: 1vh;
 }
-  
+
 .countdown {
   text-align: 'right';
   background-color: #dda15e;
@@ -286,7 +349,5 @@ main {
   border-radius: 50%;
   left: 0px;
   top: 0px;
-
 }
-
 

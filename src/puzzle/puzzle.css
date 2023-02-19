@@ -14,12 +14,15 @@
     border-color: #000;
     z-index: 0;
 }
+
 .jigsaw-puzzle__piece.jigsaw-puzzle__piece--dragging {
     z-index: 5;
     box-shadow: 1px 1px 5px 0px #00000091;
 }
-.loading{
-    height: 100%;
+
+.loading {
+    min-width: 100vw;
+    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
@@ -31,7 +34,7 @@
 }
 
 
-.settings{
+.settings {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -66,14 +69,13 @@
     flex-direction: column;
     flex-wrap: wrap;
     max-width: 18vw;
-    padding: 10px 5px 20px 13px ;
+    padding: 10px 5px 20px 13px;
     text-align: flex-start;
     background-color: #ffddd2;
-    
+
     align-self: left;
     border-color: #000;
     border-width: 0.2rem;
     border-style: solid;
     border-bottom-style: hidden;
 }
-  

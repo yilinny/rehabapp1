@@ -1,0 +1,71 @@
+.roundbuttons {
+    left: 15vw;
+    width: 25vw;
+    height: 25vw;
+    position: absolute;
+    top: 22vw;
+}
+
+.sandwhichLine {
+    height: 1.5vh;
+    width: 10vh;
+    background-color: black;
+}
+
+.sandwhichWrapper {
+    height: 18vh;
+    width: 18vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconmine {
+    position: absolute;
+    width: 10vw;
+    height: 10vw;
+    top: 10vh
+}
+
+.scalabletext {
+    font-size: xx-large;
+    padding-top: 20vh;
+    padding-left: 13vw;
+}
+
+.countertext {
+    font-size: xx-large;
+    position: absolute;
+    top: 23vh;
+}
+
+.pet {
+    width: 50vw;
+    left: 50vw;
+    position: absolute;
+    top: 15vw;
+    height: auto;
+}
+
+.stillpet {
+    width: 35vw;
+    left: 50vw;
+    position: absolute;
+    top: 45vh;
+    height: auto;
+}
+
+@media screen and (max-width : 800px) {
+    .scalabletext {
+        font-size: large;
+        padding-left: 10vw;
+    }
+
+    .countertext {
+        font-size: large;
+        top: 18vh
+    }
+
+}
