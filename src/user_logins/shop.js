@@ -20,7 +20,7 @@ import leash1 from './pics/icons/leash1.svg'
 import leash2 from './pics/icons/leash2.svg'
 import house from './pics/icons/house.svg'
 
-const apiurl = 'http://ec2-18-143-108-76.ap-southeast-1.compute.amazonaws.com:3001'
+const apiurl = 'https://gr-server.fly.dev'
 
 
 

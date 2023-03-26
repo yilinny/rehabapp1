@@ -20,6 +20,7 @@ export const SignUpForm = () => {
             }
         }
         catch (e) {
+            console.log(e)
             //catch any error messages, resolves via console 
             alert(e.response.data)
             window.location.reload()

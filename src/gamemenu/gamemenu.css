@@ -7,64 +7,66 @@
     flex-direction: column;
 }
 
-.gamecard{
+.gamecard {
     display: flex;
     flex-direction: column;
     background-color: #83c5be;
     padding: 2%;
+    padding-top: 5%;
     align-items: center;
     margin: 2%;
     width: 25vw;
     max-height: 38vh;
 }
 
-@media screen and (max-height:500px){
+@media screen and (max-height:500px) {
     .gamecard {
         height: 40vh;
     }
+
     .gamecard img {
         width: auto !important;
-        height: 40% !important; 
+        height: 40% !important;
     }
 }
 
-.gamecard p{
+.gamecard p {
     font-size: 1.1rem;
 }
 
-.gamecard img{
-    width: 65%;
-    height:auto
-
+.gamecard img {
+    width: auto;
+    height: 65%
 }
 
-.gamecardbtn{
-        text-transform: uppercase;
-        background: whitesmoke;
-        color: var(--clr-black);
-        padding: 0.375rem 0.75rem;
-        display: inline-block;
-        transition: var(--transition);
-        font-size: 0.875rem;
-        border: 2px solid var(--clr-black);
-        cursor: pointer;
-        border-radius: var(--radius);
-        justify-content: center;
+.gamecardbtn {
+    text-transform: uppercase;
+    background: whitesmoke;
+    color: var(--clr-black);
+    padding: 0.375rem 0.75rem;
+    display: inline-block;
+    transition: var(--transition);
+    font-size: 0.875rem;
+    border: 2px solid var(--clr-black);
+    cursor: pointer;
+    border-radius: var(--radius);
+    justify-content: center;
 }
 
 
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 800px) {
 
     .poof {
         display: none;
     }
 
-    .backbtn{
+    .backbtn {
         top: 5% !important;
     }
 
 }
-.homecontainer{
+
+.homecontainer {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -75,8 +77,8 @@
     column-gap: 50px;
 }
 
-.homesubcontainer{
-    display:flex;
+.homesubcontainer {
+    display: flex;
     row-gap: 5vh;
     justify-content: center;
     align-items: center;
@@ -84,8 +86,8 @@
 
 }
 
-@media only screen and (max-width: 800px){
-    .homecontainer{
+@media only screen and (max-width: 800px) {
+    .homecontainer {
         flex-direction: column;
         row-gap: 5vh;
     }
@@ -101,7 +103,7 @@
 }
 
 
-.aboutussub{
+.aboutussub {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -111,19 +113,19 @@
 }
 
 
-.aboutuscontainer p{
+.aboutuscontainer p {
     color: black;
     font-size: 1.5rem;
 }
 
 
-@media only screen and (max-width: 800px){
-    .aboutussub{
+@media only screen and (max-width: 800px) {
+    .aboutussub {
         flex-direction: column;
         justify-content: center;
     }
-    
-    .aboutussub img{
+
+    .aboutussub img {
         width: 100px;
         height: auto;
     }
@@ -139,13 +141,13 @@
 }
 
 
-.whygamecontainer p{
+.whygamecontainer p {
     color: black;
-    font-size:1.5rem;
+    font-size: 1.5rem;
     padding: 1%;
 }
 
-.whygamecontainer h3{
+.whygamecontainer h3 {
     color: #a3776c;
     font-family: 'Baloo Thambi 2', cursive;
     text-align: center;
@@ -165,15 +167,15 @@
 }
 
 
-@media only screen and (max-width: 800px){
-    
-    .whygamecontainer img{
-        display:none
+@media only screen and (max-width: 800px) {
+
+    .whygamecontainer img {
+        display: none
     }
 
 }
 
-.backbtn{
+.backbtn {
     text-transform: uppercase;
     color: var(--clr-black);
     padding: 0.375rem 1.5rem;
@@ -191,5 +193,4 @@
     top: 5%;
     left: 5%;
 
-  }
-  
+}

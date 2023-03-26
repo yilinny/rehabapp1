@@ -23,7 +23,7 @@ export const UserPage = () => {
     const [menuVisibility, setVisible] = useState(false)
     const [user, setUser] = useState([])
 
-    const apiurl = 'http://ec2-18-143-108-76.ap-southeast-1.compute.amazonaws.com:3001'
+    const apiurl = 'https://gr-server.fly.dev'
     //auth user id, prompt login if not authorized
     //send location.user as a header, get if authorized -- not for this round of testing, as they can continue without an account?
     useEffect(() => {

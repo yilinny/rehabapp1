@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 
 export const LoginPage = () => {
     const [username, setUser] = useState('hello@gmail.com')
-    const [password, setPassword] = useState('password')
+    const [password, setPassword] = useState(null)
     const [userAuth, setUserAuth] = useState(null)
 
     async function retrieveUserInfo(user, pw) {
@@ -35,7 +35,7 @@ export const LoginPage = () => {
                         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1.5vh' }}
                         onSubmit={(e) => { e.preventDefault(); retrieveUserInfo(username, password) }}>
                         <h2 style={{ fontSize: '1.4rem' }}>Username:&nbsp;</h2><input type='text' style={{ backgroundColor: '#d6d2c0', fontSize: '3rem' }} onChange={(e) => { setUser(e.target.value); }} />
-                        <h2 style={{ fontSize: '1.4rem' }}>Password:&nbsp;</h2><input type='text' style={{ backgroundColor: '#d6d2c0', fontSize: '3rem' }} onChange={(e) => { setPassword(e.target.value); }} />
+                        <h2 style={{ fontSize: '1.4rem' }}>Password:&nbsp;</h2><input type='password' style={{ backgroundColor: '#d6d2c0', fontSize: '3rem' }} onChange={(e) => { setPassword(e.target.value); }} />
                         <input type='submit' value='Log in' className='btn' style={{ position: 'relative', padding: '1vh', minWidth: '8vw' }} />
                     </form>
                     <a href='/newuser'> <btn className='btn' style={{ minWidth: '8vw', textAlign: 'center' }}> SIGN UP</btn></a>

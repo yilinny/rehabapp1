@@ -9,7 +9,7 @@ import { getAnalytics, logEvent, setUserId, setUserProperties } from "firebase/a
 // Initialize Firebase, auth config and database using our config data
 const app = initializeApp(firebaseConfig)
 const auth = getAuth();
-const apiurl = 'http://ec2-18-143-108-76.ap-southeast-1.compute.amazonaws.com:3001'
+const apiurl = 'https://gr-server.fly.dev'
 const analytics = getAnalytics(app)
 
 
@@ -23,7 +23,7 @@ export async function loginUser(email, password) {
     console.log(userCredential)
     const user = userCredential.user
     const token = await user.getIdToken()
-    let res = await axios.get('http://ec2-18-143-108-76.ap-southeast-1.compute.amazonaws.com:3001/login',
+    let res = await axios.get('https://gr-server.fly.dev/login',
       { headers: { authorization: `Bearer ${token}` } });
     //store token instead 
     console.log(res)
