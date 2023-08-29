@@ -35,3 +35,10 @@ export function LevelUp() {
 
 //can change go faster now to prop.unique_input
 
+export function Footer() {
+    return (
+        <div style={{ position: 'absolute', bottom: '2vh', right: '2vh' }}>
+            <h4> Copyright © Yilin Tan & Sydney Lai 2023</h4>
+        </div>
+    )
+}

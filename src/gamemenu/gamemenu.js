@@ -4,6 +4,7 @@ import './gamemenu.css'
 
 import browsegames from './pics/browse game.png'
 import logo from './pics/logo brown.png'
+import { Footer } from '../general/screens';
 
 export class GameMenu extends React.Component {
     constructor(props) {
@@ -61,33 +62,36 @@ export class GameMenu extends React.Component {
 
     render() {
         return (
-            <div className="menucontainer" style={{ backgroundColor: '#006D77' }}>
-                <img className='poof' src={logo} alt='logo in brown' style={{ position: 'absolute', top: '5%', left: '5%', width: '100px' }}></img>
-                <a href='./pet'><btn class='backbtn' style={{ backgroundColor: '#ffddd2', top: '150px' }}> back </btn></a>
-                <img style={{ width: '400px' }} src={browsegames} alt='decorative'></img>
-                <div style={{
-                    display: 'flex', flexDirection: 'row', width: '80vw', justifyContent: 'center', flexWrap: 'wrap'
-                }}>
-                    {this.state.games.map(game => {
-                        return (
-                            <div className='gamecard' key={game.id}>
-                                {game.side === 'pic' && (
-                                    <>
-                                        <img alt='game icon' src={`game_menu_pics/bg-${this.state.games.indexOf(game)}.png`}></img>
-                                        <h4 style={{ margin: '0.5rem' }}>{game.name}</h4></>)}
-                                {game.side === 'text' && (
-                                    <>
-                                        <h3> {game.name}</h3>
-                                        <h4> Works on: {game.skills}</h4>
-                                        <p style={{ color: 'black' }}>{game.description}</p></>)}
-                                <div style={{ display: 'flex', flexDirection: 'row', columnGap: '1vw' }}>
-                                    <a href={game.link}><btn className='gamecardbtn' > Play!</btn></a>
-                                    <btn className='gamecardbtn' onClick={() => { this.changeSide(this.state.games.indexOf(game), game.side) }}> Info</btn>
-                                </div>
-                            </div>)
-                    })}
+            <>
+                <div className="menucontainer" style={{ backgroundColor: '#006D77' }}>
+                    <img className='poof' src={logo} alt='logo in brown' style={{ position: 'absolute', top: '5%', left: '5%', width: '100px' }}></img>
+                    <a href='./pet'><btn class='backbtn' style={{ backgroundColor: '#ffddd2', top: '150px' }}> back </btn></a>
+                    <img style={{ width: '400px' }} src={browsegames} alt='decorative'></img>
+                    <div style={{
+                        display: 'flex', flexDirection: 'row', width: '80vw', justifyContent: 'center', flexWrap: 'wrap'
+                    }}>
+                        {this.state.games.map(game => {
+                            return (
+                                <div className='gamecard' key={game.id}>
+                                    {game.side === 'pic' && (
+                                        <>
+                                            <img alt='game icon' src={`game_menu_pics/bg-${this.state.games.indexOf(game)}.png`}></img>
+                                            <h4 style={{ margin: '0.5rem' }}>{game.name}</h4></>)}
+                                    {game.side === 'text' && (
+                                        <>
+                                            <h3> {game.name}</h3>
+                                            <h4> Works on: {game.skills}</h4>
+                                            <p style={{ color: 'black' }}>{game.description}</p></>)}
+                                    <div style={{ display: 'flex', flexDirection: 'row', columnGap: '1vw' }}>
+                                        <a href={game.link}><btn className='gamecardbtn' > Play!</btn></a>
+                                        <btn className='gamecardbtn' onClick={() => { this.changeSide(this.state.games.indexOf(game), game.side) }}> Info</btn>
+                                    </div>
+                                </div>)
+                        })}
+                    </div>
                 </div>
-            </div>
+                <Footer />
+            </>
         );
     }
 }

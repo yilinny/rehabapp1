@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { loginUser, logUsage } from '../communication_backend/firebase';
 import logo from '../gamemenu/pics/logo brown.png';
 import { Navigate } from 'react-router-dom';
+import { Footer } from '../general/screens';
 
 
 export const LoginPage = () => {
@@ -41,6 +42,7 @@ export const LoginPage = () => {
                     <a href='/newuser'> <btn className='btn' style={{ minWidth: '8vw', textAlign: 'center' }}> SIGN UP</btn></a>
                     <a href='/games'><h4 style={{ borderBottom: 'solid', color: 'black' }}> Continue without a account</h4></a>
                 </div>)}
+            <Footer />
         </>
     )
 }

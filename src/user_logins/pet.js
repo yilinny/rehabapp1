@@ -14,6 +14,7 @@ import { ReactComponent as Shop } from './pics/icons/Shop.svg'
 import { ReactComponent as Ball } from './pics/icons/ball.svg'
 import BallPlayDog from './pics/dogball.gif'
 import { ReactComponent as StillDog } from './pics/dog-still.svg'
+import { Footer } from "../general/screens";
 
 
 export const UserPage = () => {
@@ -118,6 +119,7 @@ export const UserPage = () => {
                     <img src={BallPlayDog} alt='dog' className="pet" />
                 )
             }
+            <Footer />
 
         </div>
     )
