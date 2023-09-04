@@ -26,27 +26,40 @@ export function PuzzleSettings() {
     const [tab, setTab] = useState(0)
 
     const SubmitForm = (e) => {
-        //post settings here 
-        updateDefaultSettings(uid, 'puzzle', {
-            'rows': rows,
-            'col': col,
-            'percent': size,
-            'increase': increase,
-            'avoid': avoid,
-            'pieces': pieces
+        //check pieces here 
 
-        })
-        ReactDOM.render(
-            <JigsawPuzzle
-                imageSrc={imagesource} //random image for now 
-                rows={rows}
-                columns={col}
-                percent={size}
-                increase={increase}
-                avoid={avoid}
-                wrong_piece={pieces} />,
-            document.getElementById('root')
-        ) //not sure why return does not work but then again idc
+        if (isNaN(pieces)) { alert('Please input as a number: eg. 3 instead of three! Please edit, if not, the game would not work.'); e.preventDefault(); }
+        else if (pieces === 0) { alert('0 is an invalid input.'); e.preventDefault(); }
+        else if (pieces > rows * col) {
+            alert('Puzzle pieces to be solved cannot exceed total number of pieces. Please edit, or the game would not work properly.');
+            e.preventDefault();
+        }
+
+
+        else {
+
+            //post settings here 
+            updateDefaultSettings(uid, 'puzzle', {
+                'rows': rows,
+                'col': col,
+                'percent': size,
+                'increase': increase,
+                'avoid': avoid,
+                'pieces': pieces
+
+            })
+            ReactDOM.render(
+                <JigsawPuzzle
+                    imageSrc={imagesource} //random image for now 
+                    rows={rows}
+                    columns={col}
+                    percent={size}
+                    increase={increase}
+                    avoid={avoid}
+                    wrong_piece={pieces} />,
+                document.getElementById('root')
+            ) //not sure why return does not work but then again idc
+        }
     }
 
     useEffect(() => {
@@ -133,16 +146,13 @@ export function PuzzleSettings() {
                                 </div>
                                 <div>
                                     <label className='subheading'>If yes, number of UN-solved pieces: </label>
-                                    <input type='text' value={pieces} onKeyDown={(e) => {
-                                        if (changePiece === 'no') { alert('Only possible if using a half-solved puzzle. Else, change puzzle dimenstions directly to change no of pieces'); e.preventDefault() }
+                                    <input type='text' value={pieces} onChange={(e) => {
+                                        if (changePiece === 'no') {
+                                            alert('Only possible if using a half-solved puzzle. Else, change puzzle dimenstions directly to change no of pieces');
+                                            e.preventDefault()
+                                        }
                                         else {
-                                            setTimeout(() => {
-                                                var num = parseInt(e.target.value)
-                                                if (isNaN(num) && e.target.value !== '') { alert('Please input as a number: eg. 3 instead of three! Please edit, if not, the game would not work.'); }
-                                                else if (num === 0) { alert('0 is an invalid input.') }
-                                                else if (e.target.value < rows * col) { setPieces(num) }
-                                                else { alert('Puzzle pieces to be solved cannot exceed total number of pieces. Please edit, or the game would not work properly.'); }
-                                            }, 1000)
+                                            setPieces(e.target.value)
                                         }
 
                                     }} />

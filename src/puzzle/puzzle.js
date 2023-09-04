@@ -38,6 +38,7 @@ export const JigsawPuzzle = ({ imageSrc, rows, columns, percent, wrong_piece, av
     const initialcorrect = rows * columns - wrong_piece //check wrong_piece is less than total
     const timefinished = useRef(0);
     const uid = window.sessionStorage.getItem("uID")
+    console.log(wrong_piece)
 
     function CalculateRightCoords(position) {
         let xPercent = position % columns / columns
