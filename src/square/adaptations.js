@@ -54,7 +54,7 @@ export function increase_distribution(quad, avoid) {
     //quad should consist of 'UL', 'LL', 'UR', 'LR' only;
     const all_quad = ['UL', 'LL', 'UR', 'LR']
     let new_quad = all_quad
-    if (quad === []) { quad = 'NIL' }
+    if (quad.length === 0) { quad = 'NIL' }
     console.log(quad)
 
     for (let i = 0; i < avoid.length; i++) {

@@ -20,7 +20,6 @@ export async function createUserAccount(data) {
 export async function loginUser(email, password) {
   try {
     let userCredential = await signInWithEmailAndPassword(auth, email, password)
-    console.log(userCredential)
     const user = userCredential.user
     const token = await user.getIdToken()
     let res = await axios.get('https://gr-server.fly.dev/login',
@@ -38,7 +37,7 @@ export async function loginUser(email, password) {
 
 }
 
-export const updateDefaultSettings = (userid, game, data) => {
+export const updateDefaultSettings = async function (userid, game, data) {
   try {
     return axios.post(`${apiurl}/update/${userid}/settings/${game}`, data).then(res => res.data)
   }
@@ -62,20 +61,7 @@ function calculateAverage(dict) {
 }
 
 export const postGameData = async function (userid, game, data, calculate) {
-  //test userid is legit anot 
-  try {
-    let banana = await getUserIdFromToken(userid)
-    if (banana === 401) {
-      alert('Session timed out. Please login again to ensure data is saved!')
-      window.location.href = './login'
-    }
-  }
-  catch (e) {
-    //assumes if this is called, there is uid, but uid unable to convert to token, and issue is from timeout. 
-    alert('Session timed out. Please login again to ensure data is saved!')
-    window.location.href = './login'
-  }
-
+  console.log('in post game data')
   if (calculate === false) {
     console.log('posting data...')
     return axios.post(`${apiurl}/update/${userid}/game-based-performance/${game}`, data).then(res => res.data)
@@ -87,7 +73,13 @@ export const postGameData = async function (userid, game, data, calculate) {
     let calculated = calculateAverage(data[calculate])
 
     //add to current calculations
-    let resp = await getCurrentPerformance(userid, game)
+    let resp = []
+    try {
+      resp = await getCurrentPerformance(userid, game)
+    }
+    catch (e) {
+      console.log('no current performance found')
+    }
     let existingCalc = resp.data
     if (!existingCalc['average'] || !existingCalc['average'][calculate]) {
       //if average does not already exist 
@@ -168,7 +160,7 @@ export const getCurrentPerformance = async function (userid, game) {
   }
 
   catch (error) {
-    if (error.response.data === 'Error. No data available') {
+    if (error.response.status === 404) {
       return ({ data: null })
     }
     if (error.response.status === 401) {
@@ -176,22 +168,23 @@ export const getCurrentPerformance = async function (userid, game) {
       window.location.href = '/login'
       return
     }
-    console.log(error.response.data)
     return (404)
 
   }
 }
 
-export async function addCoins(userid, coinsadded) {
+export const addCoins = async function (userid, coinsadded) {
   console.log('adding coins ')
   try {
     let resp = await axios.get(`${apiurl}/getdict/${userid}/user`).then(res => res.data)
     console.log(resp)
     let oldcoins = resp.coins
     let newcoins = oldcoins + coinsadded //everything here should be of type int
-    axios.post(`${apiurl}/update/${userid}/user/nokey`, { ...resp, coins: newcoins }).then(res => res.data)
+
+    let response = axios.post(`${apiurl}/update/${userid}/user/nokey`, { ...resp, coins: newcoins }).then(res => res.data);
+    console.log(response)
     //need for it to return a status, for the next await function to execute?
-    return (200)
+
   }
 
   catch (error) {
@@ -210,26 +203,23 @@ export async function getDefaultSettings(userid, game) {
     return await axios.get(`${apiurl}/getdata/${userid}/settings/${game}`).then(res => res)
   }
   catch (error) {
-    let message = 'Session timed out, unable to load saved settings. Press OK to proceed with default settings, or cancel to re-login.'
-    if (window.confirm(message) === false) { window.location.href = './login' }
-    console.log(error.response.data)
+    console.log('No default settings found')
     return
   }
 }
 
-const getUserIdFromToken = async function (token) {
+export const getUserIdFromToken = async function (token) {
   try {
     console.log('converting token')
-    let res = await axios.get(`${apiurl}/convertToken/${token}`).then(res => res)
-    return (res.data)
+    let res = await axios.get(`${apiurl}/convertToken/${token}`).then(res => res.data)
+    return (res)
   }
   catch (error) {
     console.log('unable to convert token')
     console.log(error.response.data)
     return (error.response.status)
-
   }
-} //used for google analytics usage, separate from firebase server 
+}
 
 export const logUsage = async function (event_name, userid) {
   //custom params for use
@@ -258,7 +248,7 @@ export const logGame = async function (userid, game_name, game_stats) {
   }
 }
 
-export async function updateStats(uid, game, newPerformance) {
+export const updateStats = async function (uid, game, newPerformance) {
   try {
     let banana = await getUserIdFromToken(uid)
     if (banana === 401) {

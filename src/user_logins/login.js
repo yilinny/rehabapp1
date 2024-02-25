@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { loginUser, logUsage } from '../communication_backend/firebase';
+import { loginUser, logUsage, getUserIdFromToken } from '../communication_backend/firebase';
 import logo from '../gamemenu/pics/logo brown.png';
 import { Navigate } from 'react-router-dom';
 import { Footer } from '../general/screens';

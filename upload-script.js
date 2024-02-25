@@ -7,23 +7,23 @@ const { promises: fs, createReadStream } = require('fs');
 const s3 = new AWS.S3({
     accessKeyId: AWS_KEY,
     secretAccessKey: AWS_SECRET,
-    region: 'eu-west-2'
+    region: 'ap-southeast-1'
 });
 
 const buildDir = `${__dirname}/build`;
-const bucketName = 'gamified-rehab-eu';
+const bucketName = 'gamifiedrehab.com';
 
 async function listBucketsAsync() {
     return new Promise((resolve, reject) => {
         s3.listBuckets((err, data) => {
-            if(err) return reject(err);
+            if (err) return reject(err);
             resolve(data);
         });
     });
 }
 
 function getMimeType(ext) {
-    switch(ext) {
+    switch (ext) {
         case '.js':
             return 'application/javascript';
         case '.html':
@@ -76,5 +76,5 @@ async function getFilesPathsAsync(dirPath) {
 (async () => {
     const filePaths = await getFilesPathsAsync(buildDir);
     const result = await uploadFilesAsync(filePaths);
-    console.log('Done!');
+    console.log('Done deploying!');
 })();

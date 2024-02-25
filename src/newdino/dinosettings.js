@@ -23,7 +23,8 @@ export const DinoSettings = () => {
         async function getDefault() {
             try {
                 let resp = await getDefaultSettings(uid, 'dino')
-                if (resp === 404) {
+                console.log(resp)
+                if (resp === 404 || resp.data === '' || resp.data === null) {
                     setProps([0, 0, 2, 1])
                     setChange(true)
                 }

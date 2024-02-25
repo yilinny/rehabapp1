@@ -12,7 +12,6 @@ export const SignUpForm = () => {
         let resp;
         try {
             resp = await createUserAccount(userinfo)
-            console.log(resp)
             if (resp.status === 200) {
                 alert('Sign up successful! Redirecting to login page...')
                 setStatus(200)

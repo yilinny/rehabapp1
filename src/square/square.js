@@ -9,7 +9,6 @@ import { Circle } from './adaptations';
 import '../index.css'
 import { Button } from 'semantic-ui-react';
 import { addCoins, getCurrentPerformance, postGameData } from '../communication_backend/firebase';
-import { json } from 'mathjs';
 const uid = window.sessionStorage.getItem('uID')
 
 function generate_coordinates(side) {
@@ -173,11 +172,11 @@ class GameBoard extends React.Component { //react component starts with caps
         //update data
         if (uid) {
             let resp = await getCurrentPerformance(uid, 'square')
-            console.log(resp)
             let oldPerformance = resp.data
             let mode = 'mode-' + JSON.parse(this.state.game_mode)
             //init if no pre-existing data on games 
             if (oldPerformance === null || !oldPerformance[mode]) {
+                console.log('initing performance array')
                 oldPerformance = {}
                 oldPerformance[mode] =
                 {
@@ -192,9 +191,9 @@ class GameBoard extends React.Component { //react component starts with caps
             let counter = oldPerformance[mode].Speed.push(score / totaltime); //get length of arr, more than 10, trigger calculation of average and storage of average
             oldPerformance[mode].Score.push(score);
             oldPerformance[mode].Level.push(parseInt(this.state.level));
-            let calculate;
-            counter >= 10 ? calculate = mode : calculate = false
-            await addCoins(uid, score)
+            const calculate = counter >= 10 ? mode : false;
+            await addCoins(uid, score);
+            console.log('coins added')
             await postGameData(uid, 'square', oldPerformance, calculate)
         }
     }

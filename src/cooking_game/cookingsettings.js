@@ -34,7 +34,7 @@ export const CookingSettings = () => {
         async function getDefault() {
             let resp = await getDefaultSettings(uid, 'cooking')
             console.log(resp)
-            if (!resp.data || resp === 404) {
+            if (!resp.data || resp === 404 || resp.data === '') {
                 setSkill([0, 0, 0, 0, 0])
                 setChange(true)
             }

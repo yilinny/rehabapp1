@@ -6,7 +6,7 @@ import { TimeUp } from '../general/countdown';
 import { increase_distribution_p } from './puzzleadaptations';
 import { EndGame, Puzzleright } from './popup';
 import { Button } from 'semantic-ui-react';
-import { updateStats } from '../communication_backend/firebase';
+import { updateStats, addCoins } from '../communication_backend/firebase';
 
 
 const clamp = (value, min, max) => {
@@ -38,7 +38,6 @@ export const JigsawPuzzle = ({ imageSrc, rows, columns, percent, wrong_piece, av
     const initialcorrect = rows * columns - wrong_piece //check wrong_piece is less than total
     const timefinished = useRef(0);
     const uid = window.sessionStorage.getItem("uID")
-    console.log(wrong_piece)
 
     function CalculateRightCoords(position) {
         let xPercent = position % columns / columns
@@ -50,7 +49,6 @@ export const JigsawPuzzle = ({ imageSrc, rows, columns, percent, wrong_piece, av
         async function updateUserStats(data) {
             await updateStats(uid, 'puzzle', data)
         }
-        console.log(gameOver)
         if (gameOver === 'over') {
             console.log(timefinished.current)
             let timearr = timefinished.current.split(':')
@@ -62,6 +60,8 @@ export const JigsawPuzzle = ({ imageSrc, rows, columns, percent, wrong_piece, av
                     Time: totaltime,
                     Speed: (wrong_piece / totaltime)
                 })
+
+                addCoins(uid, wrong_piece)
             }
         }
 

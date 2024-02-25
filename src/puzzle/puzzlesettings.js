@@ -35,9 +35,7 @@ export function PuzzleSettings() {
             e.preventDefault();
         }
 
-
         else {
-
             //post settings here 
             updateDefaultSettings(uid, 'puzzle', {
                 'rows': rows,
@@ -65,8 +63,13 @@ export function PuzzleSettings() {
     useEffect(() => {
         async function getDefault() {
             let resp = await getDefaultSettings(uid, 'puzzle')
-            if (resp.status === 200) {
+            if (resp.status === 404 || resp.data === null || resp.data === "") {
+                setChange(true)
+                console.log('No default settings found.')
+            }
+            else {
                 const defSettings = resp.data
+                console.log(resp.data)
                 setRows(defSettings['rows'])
                 setCols(defSettings['col'])
                 setIncrease(defSettings['increase'])

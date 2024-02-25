@@ -34,9 +34,9 @@ export function SquareSettings() {
         async function getDefault() {
             try {
                 let resp = await getDefaultSettings(uid, 'square')
-                console.log(resp.data)
-                if (resp.status === 404 || resp.data === null) {
+                if (resp.status === 404 || resp.data === null || resp.data === "") {
                     setChange(true)
+                    console.log('No default settings found.')
                 }
                 else {
                     console.log(resp.data)
@@ -51,9 +51,9 @@ export function SquareSettings() {
                     setDuration(resp.data.duration)
                 }
             }
-            catch {
-                console.log('No default settings found')
+            catch (error) {
                 setChange(true)
+                console.log('No default settings found')
             }
         }
         if (uid) { getDefault() }
