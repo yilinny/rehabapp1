@@ -7,8 +7,8 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.27.2",
-    "firebase": "^9.9.2",
+    "axios": "^1.7.7",
+    "firebase": "^11.0.2",
     "ga-4-react": "^0.1.281",
     "mathjs": "^9.5.1",
     "react": "^17.0.2",
@@ -48,9 +48,9 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.8",
+    "autoprefixer": "^10.4.20",
     "aws-sdk": "^2.1058.0",
     "dotenv": "^14.0.0",
-    "postcss": "^7.0.39"
+    "postcss": "^8.4.49"
   }
 }
